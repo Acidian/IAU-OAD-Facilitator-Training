@@ -1,2 +1,2 @@
 # IAU-OAD-Facilitator-Training
-A mobile-first facilitator's pocket guide for the IAU OAD Astronomy for Mental Health program. Built as a single HTML file with local Storage.
+This is the Facilitator's Pocket Guide for the IAU Office of Astronomy for Development's Astronomy for Mental Health programme. It is a single, self-contained HTML file designed to live on a facilitator's phone and be available during any session. It covers the four core ACT tools with full activity instructions, a session checklist, the three-step universal script, a tonight mission commitment tracker, and a support contacts page that facilitators populate with their own local resources. All data saves to the device using localStorage — no backend, no accounts, no data leaves the phone.

@@ -12,21 +12,24 @@
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #0f1f40; min-height: 100vh; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
 .app { max-width: 430px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; background: #f4f5f9; }
 .header { background: #1A2F5A; padding: max(44px,env(safe-area-inset-top)) 20px 0; position: relative; overflow: hidden; }
-.orb1 { position:absolute; top:-50px; right:-30px; width:160px; height:160px; border-radius:50%; background:rgba(43,122,158,0.18); pointer-events:none; }
-.orb2 { position:absolute; bottom:10px; left:-50px; width:130px; height:130px; border-radius:50%; background:rgba(255,255,255,0.04); pointer-events:none; }
+.orb1 { position:absolute; top:-50px; right:-30px; width:160px; height:160px; border-radius:50%; background:rgba(43,122,158,0.18); pointer-events:none; animation:orbFloat 7s ease-in-out infinite; }
+.orb2 { position:absolute; bottom:10px; left:-50px; width:130px; height:130px; border-radius:50%; background:rgba(255,255,255,0.04); pointer-events:none; animation:orbFloat 9s ease-in-out infinite 1.5s; }
+@keyframes orbFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 .badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.13); color:rgba(214,234,245,0.9); font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:4px 10px; border-radius:20px; margin-bottom:10px; }
 .badge-dot { width:5px; height:5px; background:#E8A020; border-radius:50%; }
 .header h1 { font-size:21px; font-weight:700; color:#fff; line-height:1.25; margin-bottom:4px; position:relative; z-index:1; }
 .header-sub { font-size:12.5px; color:rgba(214,234,245,0.65); line-height:1.5; margin-bottom:20px; position:relative; z-index:1; }
 .tab-bar { display:flex; background:#1A2F5A; padding:0 6px; border-bottom:1px solid rgba(255,255,255,0.08); }
-.tab-btn { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 2px 13px; font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:rgba(255,255,255,0.38); border:none; background:none; cursor:pointer; border-bottom:2px solid transparent; transition:color .18s,border-color .18s; }
-.tab-btn svg { width:18px; height:18px; opacity:.38; transition:opacity .18s; }
+.tab-btn { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 2px 13px; font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:rgba(255,255,255,0.38); border:none; background:none; cursor:pointer; border-bottom:2px solid transparent; transition:color .2s,border-color .2s,transform .12s; }
+.tab-btn svg { width:18px; height:18px; opacity:.38; transition:opacity .2s,transform .2s; }
+.tab-btn:active { transform:scale(0.88); }
 .tab-btn.active { color:#fff; border-bottom-color:#E8A020; }
-.tab-btn.active svg { opacity:1; }
+.tab-btn.active svg { opacity:1; transform:scale(1.08); }
 .main { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:18px 14px 80px; background:#f4f5f9; border-radius:18px 18px 0 0; margin-top:-2px; position:relative; z-index:3; }
 .main::-webkit-scrollbar { width:0; }
 .tab-panel { display:none; }
-.tab-panel.active { display:block; }
+.tab-panel.active { display:block; animation:tabIn .24s cubic-bezier(0.34,1.1,0.64,1) both; }
+@keyframes tabIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 .slabel { font-size:10.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:#6b7280; margin:22px 0 10px; }
 .slabel:first-child { margin-top:2px; }
 .tool-card { background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:16px; padding:15px 15px 13px; margin-bottom:10px; display:flex; gap:13px; align-items:flex-start; box-shadow:0 1px 4px rgba(0,0,0,0.06); cursor:pointer; transition:transform .13s,box-shadow .13s; -webkit-user-select:none; user-select:none; }
@@ -104,7 +107,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 .drawer { position:fixed; left:50%; bottom:0; width:100%; max-width:430px; transform:translateX(-50%) translateY(100%); background:#f4f5f9; border-radius:22px 22px 0 0; z-index:101; max-height:92vh; display:flex; flex-direction:column; transition:transform .32s cubic-bezier(0.34,1.1,0.64,1); box-shadow:0 -8px 40px rgba(0,0,0,0.22); }
 .drawer.open { transform:translateX(-50%) translateY(0); }
 .dhandle-row { display:flex; justify-content:center; padding:12px 0 6px; flex-shrink:0; }
-.dhandle { width:38px; height:4px; background:rgba(0,0,0,0.18); border-radius:2px; }
+.dhandle { width:38px; height:4px; background:rgba(0,0,0,0.18); border-radius:2px; transition:width .2s,background .2s; }
+.drawer.dragging .dhandle { width:54px; background:rgba(0,0,0,0.3); }
 .dheader { padding:8px 16px 14px; flex-shrink:0; border-bottom:1px solid rgba(0,0,0,0.07); }
 .dheader-inner { display:flex; align-items:flex-start; gap:12px; }
 .dicon { width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -121,6 +125,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 .mtag svg { width:12px; height:12px; color:#6b7280; }
 .dbody { flex:1; overflow-y:auto; padding:16px 16px 40px; -webkit-overflow-scrolling:touch; }
 .dbody::-webkit-scrollbar { width:0; }
+.dbody.anim { animation:dbodyIn .3s .18s cubic-bezier(0.34,1.1,0.64,1) both; }
+@keyframes dbodyIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 .ds { font-size:10.5px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:#6b7280; margin:20px 0 8px; }
 .ds:first-child { margin-top:0; }
 .dp { font-size:13.5px; color:#1f2937; line-height:1.7; margin-bottom:10px; }
@@ -143,160 +149,27 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 </style>
 </head>
 <body>
+
 <div class="app">
   <div class="header">
     <div class="orb1"></div><div class="orb2"></div>
-    <div class="badge"><span class="badge-dot"></span>IAU OAD · Astronomy for Mental Health</div>
-    <h1>Facilitator's Pocket Guide</h1>
-    <p class="header-sub">Everything you need, in your pocket, for every session</p>
+    <div class="badge"><span class="badge-dot"></span><span id="badge-text"></span></div>
+    <h1 id="header-title"></h1>
+    <p class="header-sub" id="header-sub"></p>
   </div>
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('tools',this)">
-      <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="9" r="2" stroke="currentColor" stroke-width="1.4"/><path d="M9 3.5V2M9 16v-1.5M14.5 9H16M2 9h1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      4 Tools
-    </button>
-    <button class="tab-btn" onclick="switchTab('check',this)">
-      <svg viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 9L8.5 11L12 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Checklist
-    </button>
-    <button class="tab-btn" onclick="switchTab('script',this)">
-      <svg viewBox="0 0 18 18" fill="none"><path d="M4 5.5h10M4 9h7M4 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      Script
-    </button>
-    <button class="tab-btn" onclick="switchTab('support',this)">
-      <svg viewBox="0 0 18 18" fill="none"><path d="M5 2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" stroke-width="1.5"/><path d="M7 7h4M7 10h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      Support
-    </button>
-  </div>
+  <div class="tab-bar" id="tab-bar"></div>
   <div class="main">
-
-    <!-- TOOLS -->
-    <div id="panel-tools" class="tab-panel active">
-      <p class="slabel">The four ACT tools — tap any to open full activity</p>
-      <div class="tool-card" onclick="openDrawer('container')">
-        <div class="tool-icon" style="background:#dcfce7;"><svg viewBox="0 0 22 22" fill="none"><path d="M11 3C7 3 4.5 6.5 4.5 10c0 5.5 6.5 9.5 6.5 9.5s6.5-4 6.5-9.5C17.5 6.5 15 3 11 3z" stroke="#15803d" stroke-width="1.7"/><path d="M8.5 9.5C9 8 10 7 11 7s2 1 2.5 2.5" stroke="#15803d" stroke-width="1.4" stroke-linecap="round"/></svg></div>
-        <div class="tool-r">
-          <div class="tool-name">Container · The Sky</div>
-          <div class="tool-desc">The vast, stable space that holds all weather without being changed by it. You are not your thoughts — you are the sky they pass through.</div>
-          <div class="tool-foot"><span class="ttag" style="background:#dcfce7;color:#15803d;">Self-as-context</span><span class="chev"><svg viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-        </div>
-      </div>
-      <div class="tool-card" onclick="openDrawer('orbit')">
-        <div class="tool-icon" style="background:#dbeafe;"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7" stroke="#1d4ed8" stroke-width="1.6"/><circle cx="11" cy="11" r="2.2" stroke="#1d4ed8" stroke-width="1.3"/><path d="M11 4V2M11 20v-2M4 11H2M20 11h-2" stroke="#1d4ed8" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-        <div class="tool-r">
-          <div class="tool-name">Orbit · The Distance</div>
-          <div class="tool-desc">Placing thoughts at a distance like objects crossing the sky — they can be watched rather than inhabited. A thought is not a fact.</div>
-          <div class="tool-foot"><span class="ttag" style="background:#dbeafe;color:#1d4ed8;">Cognitive defusion</span><span class="chev"><svg viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-        </div>
-      </div>
-      <div class="tool-card" onclick="openDrawer('anchor')">
-        <div class="tool-icon" style="background:#fef3c7;"><svg viewBox="0 0 22 22" fill="none"><path d="M11 2L13.2 8.5H20L14.4 12.3L16.6 18.8L11 15L5.4 18.8L7.6 12.3L2 8.5H8.8L11 2Z" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
-        <div class="tool-r">
-          <div class="tool-name">Anchor · The Now</div>
-          <div class="tool-desc">The sensory reality of the sky returns attention to the present moment — the only moment in which reflection and choice are possible.</div>
-          <div class="tool-foot"><span class="ttag" style="background:#fef3c7;color:#d97706;">Present moment</span><span class="chev"><svg viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-        </div>
-      </div>
-      <div class="tool-card" onclick="openDrawer('compass')">
-        <div class="tool-icon" style="background:#ede9fe;"><svg viewBox="0 0 22 22" fill="none"><path d="M11 3v16M11 3L7.5 8M11 3L14.5 8" stroke="#7c3aed" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 16.5h11" stroke="#7c3aed" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-        <div class="tool-r">
-          <div class="tool-name">Compass · The Values</div>
-          <div class="tool-desc">Guiding stars as personal values — fixed points of orientation in a changing world. Navigating by what matters rather than by avoiding discomfort.</div>
-          <div class="tool-foot"><span class="ttag" style="background:#ede9fe;color:#7c3aed;">Values &amp; action</span><span class="chev"><svg viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHECKLIST -->
-    <div id="panel-check" class="tab-panel">
-      <p class="slabel">Stay on the side of growth</p>
-      <p style="font-size:13px;color:#4b5563;line-height:1.6;margin-bottom:14px;">Ask yourself these before and during every session. The boundary is not a limitation — it is the work done well.</p>
-      <div class="checklist">
-        <div class="cr"><div class="cicon yes"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#15803d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cq">Am I guiding observations of the sky, not directing personal disclosures?</div><div class="cpill yes">Yes</div></div>
-        <div class="cr"><div class="cicon yes"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#15803d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cq">Am I encouraging awe, present-moment awareness, and open reflection?</div><div class="cpill yes">Yes</div></div>
-        <div class="cr"><div class="cicon yes"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#15803d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cq">Am I letting silence and the sky do the work?</div><div class="cpill yes">Yes</div></div>
-        <div class="cr"><div class="cicon yes"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#15803d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="cq">Do I have my local support contacts ready before I begin?</div><div class="cpill yes">Yes</div></div>
-        <div class="cr"><div class="cicon no"><svg viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#b91c1c" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="cq">Am I asking about their childhood, history, or past trauma?</div><div class="cpill no">No</div></div>
-        <div class="cr"><div class="cicon no"><svg viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#b91c1c" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="cq">Am I trying to diagnose, interpret, or fix what someone has shared?</div><div class="cpill no">No</div></div>
-        <div class="cr"><div class="cicon no"><svg viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#b91c1c" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="cq">Am I continuing the session if someone is in genuine distress?</div><div class="cpill no">Pivot</div></div>
-      </div>
-      <p class="slabel" style="margin-top:22px;">The pivot to the present</p>
-      <div class="pbox">
-        <div class="plabel">When the weather turns heavy — use this</div>
-        <div class="ptext">"Thank you for sharing that. It sounds like a heavy cloud. For right now, let's bring our attention back to the sky above us. Let's find the light of [star or object] together and just rest our eyes there for a moment."</div>
-      </div>
-      <p style="font-size:12px;color:#6b7280;line-height:1.6;margin-top:11px;">After the session, check in privately, express genuine care, and share the support contacts from the Support tab.</p>
-    </div>
-
-    <!-- SCRIPT -->
-    <div id="panel-script" class="tab-panel">
-      <p class="slabel">Three-step universal script</p>
-      <p style="font-size:13px;color:#4b5563;line-height:1.6;margin-bottom:18px;">Every session. Every length. Every context. Know this so well you can leave it behind.</p>
-      <div>
-        <div class="sstep"><div class="sleft"><div class="snum">1</div><div class="sline"></div></div><div class="sbody"><div class="stitle">Arrive · Ground in the present</div><div class="ssub">The anchor</div><div class="squote">"Notice your breath and the air on your skin. Let the day fall back a little. We are here now."</div></div></div>
-        <div class="sstep"><div class="sleft"><div class="snum">2</div><div class="sline"></div></div><div class="sbody"><div class="stitle">The cosmic hook · Open perspective</div><div class="ssub">The orbit</div><div class="squote">"This light left its star five hundred years ago. The star itself may no longer exist. But the light is here, in your eyes, right now, in this moment."</div></div></div>
-        <div class="sstep"><div class="sleft"><div class="snum">3</div><div class="sline"></div></div><div class="sbody"><div class="stitle">The reflection · Invite the observing self</div><div class="ssub">The container</div><div class="squote">"You are the sky that is holding this moment. What does that feel like?"</div></div></div>
-      </div>
-      <p class="slabel">Tonight mission</p>
-      <div class="tc">
-        <h3>Your first session starts tonight</h3>
-        <p>Before tomorrow, lead one person or a small group through a 5-minute sky check-in using the three steps above.</p>
-        <input class="tinput" id="tonight-who" type="text" placeholder="Who will you lead? (name or group)" autocomplete="off" oninput="saveField('tonight-who',this.value)">
-        <input class="tinput" id="tonight-when" type="text" placeholder="When and where?" autocomplete="off" oninput="saveField('tonight-when',this.value)">
-        <div class="trow">
-          <button class="bsave" onclick="saveTonightMission()">Save commitment</button>
-          <div class="sconf" id="tonight-saved"><svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Saved</div>
-        </div>
-      </div>
-      <p class="slabel">Keep in mind</p>
-      <div class="rem"><div class="rdot" style="background:#2B7A9E;"></div><div class="rtext">Silence is not empty. It is where the work happens. Hold it without filling it.</div></div>
-      <div class="rem"><div class="rdot" style="background:#E8A020;"></div><div class="rtext">Your quality of presence matters more than perfect language. Be where you are.</div></div>
-      <div class="rem"><div class="rdot" style="background:#15803d;"></div><div class="rtext">The sky does the teaching. Your role is to make the looking possible.</div></div>
-      <div class="rem"><div class="rdot" style="background:#7c3aed;"></div><div class="rtext">You are not here to fix anyone. You are here to hold a space in which they can notice something.</div></div>
-      <div class="rem"><div class="rdot" style="background:#1A2F5A;"></div><div class="rtext">Knowing your limits clearly is not a weakness. It is what makes the space safe.</div></div>
-    </div>
-
-    <!-- SUPPORT -->
-    <div id="panel-support" class="tab-panel">
-      <p class="slabel">IAU OAD resources</p>
-      <div class="rcard">
-        <div class="rhead"><div class="ravatar" style="background:#1A2F5A;"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.5"/><path d="M10 7v4l2.5 2" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg></div><div><div class="rtitle">IAU Office of Astronomy for Development</div><div class="rsub">Astronomy for Mental Health</div></div></div>
-        <div class="rfield"><span class="rlabel">Website</span><span class="rval"><a href="https://astro4dev.org" target="_blank">astro4dev.org ↗</a></span></div>
-        <div class="rfield"><span class="rlabel">Online course</span><span class="rval"><a href="https://www.open.edu/openlearncreate/course/view.php?id=16561" target="_blank">OpenLearn ↗</a></span></div>
-        <div class="rfield"><span class="rlabel">Narratives booklet</span><span class="rval"><a href="https://doi.org/10.5281/zenodo.16420872" target="_blank">zenodo.16420872 ↗</a></span></div>
-        <div class="rfield"><span class="rlabel">Guidelines PDF</span><span class="rval"><a href="https://www.astro4dev.org/wp-content/uploads/2022/10/Astronomy-for-mental-health-guideline-v1_IAU-OAD.pdf" target="_blank">Download ↗</a></span></div>
-      </div>
-      <p class="slabel">Your local support contacts</p>
-      <p style="font-size:12px;color:#4b5563;line-height:1.6;margin-bottom:14px;">Tap any field to fill in. Saves automatically to this device only.</p>
-      <div class="rcard">
-        <div class="rhead"><div class="ravatar" style="background:#b91c1c;"><svg viewBox="0 0 20 20" fill="none"><path d="M7 2h6a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="white" stroke-width="1.4"/><path d="M7.5 7.5h5M7.5 10.5h4" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg></div><div><div class="rtitle">Crisis / emergency line</div><div class="rsub">Immediate mental health support</div></div></div>
-        <div class="rfield"><span class="rlabel">Organisation</span><input class="finput" id="crisis-org" type="text" placeholder="Add name…" oninput="saveField('crisis-org',this.value);fi(this)" autocomplete="off"></div>
-        <div class="rfield"><span class="rlabel">Phone / SMS</span><input class="finput" id="crisis-phone" type="tel" placeholder="Add number…" oninput="saveField('crisis-phone',this.value);fi(this)" autocomplete="off"></div>
-        <div class="rfield"><span class="rlabel">Website</span><input class="finput" id="crisis-web" type="url" placeholder="Add URL…" oninput="saveField('crisis-web',this.value);fi(this)" autocomplete="off"></div>
-        <div class="rfield"><span class="rlabel">Hours</span><input class="finput" id="crisis-hours" type="text" placeholder="24hr / office hours…" oninput="saveField('crisis-hours',this.value);fi(this)" autocomplete="off"></div>
-      </div>
-      <div class="rcard">
-        <div class="rhead"><div class="ravatar" style="background:#15803d;"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7.5" r="3.5" stroke="white" stroke-width="1.4"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg></div><div><div class="rtitle">Counselling / community support</div><div class="rsub">Ongoing mental health services</div></div></div>
-        <div class="rfield"><span class="rlabel">Organisation</span><input class="finput" id="counsel-org" type="text" placeholder="Add name…" oninput="saveField('counsel-org',this.value);fi(this)" autocomplete="off"></div>
-        <div class="rfield"><span class="rlabel">Phone</span><input class="finput" id="counsel-phone" type="tel" placeholder="Add number…" oninput="saveField('counsel-phone',this.value);fi(this)" autocomplete="off"></div>
-        <div class="rfield"><span class="rlabel">Website</span><input class="finput" id="counsel-web" type="url" placeholder="Add URL…" oninput="saveField('counsel-web',this.value);fi(this)" autocomplete="off"></div>
-        <div class="rfield"><span class="rlabel">Referral</span><input class="finput" id="counsel-ref" type="text" placeholder="Self-referral / GP…" oninput="saveField('counsel-ref',this.value);fi(this)" autocomplete="off"></div>
-      </div>
-      <div class="rcard">
-        <div class="rhead"><div class="ravatar" style="background:#7c3aed;"><svg viewBox="0 0 20 20" fill="none"><path d="M10 2l2 6h6l-5 3.6L15 18l-5-3.6L5 18l2-6.4L2 8h6l2-6z" stroke="white" stroke-width="1.3" stroke-linejoin="round"/></svg></div><div><div class="rtitle">Your supervisor / mentor</div><div class="rsub">Your first call when you are unsure</div></div></div>
-        <div class="rfield"><span class="rlabel">Name</span><input class="finput" id="super-name" type="text" placeholder="Add name…" oninput="saveField('super-name',this.value);fi(this)" autocomplete="off"></div>
-        <div class="rfield"><span class="rlabel">Phone</span><input class="finput" id="super-phone" type="tel" placeholder="Add number…" oninput="saveField('super-phone',this.value);fi(this)" autocomplete="off"></div>
-        <div class="rfield"><span class="rlabel">Email</span><input class="finput" id="super-email" type="email" placeholder="Add email…" oninput="saveField('super-email',this.value);fi(this)" autocomplete="off"></div>
-      </div>
-      <div class="scopebox">
-        <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v4M8 11v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <span>This guide supports <strong>wellbeing promotion</strong>, not clinical practice. If a participant is in crisis: listen with care, use the pivot, connect them with the contacts above, and ensure they are not left alone.</span>
-      </div>
-    </div>
+    <div id="panel-tools"   class="tab-panel active"></div>
+    <div id="panel-check"   class="tab-panel"></div>
+    <div id="panel-script"  class="tab-panel"></div>
+    <div id="panel-support" class="tab-panel"></div>
   </div>
 </div>
 
-<div class="toast" id="toast"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5 6.5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Saved to your device</div>
+<div class="toast" id="toast">
+  <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5 6.5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  Saved to your device
+</div>
 <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
 <div class="drawer" id="drawer">
   <div class="dhandle-row"><div class="dhandle"></div></div>
@@ -316,57 +189,437 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 </div>
 
 <script>
-const KEY='iau-oad-v2';
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CONFIG — edit all text content here
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+const CONFIG = {
+
+  // ── HEADER ────────────────────────────────────────────────
+  header: {
+    badge: 'IAU OAD · Astronomy for Mental Health',
+    title: "Facilitator's Pocket Guide",
+    sub:   'Everything you need, in your pocket, for every session',
+  },
+
+  // ── TAB BAR ───────────────────────────────────────────────
+  tabs: [
+    { id:'tools',   label:'4 Tools',
+      icon:`<svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="9" r="2" stroke="currentColor" stroke-width="1.4"/><path d="M9 3.5V2M9 16v-1.5M14.5 9H16M2 9h1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>` },
+    { id:'check',   label:'Checklist',
+      icon:`<svg viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 9L8.5 11L12 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
+    { id:'script',  label:'Script',
+      icon:`<svg viewBox="0 0 18 18" fill="none"><path d="M4 5.5h10M4 9h7M4 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>` },
+    { id:'support', label:'Support',
+      icon:`<svg viewBox="0 0 18 18" fill="none"><path d="M5 2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" stroke-width="1.5"/><path d="M7 7h4M7 10h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>` },
+  ],
+
+  // ── TOOLS PANEL ───────────────────────────────────────────
+  tools: {
+    label: 'The four ACT tools — tap any to open full activity',
+    cards: [
+      {
+        key: 'container', iconBg: '#dcfce7',
+        iconSvg: `<svg viewBox="0 0 22 22" fill="none"><path d="M11 3C7 3 4.5 6.5 4.5 10c0 5.5 6.5 9.5 6.5 9.5s6.5-4 6.5-9.5C17.5 6.5 15 3 11 3z" stroke="#15803d" stroke-width="1.7"/><path d="M8.5 9.5C9 8 10 7 11 7s2 1 2.5 2.5" stroke="#15803d" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+        name: 'Container · The Sky',
+        desc: 'The vast, stable space that holds all weather without being changed by it. You are not your thoughts — you are the sky they pass through.',
+        tag: 'Self-as-context', tagBg: '#dcfce7', tagColor: '#15803d',
+      },
+      {
+        key: 'orbit', iconBg: '#dbeafe',
+        iconSvg: `<svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7" stroke="#1d4ed8" stroke-width="1.6"/><circle cx="11" cy="11" r="2.2" stroke="#1d4ed8" stroke-width="1.3"/><path d="M11 4V2M11 20v-2M4 11H2M20 11h-2" stroke="#1d4ed8" stroke-width="1.3" stroke-linecap="round"/></svg>`,
+        name: 'Orbit · The Distance',
+        desc: 'Placing thoughts at a distance like objects crossing the sky — they can be watched rather than inhabited. A thought is not a fact.',
+        tag: 'Cognitive defusion', tagBg: '#dbeafe', tagColor: '#1d4ed8',
+      },
+      {
+        key: 'anchor', iconBg: '#fef3c7',
+        iconSvg: `<svg viewBox="0 0 22 22" fill="none"><path d="M11 2L13.2 8.5H20L14.4 12.3L16.6 18.8L11 15L5.4 18.8L7.6 12.3L2 8.5H8.8L11 2Z" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
+        name: 'Anchor · The Now',
+        desc: 'The sensory reality of the sky returns attention to the present moment — the only moment in which reflection and choice are possible.',
+        tag: 'Present moment', tagBg: '#fef3c7', tagColor: '#d97706',
+      },
+      {
+        key: 'compass', iconBg: '#ede9fe',
+        iconSvg: `<svg viewBox="0 0 22 22" fill="none"><path d="M11 3v16M11 3L7.5 8M11 3L14.5 8" stroke="#7c3aed" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 16.5h11" stroke="#7c3aed" stroke-width="1.3" stroke-linecap="round"/></svg>`,
+        name: 'Compass · The Values',
+        desc: 'Guiding stars as personal values — fixed points of orientation in a changing world. Navigating by what matters rather than by avoiding discomfort.',
+        tag: 'Values &amp; action', tagBg: '#ede9fe', tagColor: '#7c3aed',
+      },
+    ],
+  },
+
+  // ── CHECKLIST PANEL ───────────────────────────────────────
+  checklist: {
+    label: 'Stay on the side of growth',
+    intro: 'Ask yourself these before and during every session. The boundary is not a limitation — it is the work done well.',
+    items: [
+      { ok:true,  q:'Am I guiding observations of the sky, not directing personal disclosures?',       pill:'Yes'   },
+      { ok:true,  q:'Am I encouraging awe, present-moment awareness, and open reflection?',            pill:'Yes'   },
+      { ok:true,  q:'Am I letting silence and the sky do the work?',                                   pill:'Yes'   },
+      { ok:true,  q:'Do I have my local support contacts ready before I begin?',                       pill:'Yes'   },
+      { ok:false, q:'Am I asking about their childhood, history, or past trauma?',                     pill:'No'    },
+      { ok:false, q:'Am I trying to diagnose, interpret, or fix what someone has shared?',             pill:'No'    },
+      { ok:false, q:'Am I continuing the session if someone is in genuine distress?',                  pill:'Pivot' },
+    ],
+    pivotLabel: 'The pivot to the present',
+    pivotTitle: 'When the weather turns heavy — use this',
+    pivotQuote: '"Thank you for sharing that. It sounds like a heavy cloud. For right now, let\'s bring our attention back to the sky above us. Let\'s find the light of [star or object] together and just rest our eyes there for a moment."',
+    footer:     'After the session, check in privately, express genuine care, and share the support contacts from the Support tab.',
+  },
+
+  // ── SCRIPT PANEL ──────────────────────────────────────────
+  script: {
+    label: 'Three-step universal script',
+    intro: 'Every session. Every length. Every context. Know this so well you can leave it behind.',
+    steps: [
+      { title:'Arrive · Ground in the present',             sub:'The anchor',    quote:'"Notice your breath and the air on your skin. Let the day fall back a little. We are here now."' },
+      { title:'The cosmic hook · Open perspective',         sub:'The orbit',     quote:'"This light left its star five hundred years ago. The star itself may no longer exist. But the light is here, in your eyes, right now, in this moment."' },
+      { title:'The reflection · Invite the observing self', sub:'The container', quote:'"You are the sky that is holding this moment. What does that feel like?"' },
+    ],
+    missionLabel: 'Tonight mission',
+    mission: {
+      title:           'Your first session starts tonight',
+      body:            'Before tomorrow, lead one person or a small group through a 5-minute sky check-in using the three steps above.',
+      whoPlaceholder:  'Who will you lead? (name or group)',
+      whenPlaceholder: 'When and where?',
+      btnLabel:        'Save commitment',
+    },
+    remindersLabel: 'Keep in mind',
+    reminders: [
+      { color:'#2B7A9E', text:'Silence is not empty. It is where the work happens. Hold it without filling it.' },
+      { color:'#E8A020', text:'Your quality of presence matters more than perfect language. Be where you are.' },
+      { color:'#15803d', text:'The sky does the teaching. Your role is to make the looking possible.' },
+      { color:'#7c3aed', text:'You are not here to fix anyone. You are here to hold a space in which they can notice something.' },
+      { color:'#1A2F5A', text:'Knowing your limits clearly is not a weakness. It is what makes the space safe.' },
+    ],
+  },
+
+  // ── SUPPORT PANEL ─────────────────────────────────────────
+  support: {
+    resourcesLabel: 'IAU OAD resources',
+    oad: {
+      title: 'IAU Office of Astronomy for Development',
+      sub:   'Astronomy for Mental Health',
+      links: [
+        { label:'Website',            text:'astro4dev.org ↗',   url:'https://astro4dev.org' },
+        { label:'Online course',      text:'OpenLearn ↗',       url:'https://www.open.edu/openlearncreate/course/view.php?id=16561' },
+        { label:'Narratives booklet', text:'zenodo.16420872 ↗', url:'https://doi.org/10.5281/zenodo.16420872' },
+        { label:'Guidelines PDF',     text:'Download ↗',        url:'https://www.astro4dev.org/wp-content/uploads/2022/10/Astronomy-for-mental-health-guideline-v1_IAU-OAD.pdf' },
+      ],
+    },
+    contactsLabel: 'Your local support contacts',
+    contactsIntro: 'Tap any field to fill in. Saves automatically to this device only.',
+    contacts: [
+      {
+        title:'Crisis / emergency line', sub:'Immediate mental health support', avatarBg:'#b91c1c',
+        avatarSvg:`<svg viewBox="0 0 20 20" fill="none"><path d="M7 2h6a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="white" stroke-width="1.4"/><path d="M7.5 7.5h5M7.5 10.5h4" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg>`,
+        fields: [
+          { id:'crisis-org',   label:'Organisation', type:'text', placeholder:'Add name…'             },
+          { id:'crisis-phone', label:'Phone / SMS',  type:'tel',  placeholder:'Add number…'           },
+          { id:'crisis-web',   label:'Website',      type:'url',  placeholder:'Add URL…'              },
+          { id:'crisis-hours', label:'Hours',        type:'text', placeholder:'24hr / office hours…'  },
+        ],
+      },
+      {
+        title:'Counselling / community support', sub:'Ongoing mental health services', avatarBg:'#15803d',
+        avatarSvg:`<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7.5" r="3.5" stroke="white" stroke-width="1.4"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+        fields: [
+          { id:'counsel-org',   label:'Organisation', type:'text',  placeholder:'Add name…'           },
+          { id:'counsel-phone', label:'Phone',        type:'tel',   placeholder:'Add number…'         },
+          { id:'counsel-web',   label:'Website',      type:'url',   placeholder:'Add URL…'            },
+          { id:'counsel-ref',   label:'Referral',     type:'text',  placeholder:'Self-referral / GP…' },
+        ],
+      },
+      {
+        title:'Your supervisor / mentor', sub:'Your first call when you are unsure', avatarBg:'#7c3aed',
+        avatarSvg:`<svg viewBox="0 0 20 20" fill="none"><path d="M10 2l2 6h6l-5 3.6L15 18l-5-3.6L5 18l2-6.4L2 8h6l2-6z" stroke="white" stroke-width="1.3" stroke-linejoin="round"/></svg>`,
+        fields: [
+          { id:'super-name',  label:'Name',  type:'text',  placeholder:'Add name…'  },
+          { id:'super-phone', label:'Phone', type:'tel',   placeholder:'Add number…' },
+          { id:'super-email', label:'Email', type:'email', placeholder:'Add email…' },
+        ],
+      },
+    ],
+    scopeNote: 'This guide supports <strong>wellbeing promotion</strong>, not clinical practice. If a participant is in crisis: listen with care, use the pivot, connect them with the contacts above, and ensure they are not left alone.',
+  },
+
+  // ── ACTIVITY DRAWERS ──────────────────────────────────────
+  act: {
+
+    container: {
+      num:'Activity 1', title:'The Sky and the Observer',
+      tagline:'Helping participants locate the stable witnessing awareness they carry',
+      iconBg:'#dcfce7', nc:'#15803d',
+      iconSvg:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 3C8 3 5 7 5 11c0 6 7 10.5 7 10.5S19 17 19 11C19 7 16 3 12 3z" stroke="#15803d" stroke-width="1.8"/><path d="M9 10.5C9.5 9 10.5 8 12 8s2.5 1 3 2.5" stroke="#15803d" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+      meta:[
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'15–20 min' },
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'Outdoors preferred' },
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M2 9V4.5L6 2l4 2.5V9l-4 1.5L2 9z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'No equipment' },
+      ],
+      body:`<p class="ds">Purpose</p><p class="dp">There is a part of you that has been present for everything. Every difficult moment, every period of joy or confusion, every ordinary afternoon you can barely remember — something in you was there, watching, noticing. Your thoughts have changed. Your feelings shift constantly. But the awareness behind all of that, the one doing the noticing, has remained consistent since you first became conscious.</p><p class="dp">This activity invites participants to discover that awareness through direct experience of the sky rather than through explanation. The aim is not to teach a concept but to create the conditions in which it can be felt.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">ACT describes the observing self as the consistent dimension of a person present across the full span of their life, distinct from their thoughts, emotions, and circumstances. The capacity to access this perspective is associated with greater psychological flexibility and wellbeing (Hayes et al., 2006).</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">Invite participants to look up at the sky and take in its scale. Allow thirty seconds of silence before speaking.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Ask them to notice what the sky is doing right now: what is moving through it, what kind of light is present, what feels close and what feels far.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Ask them to consider whether the sky above them has changed across their lifetime. Invite a brief memory from childhood, one from a few years ago, one from this week. The sky was present for all of them.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Offer the reflection: the sky holds all the weather that passes through it, including storms, without being defined by any of it. Is there anything in themselves that feels like that?</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Allow three to four minutes of quiet. This is a contemplative space, not a problem to solve. No particular answer is required.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Gently invite the group back. Ask if anyone would like to share what, if anything, came up. This is always optional.</div></div><p class="ds">Suggested language</p><div class="dprompt"><div class="dplabel">Facilitator prompt</div><div class="dptext">"Look at the sky above you. Notice what is moving through it right now. That sky has been above you your whole life — in your earliest memories, through your hardest seasons, above mornings you have long forgotten. It was never altered by any of it. Is there anything in you that feels like that? Something that has been present throughout, watching, without being swept away? You do not need to find an answer. Just sit with the question."</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants will feel this immediately and powerfully. Others will find it abstract. Both responses are fine — the aim is simply to open a door.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">Avoid explaining the concept at length before or during the activity. The discovery is more powerful than the explanation.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">In communities with strong indigenous sky traditions, connect the witnessing quality to ancestral wisdom keepers who looked at these same stars.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">Your role is not to explain the observing self. It is to create the conditions in which it can be encountered directly. The less you say during the contemplative portion, the more space there is for genuine discovery. Trust the sky to do the teaching.</div></div>`,
+    },
+
+    orbit: {
+      num:'Activity 2', title:'Placing Thoughts in the Sky',
+      tagline:'Gaining perspective on recurring thoughts by observing them from a distance',
+      iconBg:'#dbeafe', nc:'#1d4ed8',
+      iconSvg:`<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#1d4ed8" stroke-width="1.8"/><circle cx="12" cy="12" r="2.5" stroke="#1d4ed8" stroke-width="1.5"/><path d="M12 4V2M12 22v-2M4 12H2M22 12h-2" stroke="#1d4ed8" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+      meta:[
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'15–20 min' },
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'Any setting' },
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><rect x="1.5" y="2" width="9" height="7" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 11h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`, t:'Optional: cards &amp; pens' },
+      ],
+      body:`<p class="ds">Purpose</p><p class="dp">When a person is fully merged with a thought, they are not experiencing a thought at all — they are experiencing what feels like reality. The thought "I am not enough" does not announce itself as a thought; it arrives as a fact, demanding to be taken at face value.</p><p class="dp">This activity helps participants move from being inside their thinking to being able to look at it from the outside — using the sky as a literal canvas for that shift. The goal is not to challenge or replace difficult thoughts. It is simply to see them as thoughts.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Cognitive defusion creates separation between a person and their thinking without requiring them to argue against it. Against the backdrop of a universe in which light takes millennia to cross between neighbouring stars, a thought that has dominated someone's week begins to reveal its actual proportions.</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">Ask participants to bring to mind a thought that has been recurring recently. Reassure them they do not need to share it.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">If using cards, invite them to write the thought in a few words and hold it — giving the thought a physical form separate from the person holding it.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Ask them to look up and imagine placing the thought in the sky at a distance. Not to get rid of it, but to give it space. What would it look like as an object moving slowly across the sky?</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Invite them to notice: what is it like to look at this thought rather than from inside it? What do they notice from this position that they couldn't notice before?</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Allow two to three minutes of quiet. Bring attention to the scale of the sky — to stars whose light has travelled for hundreds of years to reach this moment.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Invite participants to watch the thought complete its movement and pass out of sight, like a satellite tracing its arc and disappearing. It has not been solved. It has simply passed through.</div></div><div class="dstep"><div class="dsnum">7</div><div class="dstxt">Invite optional sharing: not what changed about the thought itself, but what changed about their relationship to it.</div></div><p class="ds">Suggested language</p><div class="dprompt"><div class="dplabel">Facilitator prompt</div><div class="dptext">"Bring to mind a thought that comes back often — one that tends to feel heavy. Look up and imagine placing that thought somewhere up there. Give it some space. What would it look like as an object moving slowly across the sky? Notice what it is like to look at this thought from out here, rather than from inside it. The light from some of those stars left its source a thousand years before you were born. From that kind of distance — what size is your thought? Watch it move. Watch it pass. It does not need to be solved. It is just passing through."</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants may feel placing a thought at distance dismisses something that matters. The aim is not to make the thought unimportant, but to change the perspective from which it is seen.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">This is not an opportunity to offer solutions or interpretations. Receive what is shared with simple acknowledgement.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For daytime sessions: the same activity works with clouds — invite participants to imagine the thought as a cloud and watch it move and shift.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">You do not need to name cognitive defusion. The experience of the activity is the teaching. If participants ask what they were doing, describe it simply: learning to look at thoughts rather than from inside them — a skill that can be practised anywhere, any time.</div></div>`,
+    },
+
+    anchor: {
+      num:'Activity 3', title:'The Five-Sense Landing',
+      tagline:'Grounding participants in the present moment through the sensory environment of the sky',
+      iconBg:'#fef3c7', nc:'#d97706',
+      iconSvg:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5L12 2Z" stroke="#d97706" stroke-width="1.7" stroke-linejoin="round"/></svg>`,
+      meta:[
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'10–15 min' },
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'Outdoors preferred' },
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M2 9V4.5L6 2l4 2.5V9l-4 1.5L2 9z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'No equipment' },
+      ],
+      body:`<p class="ds">Purpose</p><p class="dp">Most people arrive at a session carrying the residue of their day: unfinished thoughts, physical tension, a mind somewhere else in time. This activity creates a deliberate transition. It uses the sensory environment of the sky and the natural world to bring participants into genuine contact with the present moment — creating the conditions in which everything that follows becomes more accessible.</p><p class="dp">This is not a warm-up. It is the foundation of the session. A group that has genuinely arrived is a group that can genuinely reflect.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Attention Restoration Theory identifies soft fascination as the mechanism by which natural environments help the mind recover from directed-attention fatigue. The night sky is a near-perfect soft fascination environment: vast, gently complex, intrinsically engaging without being demanding. Even brief exposure produces measurable improvements in attentional capacity (Berto, 2005; Kaplan, 1995).</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">Position the group outside if possible. Ask everyone to find a comfortable standing or seated position and, if willing, to close their eyes or soften their gaze downward.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Invite a moment of stillness. Allow ten to fifteen seconds of silence before speaking. Resist the urge to fill this space.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Ask participants to notice what they can feel physically: the ground beneath their feet, the temperature of the air on their skin, the weight of their own body.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Ask them to notice what they can hear: sounds nearest to them, then further away, then any sounds at the very edge of hearing.</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">When ready, invite them to open their eyes and look up. Ask them to notice what they can actually see — not what they expect, but what is genuinely there.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Allow two to three minutes of quiet looking. Your role is to hold the space, not to fill it.</div></div><div class="dstep"><div class="dsnum">7</div><div class="dstxt">Gently bring the group together. Invite anyone who would like to share one thing they noticed, without pressure.</div></div><p class="ds">Suggested language</p><div class="dprompt"><div class="dplabel">Facilitator prompt</div><div class="dptext">"We are going to begin by simply arriving. There is nowhere to be right now except here. Let the day fall back a little. What is the temperature of the air on your skin right now? What can you hear? When you are ready, look up — and simply let your eyes rest on what is actually there."</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants find silence uncomfortable at first. Hold it gently and allow it to settle rather than filling it with reassurance.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">In groups under significant stress, this activity may surface emotion quickly. Acknowledge it quietly and continue to hold the space with steadiness.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For indoor settings: open a window if possible or project a night sky image. The sensory anchor is less immediate but the structure remains effective.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">This activity works best when you have genuinely experienced it yourself before facilitating it. Your own quality of presence is the most important variable. If you are still in your own head, participants will feel it.</div></div>`,
+    },
+
+    compass: {
+      num:'Activities 4 & 5', title:'Finding Your Guiding Stars',
+      tagline:'Using cosmic perspective and the Narratives Booklet to reconnect with what matters most',
+      iconBg:'#ede9fe', nc:'#7c3aed',
+      iconSvg:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M12 3L8 9M12 3L16 9" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 18h12" stroke="#7c3aed" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+      meta:[
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'25–35 min' },
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'Any setting' },
+        { ic:`<svg viewBox="0 0 12 12" fill="none"><rect x="1.5" y="2" width="9" height="7" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 11h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`, t:'Narratives booklet required' },
+      ],
+      body:`<p class="ds">Purpose</p><p class="dp">This is the culminating activity of the sequence. It uses cosmic perspective and awe to move participants from reflection toward direction — from noticing what is, to considering what could be, and from awareness toward a clearer sense of the values that can guide them forward.</p><p class="dp">Just as sailors navigated by fixed stars, participants are invited to identify the values and commitments that can help them navigate the terrain of their own lives with greater intention. The Narratives Reference Booklet (Vertue, Mdhluli &amp; Ledimo, 2025) is the primary tool for opening this conversation.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Awe reliably produces the Small Self effect — reducing preoccupied self-referential thinking and increasing openness and meaning (Piff et al., 2015). The Overview Effect shows that viewing Earth at cosmic scale catalyses significant reorientations in values and priorities (Yaden et al., 2016). Values-guided behaviour is associated with greater meaning, resilience, and sustained wellbeing (Hayes et al., 2006).</div></div><p class="ds">Using the Narratives Booklet</p><p class="dp">Before the session, read through the booklet and select one narrative that feels most relevant to your group. Download at <a href="https://doi.org/10.5281/zenodo.16420872" target="_blank" style="color:#2B7A9E;font-weight:600;">doi.org/10.5281/zenodo.16420872</a></p><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Read it aloud.</strong> Slowly, with genuine attention. Allow silence before moving on.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Tell it in your own words.</strong> Once you know it well, share it conversationally. This feels more immediate.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Pair it with the sky.</strong> When outdoors, invite participants to look at the relevant part of the sky as you share the narrative.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Invite participants to share their own.</strong> In groups with indigenous sky traditions, open space for local stories after sharing from the booklet.</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">From a settled present state, briefly introduce the framing: navigators have used stars for orientation for thousands of years — not because the stars told them where to go, but because they provided a fixed point of reference in a changing world.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Share a narrative from the booklet. Read slowly, with silence after. Do not explain or direct its interpretation.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Offer three questions one at a time with two minutes of quiet between each. Participants may hold them internally, write, or draw.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Invite participants to choose one value and give it a name — their guiding star. Make it specific and personal. Not just "courage" but the kind of courage it takes to have an honest conversation.</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Invite each participant to name one small concrete step they could take in the coming week in the direction of their guiding star. Movement, not transformation.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Close by inviting participants to look up and acknowledge that the stars above them have been used for navigation for as long as human beings have been looking up.</div></div><p class="ds">The three reflection questions</p><div class="dprompt"><div class="dplabel">Hold these one at a time, with silence between each</div><div class="dptext">"What in that story felt true to something in your own life?"<br><br>"If you were to name two or three things you genuinely value — things you want your life to actually be about — what would they be?"<br><br>"If those values were stars you could navigate by, where would they be pointing you right now?"</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Values work can surface the recognition of a gap between where a person is and where they want to be. That gap is not evidence of failure — it is evidence of honesty, and honesty is the beginning of movement.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants find it hard to name what they value. Offer a simpler entry: think of a person you admire — what quality in them most draws you? That quality is often a window into a value they hold but have not yet claimed.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For collectivist communities: the guiding star can be a shared community value rather than only an individual one.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">Spend time with the Narratives Booklet before you use it — not just to select a narrative but to let the stories work on you. The narratives are most powerful when delivered by someone who has genuinely sat with them. Download: doi.org/10.5281/zenodo.16420872</div></div>`,
+    },
+
+  }, // end act
+
+}; // end CONFIG
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RENDERING — structure & logic (no user-editable text below)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+const CHEV = `<span class="chev"><svg viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+const CHECK_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#15803d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const CROSS_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#b91c1c" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+const OAD_AVATAR = `<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.5"/><path d="M10 7v4l2.5 2" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>`;
+const INFO_ICON  = `<svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v4M8 11v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+const SAVED_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+function renderAll() {
+  const H = CONFIG.header;
+  document.getElementById('badge-text').textContent = H.badge;
+  document.getElementById('header-title').textContent = H.title;
+  document.getElementById('header-sub').textContent = H.sub;
+
+  document.getElementById('tab-bar').innerHTML = CONFIG.tabs.map((t,i) =>
+    `<button class="tab-btn${i===0?' active':''}" onclick="switchTab('${t.id}',this)">${t.icon}${t.label}</button>`
+  ).join('');
+
+  renderTools();
+  renderChecklist();
+  renderScript();
+  renderSupport();
+}
+
+function renderTools() {
+  const C = CONFIG.tools;
+  document.getElementById('panel-tools').innerHTML =
+    `<p class="slabel">${C.label}</p>` +
+    C.cards.map(c =>
+      `<div class="tool-card" onclick="openDrawer('${c.key}')">
+        <div class="tool-icon" style="background:${c.iconBg};">${c.iconSvg}</div>
+        <div class="tool-r">
+          <div class="tool-name">${c.name}</div>
+          <div class="tool-desc">${c.desc}</div>
+          <div class="tool-foot">
+            <span class="ttag" style="background:${c.tagBg};color:${c.tagColor};">${c.tag}</span>
+            ${CHEV}
+          </div>
+        </div>
+      </div>`
+    ).join('');
+}
+
+function renderChecklist() {
+  const C = CONFIG.checklist;
+  document.getElementById('panel-check').innerHTML =
+    `<p class="slabel">${C.label}</p>
+     <p style="font-size:13px;color:#4b5563;line-height:1.6;margin-bottom:14px;">${C.intro}</p>
+     <div class="checklist">
+       ${C.items.map(item =>
+         `<div class="cr">
+           <div class="cicon ${item.ok?'yes':'no'}">${item.ok ? CHECK_ICON : CROSS_ICON}</div>
+           <div class="cq">${item.q}</div>
+           <div class="cpill ${item.ok?'yes':'no'}">${item.pill}</div>
+         </div>`
+       ).join('')}
+     </div>
+     <p class="slabel" style="margin-top:22px;">${C.pivotLabel}</p>
+     <div class="pbox">
+       <div class="plabel">${C.pivotTitle}</div>
+       <div class="ptext">${C.pivotQuote}</div>
+     </div>
+     <p style="font-size:12px;color:#6b7280;line-height:1.6;margin-top:11px;">${C.footer}</p>`;
+}
+
+function renderScript() {
+  const C = CONFIG.script;
+  document.getElementById('panel-script').innerHTML =
+    `<p class="slabel">${C.label}</p>
+     <p style="font-size:13px;color:#4b5563;line-height:1.6;margin-bottom:18px;">${C.intro}</p>
+     <div>
+       ${C.steps.map((s,i) =>
+         `<div class="sstep">
+           <div class="sleft"><div class="snum">${i+1}</div><div class="sline"></div></div>
+           <div class="sbody">
+             <div class="stitle">${s.title}</div>
+             <div class="ssub">${s.sub}</div>
+             <div class="squote">${s.quote}</div>
+           </div>
+         </div>`
+       ).join('')}
+     </div>
+     <p class="slabel">${C.missionLabel}</p>
+     <div class="tc">
+       <h3>${C.mission.title}</h3>
+       <p>${C.mission.body}</p>
+       <input class="tinput" id="tonight-who" type="text" placeholder="${C.mission.whoPlaceholder}" autocomplete="off" oninput="saveField('tonight-who',this.value)">
+       <input class="tinput" id="tonight-when" type="text" placeholder="${C.mission.whenPlaceholder}" autocomplete="off" oninput="saveField('tonight-when',this.value)">
+       <div class="trow">
+         <button class="bsave" onclick="saveTonightMission()">${C.mission.btnLabel}</button>
+         <div class="sconf" id="tonight-saved">${SAVED_ICON}Saved</div>
+       </div>
+     </div>
+     <p class="slabel">${C.remindersLabel}</p>
+     ${C.reminders.map(r =>
+       `<div class="rem">
+         <div class="rdot" style="background:${r.color};"></div>
+         <div class="rtext">${r.text}</div>
+       </div>`
+     ).join('')}`;
+}
+
+function renderSupport() {
+  const C = CONFIG.support;
+  document.getElementById('panel-support').innerHTML =
+    `<p class="slabel">${C.resourcesLabel}</p>
+     <div class="rcard">
+       <div class="rhead">
+         <div class="ravatar" style="background:#1A2F5A;">${OAD_AVATAR}</div>
+         <div><div class="rtitle">${C.oad.title}</div><div class="rsub">${C.oad.sub}</div></div>
+       </div>
+       ${C.oad.links.map(l =>
+         `<div class="rfield">
+           <span class="rlabel">${l.label}</span>
+           <span class="rval"><a href="${l.url}" target="_blank">${l.text}</a></span>
+         </div>`
+       ).join('')}
+     </div>
+     <p class="slabel">${C.contactsLabel}</p>
+     <p style="font-size:12px;color:#4b5563;line-height:1.6;margin-bottom:14px;">${C.contactsIntro}</p>
+     ${C.contacts.map(card =>
+       `<div class="rcard">
+         <div class="rhead">
+           <div class="ravatar" style="background:${card.avatarBg};">${card.avatarSvg}</div>
+           <div><div class="rtitle">${card.title}</div><div class="rsub">${card.sub}</div></div>
+         </div>
+         ${card.fields.map(f =>
+           `<div class="rfield">
+             <span class="rlabel">${f.label}</span>
+             <input class="finput" id="${f.id}" type="${f.type}" placeholder="${f.placeholder}" oninput="saveField('${f.id}',this.value);fi(this)" autocomplete="off">
+           </div>`
+         ).join('')}
+       </div>`
+     ).join('')}
+     <div class="scopebox">
+       ${INFO_ICON}
+       <span>${C.scopeNote}</span>
+     </div>`;
+}
+
+/* ── App logic ─────────────────────────────────────────────── */
+
+const KEY = 'iau-oad-v2';
 function getData(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch{return{};}}
 function setData(d){localStorage.setItem(KEY,JSON.stringify(d));}
 function saveField(k,v){const d=getData();d[k]=v;setData(d);showToast();}
 function fi(el){el.classList.toggle('filled',el.value.trim().length>0);}
+
 let tt;
 function showToast(){const t=document.getElementById('toast');t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1700);}
-function saveTonightMission(){const d=getData();d['tonight-who']=document.getElementById('tonight-who').value;d['tonight-when']=document.getElementById('tonight-when').value;setData(d);const c=document.getElementById('tonight-saved');c.classList.add('show');showToast();setTimeout(()=>c.classList.remove('show'),2800);}
-function loadData(){const d=getData();['crisis-org','crisis-phone','crisis-web','crisis-hours','counsel-org','counsel-phone','counsel-web','counsel-ref','super-name','super-phone','super-email','tonight-who','tonight-when'].forEach(id=>{const el=document.getElementById(id);if(el&&d[id]){el.value=d[id];fi(el);}});}
-function switchTab(id,btn){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');btn.classList.add('active');document.querySelector('.main').scrollTo({top:0,behavior:'smooth'});}
 
-const ACT={
-  container:{num:'Activity 1',title:'The Sky and the Observer',tagline:'Helping participants locate the stable witnessing awareness they carry',iconBg:'#dcfce7',iconSvg:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3C8 3 5 7 5 11c0 6 7 10.5 7 10.5S19 17 19 11C19 7 16 3 12 3z" stroke="#15803d" stroke-width="1.8"/><path d="M9 10.5C9.5 9 10.5 8 12 8s2.5 1 3 2.5" stroke="#15803d" stroke-width="1.5" stroke-linecap="round"/></svg>',nc:'#15803d',
-  meta:[{ic:'<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',t:'15–20 min'},{ic:'<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>',t:'Outdoors preferred'},{ic:'<svg viewBox="0 0 12 12" fill="none"><path d="M2 9V4.5L6 2l4 2.5V9l-4 1.5L2 9z" stroke="currentColor" stroke-width="1.1"/></svg>',t:'No equipment'}],
-  body:`<p class="ds">Purpose</p><p class="dp">There is a part of you that has been present for everything. Every difficult moment, every period of joy or confusion, every ordinary afternoon you can barely remember — something in you was there, watching, noticing. Your thoughts have changed. Your feelings shift constantly. But the awareness behind all of that, the one doing the noticing, has remained consistent since you first became conscious.</p><p class="dp">This activity invites participants to discover that awareness through direct experience of the sky rather than through explanation. The aim is not to teach a concept but to create the conditions in which it can be felt.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">ACT describes the observing self as the consistent dimension of a person present across the full span of their life, distinct from their thoughts, emotions, and circumstances. The capacity to access this perspective is associated with greater psychological flexibility and wellbeing (Hayes et al., 2006).</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">Invite participants to look up at the sky and take in its scale. Allow thirty seconds of silence before speaking.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Ask them to notice what the sky is doing right now: what is moving through it, what kind of light is present, what feels close and what feels far.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Ask them to consider whether the sky above them has changed across their lifetime. Invite a brief memory from childhood, one from a few years ago, one from this week. The sky was present for all of them.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Offer the reflection: the sky holds all the weather that passes through it, including storms, without being defined by any of it. Is there anything in themselves that feels like that?</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Allow three to four minutes of quiet. This is a contemplative space, not a problem to solve. No particular answer is required.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Gently invite the group back. Ask if anyone would like to share what, if anything, came up. This is always optional.</div></div><p class="ds">Suggested language</p><div class="dprompt"><div class="dplabel">Facilitator prompt</div><div class="dptext">"Look at the sky above you. Notice what is moving through it right now. That sky has been above you your whole life — in your earliest memories, through your hardest seasons, above mornings you have long forgotten. It was never altered by any of it. Is there anything in you that feels like that? Something that has been present throughout, watching, without being swept away? You do not need to find an answer. Just sit with the question."</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants will feel this immediately and powerfully. Others will find it abstract. Both responses are fine — the aim is simply to open a door.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">Avoid explaining the concept at length before or during the activity. The discovery is more powerful than the explanation.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">In communities with strong indigenous sky traditions, connect the witnessing quality to ancestral wisdom keepers who looked at these same stars.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">Your role is not to explain the observing self. It is to create the conditions in which it can be encountered directly. The less you say during the contemplative portion, the more space there is for genuine discovery. Trust the sky to do the teaching.</div></div>`
-  },
-  orbit:{num:'Activity 2',title:'Placing Thoughts in the Sky',tagline:'Gaining perspective on recurring thoughts by observing them from a distance',iconBg:'#dbeafe',iconSvg:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#1d4ed8" stroke-width="1.8"/><circle cx="12" cy="12" r="2.5" stroke="#1d4ed8" stroke-width="1.5"/><path d="M12 4V2M12 22v-2M4 12H2M22 12h-2" stroke="#1d4ed8" stroke-width="1.4" stroke-linecap="round"/></svg>',nc:'#1d4ed8',
-  meta:[{ic:'<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',t:'15–20 min'},{ic:'<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>',t:'Any setting'},{ic:'<svg viewBox="0 0 12 12" fill="none"><rect x="1.5" y="2" width="9" height="7" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 11h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>',t:'Optional: cards & pens'}],
-  body:`<p class="ds">Purpose</p><p class="dp">When a person is fully merged with a thought, they are not experiencing a thought at all — they are experiencing what feels like reality. The thought "I am not enough" does not announce itself as a thought; it arrives as a fact, demanding to be taken at face value.</p><p class="dp">This activity helps participants move from being inside their thinking to being able to look at it from the outside — using the sky as a literal canvas for that shift. The goal is not to challenge or replace difficult thoughts. It is simply to see them as thoughts.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Cognitive defusion creates separation between a person and their thinking without requiring them to argue against it. Against the backdrop of a universe in which light takes millennia to cross between neighbouring stars, a thought that has dominated someone's week begins to reveal its actual proportions.</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">Ask participants to bring to mind a thought that has been recurring recently. Reassure them they do not need to share it.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">If using cards, invite them to write the thought in a few words and hold it — giving the thought a physical form separate from the person holding it.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Ask them to look up and imagine placing the thought in the sky at a distance. Not to get rid of it, but to give it space. What would it look like as an object moving slowly across the sky?</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Invite them to notice: what is it like to look at this thought rather than from inside it? What do they notice from this position that they couldn't notice before?</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Allow two to three minutes of quiet. Bring attention to the scale of the sky — to stars whose light has travelled for hundreds of years to reach this moment.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Invite participants to watch the thought complete its movement and pass out of sight, like a satellite tracing its arc and disappearing. It has not been solved. It has simply passed through.</div></div><div class="dstep"><div class="dsnum">7</div><div class="dstxt">Invite optional sharing: not what changed about the thought itself, but what changed about their relationship to it.</div></div><p class="ds">Suggested language</p><div class="dprompt"><div class="dplabel">Facilitator prompt</div><div class="dptext">"Bring to mind a thought that comes back often — one that tends to feel heavy. Look up and imagine placing that thought somewhere up there. Give it some space. What would it look like as an object moving slowly across the sky? Notice what it is like to look at this thought from out here, rather than from inside it. The light from some of those stars left its source a thousand years before you were born. From that kind of distance — what size is your thought? Watch it move. Watch it pass. It does not need to be solved. It is just passing through."</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants may feel placing a thought at distance dismisses something that matters. The aim is not to make the thought unimportant, but to change the perspective from which it is seen.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">This is not an opportunity to offer solutions or interpretations. Receive what is shared with simple acknowledgement.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For daytime sessions: the same activity works with clouds — invite participants to imagine the thought as a cloud and watch it move and shift.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">You do not need to name cognitive defusion. The experience of the activity is the teaching. If participants ask what they were doing, describe it simply: learning to look at thoughts rather than from inside them — a skill that can be practised anywhere, any time.</div></div>`
-  },
-  anchor:{num:'Activity 3',title:'The Five-Sense Landing',tagline:'Grounding participants in the present moment through the sensory environment of the sky',iconBg:'#fef3c7',iconSvg:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5L12 2Z" stroke="#d97706" stroke-width="1.7" stroke-linejoin="round"/></svg>',nc:'#d97706',
-  meta:[{ic:'<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',t:'10–15 min'},{ic:'<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>',t:'Outdoors preferred'},{ic:'<svg viewBox="0 0 12 12" fill="none"><path d="M2 9V4.5L6 2l4 2.5V9l-4 1.5L2 9z" stroke="currentColor" stroke-width="1.1"/></svg>',t:'No equipment'}],
-  body:`<p class="ds">Purpose</p><p class="dp">Most people arrive at a session carrying the residue of their day: unfinished thoughts, physical tension, a mind somewhere else in time. This activity creates a deliberate transition. It uses the sensory environment of the sky and the natural world to bring participants into genuine contact with the present moment — creating the conditions in which everything that follows becomes more accessible.</p><p class="dp">This is not a warm-up. It is the foundation of the session. A group that has genuinely arrived is a group that can genuinely reflect.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Attention Restoration Theory identifies soft fascination as the mechanism by which natural environments help the mind recover from directed-attention fatigue. The night sky is a near-perfect soft fascination environment: vast, gently complex, intrinsically engaging without being demanding. Even brief exposure produces measurable improvements in attentional capacity (Berto, 2005; Kaplan, 1995).</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">Position the group outside if possible. Ask everyone to find a comfortable standing or seated position and, if willing, to close their eyes or soften their gaze downward.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Invite a moment of stillness. Allow ten to fifteen seconds of silence before speaking. Resist the urge to fill this space.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Ask participants to notice what they can feel physically: the ground beneath their feet, the temperature of the air on their skin, the weight of their own body.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Ask them to notice what they can hear: sounds nearest to them, then further away, then any sounds at the very edge of hearing.</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">When ready, invite them to open their eyes and look up. Ask them to notice what they can actually see — not what they expect, but what is genuinely there.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Allow two to three minutes of quiet looking. Your role is to hold the space, not to fill it.</div></div><div class="dstep"><div class="dsnum">7</div><div class="dstxt">Gently bring the group together. Invite anyone who would like to share one thing they noticed, without pressure.</div></div><p class="ds">Suggested language</p><div class="dprompt"><div class="dplabel">Facilitator prompt</div><div class="dptext">"We are going to begin by simply arriving. There is nowhere to be right now except here. Let the day fall back a little. What is the temperature of the air on your skin right now? What can you hear? When you are ready, look up — and simply let your eyes rest on what is actually there."</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants find silence uncomfortable at first. Hold it gently and allow it to settle rather than filling it with reassurance.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">In groups under significant stress, this activity may surface emotion quickly. Acknowledge it quietly and continue to hold the space with steadiness.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For indoor settings: open a window if possible or project a night sky image. The sensory anchor is less immediate but the structure remains effective.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">This activity works best when you have genuinely experienced it yourself before facilitating it. Your own quality of presence is the most important variable. If you are still in your own head, participants will feel it.</div></div>`
-  },
-  compass:{num:'Activities 4 & 5',title:'Finding Your Guiding Stars',tagline:'Using cosmic perspective and the Narratives Booklet to reconnect with what matters most',iconBg:'#ede9fe',iconSvg:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M12 3L8 9M12 3L16 9" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 18h12" stroke="#7c3aed" stroke-width="1.4" stroke-linecap="round"/></svg>',nc:'#7c3aed',
-  meta:[{ic:'<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',t:'25–35 min'},{ic:'<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>',t:'Any setting'},{ic:'<svg viewBox="0 0 12 12" fill="none"><rect x="1.5" y="2" width="9" height="7" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 11h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>',t:'Narratives booklet required'}],
-  body:`<p class="ds">Purpose</p><p class="dp">This is the culminating activity of the sequence. It uses cosmic perspective and awe to move participants from reflection toward direction — from noticing what is, to considering what could be, and from awareness toward a clearer sense of the values that can guide them forward.</p><p class="dp">Just as sailors navigated by fixed stars, participants are invited to identify the values and commitments that can help them navigate the terrain of their own lives with greater intention. The Narratives Reference Booklet (Vertue, Mdhluli & Ledimo, 2025) is the primary tool for opening this conversation.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Awe reliably produces the Small Self effect — reducing preoccupied self-referential thinking and increasing openness and meaning (Piff et al., 2015). The Overview Effect shows that viewing Earth at cosmic scale catalyses significant reorientations in values and priorities (Yaden et al., 2016). Values-guided behaviour is associated with greater meaning, resilience, and sustained wellbeing (Hayes et al., 2006).</div></div><p class="ds">Using the Narratives Booklet</p><p class="dp">Before the session, read through the booklet and select one narrative that feels most relevant to your group. Download at <a href="https://doi.org/10.5281/zenodo.16420872" target="_blank" style="color:#2B7A9E;font-weight:600;">doi.org/10.5281/zenodo.16420872</a></p><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Read it aloud.</strong> Slowly, with genuine attention. Allow silence before moving on.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Tell it in your own words.</strong> Once you know it well, share it conversationally. This feels more immediate.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Pair it with the sky.</strong> When outdoors, invite participants to look at the relevant part of the sky as you share the narrative.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Invite participants to share their own.</strong> In groups with indigenous sky traditions, open space for local stories after sharing from the booklet.</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">From a settled present state, briefly introduce the framing: navigators have used stars for orientation for thousands of years — not because the stars told them where to go, but because they provided a fixed point of reference in a changing world.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Share a narrative from the booklet. Read slowly, with silence after. Do not explain or direct its interpretation.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Offer three questions one at a time with two minutes of quiet between each. Participants may hold them internally, write, or draw.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Invite participants to choose one value and give it a name — their guiding star. Make it specific and personal. Not just "courage" but the kind of courage it takes to have an honest conversation.</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Invite each participant to name one small concrete step they could take in the coming week in the direction of their guiding star. Movement, not transformation.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Close by inviting participants to look up and acknowledge that the stars above them have been used for navigation for as long as human beings have been looking up.</div></div><p class="ds">The three reflection questions</p><div class="dprompt"><div class="dplabel">Hold these one at a time, with silence between each</div><div class="dptext">"What in that story felt true to something in your own life?"<br><br>"If you were to name two or three things you genuinely value — things you want your life to actually be about — what would they be?"<br><br>"If those values were stars you could navigate by, where would they be pointing you right now?"</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Values work can surface the recognition of a gap between where a person is and where they want to be. That gap is not evidence of failure — it is evidence of honesty, and honesty is the beginning of movement.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants find it hard to name what they value. Offer a simpler entry: think of a person you admire — what quality in them most draws you? That quality is often a window into a value they hold but have not yet claimed.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For collectivist communities: the guiding star can be a shared community value rather than only an individual one.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">Spend time with the Narratives Booklet before you use it — not just to select a narrative but to let the stories work on you. The narratives are most powerful when delivered by someone who has genuinely sat with them. Download: doi.org/10.5281/zenodo.16420872</div></div>`
-  }
-};
+function saveTonightMission(){
+  const d=getData();
+  d['tonight-who']=document.getElementById('tonight-who').value;
+  d['tonight-when']=document.getElementById('tonight-when').value;
+  setData(d);
+  const c=document.getElementById('tonight-saved');
+  c.classList.add('show');showToast();
+  setTimeout(()=>c.classList.remove('show'),2800);
+}
+
+function loadData(){
+  const d=getData();
+  ['crisis-org','crisis-phone','crisis-web','crisis-hours',
+   'counsel-org','counsel-phone','counsel-web','counsel-ref',
+   'super-name','super-phone','super-email',
+   'tonight-who','tonight-when'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&d[id]){el.value=d[id];fi(el);}
+  });
+}
+
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+  document.querySelector('.main').scrollTo({top:0,behavior:'smooth'});
+}
 
 function openDrawer(key){
-  const a=ACT[key];if(!a)return;
+  const a=CONFIG.act[key]; if(!a) return;
   document.getElementById('dnum').textContent=a.num;
   document.getElementById('dnum').style.color=a.nc;
   document.getElementById('dtitle').textContent=a.title;
   document.getElementById('dtagline').textContent=a.tagline;
-  const ic=document.getElementById('dicon');ic.style.background=a.iconBg;ic.innerHTML=a.iconSvg;
+  const ic=document.getElementById('dicon');
+  ic.style.background=a.iconBg; ic.innerHTML=a.iconSvg;
   document.getElementById('dmeta').innerHTML=a.meta.map(m=>`<div class="mtag">${m.ic}<span>${m.t}</span></div>`).join('');
-  document.getElementById('dbody').innerHTML=a.body;
-  document.getElementById('dbody').scrollTop=0;
+  const db=document.getElementById('dbody');
+  db.classList.remove('anim');
+  db.innerHTML=a.body;
+  db.scrollTop=0;
+  void db.offsetWidth;
+  db.classList.add('anim');
   document.getElementById('drawer').classList.add('open');
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
 
-let ty=0;
-document.getElementById('drawer').addEventListener('touchstart',e=>{ty=e.touches[0].clientY;},{passive:true});
-document.getElementById('drawer').addEventListener('touchmove',e=>{if(e.touches[0].clientY-ty>60)closeDrawer();},{passive:true});
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open','dragging');
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+let ty=0,tst=0;
+const drEl=document.getElementById('drawer'),dbEl=document.getElementById('dbody');
+drEl.addEventListener('touchstart',e=>{ty=e.touches[0].clientY;tst=dbEl.scrollTop;},{passive:true});
+drEl.addEventListener('touchmove',e=>{const dy=e.touches[0].clientY-ty;if(tst<5){drEl.classList.toggle('dragging',dy>10);if(dy>60)closeDrawer();}},{passive:true});
+drEl.addEventListener('touchend',()=>drEl.classList.remove('dragging'),{passive:true});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
-document.addEventListener('DOMContentLoaded',loadData);
+
+document.addEventListener('DOMContentLoaded',()=>{renderAll();loadData();});
 </script>
 </body>
 </html>

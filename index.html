@@ -15,9 +15,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 .orb1 { position:absolute; top:-50px; right:-30px; width:160px; height:160px; border-radius:50%; background:rgba(43,122,158,0.18); pointer-events:none; animation:orbFloat 7s ease-in-out infinite; }
 .orb2 { position:absolute; bottom:10px; left:-50px; width:130px; height:130px; border-radius:50%; background:rgba(255,255,255,0.04); pointer-events:none; animation:orbFloat 9s ease-in-out infinite 1.5s; }
 @keyframes orbFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.logo-img { height:104px; width:auto; display:block; margin:0 auto 12px; mix-blend-mode:screen; position:relative; z-index:1; }
 .badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.13); color:rgba(214,234,245,0.9); font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:4px 10px; border-radius:20px; margin-bottom:10px; }
 .badge-dot { width:5px; height:5px; background:#E8A020; border-radius:50%; }
 .header h1 { font-size:21px; font-weight:700; color:#fff; line-height:1.25; margin-bottom:4px; position:relative; z-index:1; }
+.help-btn { position:absolute; top:max(12px,env(safe-area-inset-top)) ; right:16px; width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,0.13); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:2; transition:background .15s; }
+.help-btn:active { background:rgba(255,255,255,0.22); }
+.help-btn svg { width:15px; height:15px; color:rgba(214,234,245,0.75); }
 .header-sub { font-size:12.5px; color:rgba(214,234,245,0.65); line-height:1.5; margin-bottom:20px; position:relative; z-index:1; }
 .tab-bar { display:flex; background:#1A2F5A; padding:0 6px; border-bottom:1px solid rgba(255,255,255,0.08); }
 .tab-btn { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 2px 13px; font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:rgba(255,255,255,0.38); border:none; background:none; cursor:pointer; border-bottom:2px solid transparent; transition:color .2s,border-color .2s,transform .12s; }
@@ -146,6 +150,40 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 .dsci { background:#f0f4ff; border:1px solid rgba(26,47,90,0.12); border-radius:13px; padding:13px 14px; margin:4px 0; }
 .dscilabel { font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:#1A2F5A; margin-bottom:7px; }
 .dscitext { font-size:13px; color:#1f2937; line-height:1.7; }
+/* ── Onboarding overlay ─────────────────────────────────── */
+.ob-overlay { position:fixed; inset:0; background:#0f1f40; z-index:300; display:none; flex-direction:column; width:100%; max-width:430px; left:50%; transform:translateX(-50%); }
+.ob-overlay.ob-visible { display:flex; }
+.ob-overlay.ob-hiding { opacity:0; transition:opacity .4s ease; pointer-events:none; }
+.ob-slides-wrap { flex:1; overflow:hidden; width:100%; }
+.ob-slides { display:flex; height:100%; width:100%; transition:transform .35s cubic-bezier(0.4,0,0.2,1); }
+.ob-slide { flex:0 0 100%; width:100%; padding:32px 28px 12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; box-sizing:border-box; }
+.ob-logo { height:130px; width:auto; mix-blend-mode:screen; margin-bottom:22px; }
+.ob-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.13); color:rgba(214,234,245,0.9); font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:4px 10px; border-radius:20px; margin-bottom:12px; }
+.ob-badge-dot { width:5px; height:5px; background:#E8A020; border-radius:50%; }
+.ob-title { font-size:22px; font-weight:800; color:#fff; text-align:center; line-height:1.25; margin-bottom:10px; }
+.ob-sub { font-size:13.5px; color:rgba(214,234,245,0.65); text-align:center; line-height:1.65; }
+.ob-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; width:100%; margin-top:22px; }
+.ob-card { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:14px 12px; display:flex; flex-direction:column; align-items:flex-start; gap:7px; }
+.ob-card-icon { width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; }
+.ob-card-icon svg { width:18px; height:18px; }
+.ob-card-label { font-size:12.5px; font-weight:700; color:#fff; line-height:1.3; }
+.ob-card-desc { font-size:11px; color:rgba(214,234,245,0.5); line-height:1.4; }
+.ob-list { width:100%; margin-top:22px; display:flex; flex-direction:column; gap:12px; }
+.ob-item { display:flex; gap:12px; align-items:flex-start; }
+.ob-rdot { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:5px; }
+.ob-item-text { font-size:13.5px; color:rgba(214,234,245,0.85); line-height:1.55; }
+.ob-ready-icon { width:64px; height:64px; border-radius:50%; background:rgba(232,160,32,0.15); border:2px solid rgba(232,160,32,0.4); display:flex; align-items:center; justify-content:center; margin-bottom:20px; }
+.ob-ready-icon svg { width:30px; height:30px; }
+.ob-hint { font-size:12px; color:rgba(214,234,245,0.45); text-align:center; line-height:1.6; margin-top:14px; }
+.ob-footer { padding:14px 28px max(24px,env(safe-area-inset-bottom)) 28px; display:flex; flex-direction:column; align-items:center; gap:10px; flex-shrink:0; }
+.ob-dots { display:flex; gap:7px; margin-bottom:2px; }
+.ob-dot-pip { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.25); transition:background .25s,width .25s,border-radius .25s; }
+.ob-dot-pip.active { background:#E8A020; width:20px; border-radius:4px; }
+.ob-btn { width:100%; padding:14px; background:#E8A020; color:#1A2F5A; border:none; border-radius:12px; font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; transition:opacity .15s,transform .1s; }
+.ob-btn:active { opacity:.85; transform:scale(.98); }
+.ob-skip { background:none; border:none; color:rgba(255,255,255,0.32); font-size:13px; cursor:pointer; font-family:inherit; padding:6px 8px; transition:color .15s; }
+.ob-skip:hover { color:rgba(255,255,255,0.6); }
+.ob-reset { display:block; margin:12px auto 0; background:none; border:none; color:#6b7280; font-size:12px; cursor:pointer; font-family:inherit; text-decoration:underline; padding:4px; }
 </style>
 </head>
 <body>
@@ -153,6 +191,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
 <div class="app">
   <div class="header">
     <div class="orb1"></div><div class="orb2"></div>
+    <button class="help-btn" onclick="obReplay()" title="Replay guide"><svg viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M7.5 5C6.7 5 6 5.6 6 6.4c0 .4.2.7.4.9L7.5 8.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="7.5" cy="10.5" r=".6" fill="currentColor"/></svg></button>
+    <img class="logo-img" src="oadlogo.jpg" alt="IAU Office of Astronomy for Development">
     <div class="badge"><span class="badge-dot"></span><span id="badge-text"></span></div>
     <h1 id="header-title"></h1>
     <p class="header-sub" id="header-sub"></p>
@@ -163,6 +203,76 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sa
     <div id="panel-check"   class="tab-panel"></div>
     <div id="panel-script"  class="tab-panel"></div>
     <div id="panel-support" class="tab-panel"></div>
+  </div>
+</div>
+
+<div class="ob-overlay" id="onboarding">
+  <div class="ob-slides-wrap">
+    <div class="ob-slides" id="ob-slides">
+
+      <!-- Step 1: Welcome -->
+      <div class="ob-slide">
+        <img class="ob-logo" src="oadlogo.jpg" alt="IAU OAD">
+        <div class="ob-badge"><span class="ob-badge-dot"></span>IAU OAD · Astronomy for Mental Health</div>
+        <div class="ob-title">Facilitator's<br>Pocket Guide</div>
+        <div class="ob-sub">Your in-session companion — designed to fit in your pocket and your practice.</div>
+      </div>
+
+      <!-- Step 2: What's inside -->
+      <div class="ob-slide">
+        <div class="ob-title" style="align-self:flex-start;text-align:left;">What's inside</div>
+        <div class="ob-sub" style="text-align:left;align-self:flex-start;">Four sections, everything you need for a safe and meaningful sky session.</div>
+        <div class="ob-grid">
+          <div class="ob-card">
+            <div class="ob-card-icon" style="background:#dcfce7;"><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="5.5" stroke="#15803d" stroke-width="1.6"/><circle cx="9" cy="9" r="2" stroke="#15803d" stroke-width="1.4"/><path d="M9 3.5V2M9 16v-1.5M14.5 9H16M2 9h1.5" stroke="#15803d" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+            <div class="ob-card-label">4 ACT Tools</div>
+            <div class="ob-card-desc">Sky-based Container, Orbit, Anchor &amp; Compass activities</div>
+          </div>
+          <div class="ob-card">
+            <div class="ob-card-icon" style="background:#dbeafe;"><svg viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="12" height="12" rx="2.5" stroke="#1d4ed8" stroke-width="1.5"/><path d="M6.5 9L8.5 11L12 7" stroke="#1d4ed8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="ob-card-label">Checklist</div>
+            <div class="ob-card-desc">Stay in scope before and during every session</div>
+          </div>
+          <div class="ob-card">
+            <div class="ob-card-icon" style="background:#fef3c7;"><svg viewBox="0 0 18 18" fill="none"><path d="M4 5.5h10M4 9h7M4 12.5h5" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div class="ob-card-label">Script</div>
+            <div class="ob-card-desc">A three-step universal opening for any session</div>
+          </div>
+          <div class="ob-card">
+            <div class="ob-card-icon" style="background:#ede9fe;"><svg viewBox="0 0 18 18" fill="none"><path d="M5 2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="#7c3aed" stroke-width="1.5"/><path d="M7 7h4M7 10h3" stroke="#7c3aed" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+            <div class="ob-card-label">Support</div>
+            <div class="ob-card-desc">Local contacts &amp; IAU OAD resources at your fingertips</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Your role -->
+      <div class="ob-slide">
+        <div class="ob-title" style="align-self:flex-start;text-align:left;">Your role</div>
+        <div class="ob-sub" style="text-align:left;align-self:flex-start;">You are a facilitator, not a clinician. The sky does the teaching — you make the looking possible.</div>
+        <div class="ob-list">
+          <div class="ob-item"><div class="ob-rdot" style="background:#15803d;"></div><div class="ob-item-text">Guide observations of the sky, not personal disclosures</div></div>
+          <div class="ob-item"><div class="ob-rdot" style="background:#2B7A9E;"></div><div class="ob-item-text">Let silence and the sky do the work — resist filling it</div></div>
+          <div class="ob-item"><div class="ob-rdot" style="background:#E8A020;"></div><div class="ob-item-text">Know the pivot phrase for when the weather turns heavy</div></div>
+          <div class="ob-item"><div class="ob-rdot" style="background:#7c3aed;"></div><div class="ob-item-text">Have your local support contacts ready before you begin</div></div>
+          <div class="ob-item"><div class="ob-rdot" style="background:#b91c1c;"></div><div class="ob-item-text">This guide supports wellbeing promotion — not clinical practice</div></div>
+        </div>
+      </div>
+
+      <!-- Step 4: Get started -->
+      <div class="ob-slide">
+        <div class="ob-ready-icon"><svg viewBox="0 0 30 30" fill="none"><path d="M15 4L18 11.5H26L20 16.3L22.5 23.8L15 19.5L7.5 23.8L10 16.3L4 11.5H12L15 4Z" stroke="#E8A020" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <div class="ob-title">You're ready.</div>
+        <div class="ob-sub">Fill in your local support contacts in the Support tab first — they are the foundation of safe facilitation.</div>
+        <div class="ob-hint">This guide saves everything locally on your device.<br>No account required.</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="ob-footer">
+    <div class="ob-dots" id="ob-dots"></div>
+    <button class="ob-btn" id="ob-next" onclick="obNext()">Next</button>
+    <button class="ob-skip" id="ob-skip" onclick="obFinish()">Skip</button>
   </div>
 </div>
 
@@ -303,9 +413,10 @@ const CONFIG = {
       sub:   'Astronomy for Mental Health',
       links: [
         { label:'Website',            text:'astro4dev.org ↗',   url:'https://astro4dev.org' },
+        { label:'Mental Health',      text:'astro4dev.org/mh ↗', url:'https://astro4dev.org/astronomy-mental-health/' },
         { label:'Online course',      text:'OpenLearn ↗',       url:'https://www.open.edu/openlearncreate/course/view.php?id=16561' },
         { label:'Narratives booklet', text:'zenodo.16420872 ↗', url:'https://doi.org/10.5281/zenodo.16420872' },
-        { label:'Guidelines PDF',     text:'Download ↗',        url:'https://www.astro4dev.org/wp-content/uploads/2022/10/Astronomy-for-mental-health-guideline-v1_IAU-OAD.pdf' },
+        { label:'Guidelines',         text:'zenodo.15878612 ↗', url:'https://zenodo.org/records/15878612' },
       ],
     },
     contactsLabel: 'Your local support contacts',
@@ -407,6 +518,8 @@ const CONFIG = {
    RENDERING — structure & logic (no user-editable text below)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
+function disclaimer(){return`<div class="scopebox" style="margin-top:20px;">${INFO_ICON}<span>${CONFIG.support.scopeNote}</span></div>`;}
+
 const CHEV = `<span class="chev"><svg viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
 const CHECK_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#15803d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const CROSS_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#b91c1c" stroke-width="1.8" stroke-linecap="round"/></svg>`;
@@ -446,7 +559,7 @@ function renderTools() {
           </div>
         </div>
       </div>`
-    ).join('');
+    ).join('') + disclaimer();
 }
 
 function renderChecklist() {
@@ -468,7 +581,8 @@ function renderChecklist() {
        <div class="plabel">${C.pivotTitle}</div>
        <div class="ptext">${C.pivotQuote}</div>
      </div>
-     <p style="font-size:12px;color:#6b7280;line-height:1.6;margin-top:11px;">${C.footer}</p>`;
+     <p style="font-size:12px;color:#6b7280;line-height:1.6;margin-top:11px;">${C.footer}</p>
+     ${disclaimer()}`;
 }
 
 function renderScript() {
@@ -505,7 +619,8 @@ function renderScript() {
          <div class="rdot" style="background:${r.color};"></div>
          <div class="rtext">${r.text}</div>
        </div>`
-     ).join('')}`;
+     ).join('')}
+     ${disclaimer()}`;
 }
 
 function renderSupport() {
@@ -543,7 +658,8 @@ function renderSupport() {
      <div class="scopebox">
        ${INFO_ICON}
        <span>${C.scopeNote}</span>
-     </div>`;
+     </div>
+     <button class="ob-reset" onclick="obReset()">Replay onboarding</button>`;
 }
 
 /* ── App logic ─────────────────────────────────────────────── */
@@ -619,7 +735,53 @@ drEl.addEventListener('touchmove',e=>{const dy=e.touches[0].clientY-ty;if(tst<5)
 drEl.addEventListener('touchend',()=>drEl.classList.remove('dragging'),{passive:true});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
 
-document.addEventListener('DOMContentLoaded',()=>{renderAll();loadData();});
+/* ── Onboarding ─────────────────────────────────────────── */
+const OB_STEPS=4;let obStep=0;
+function obDots(){
+  document.getElementById('ob-dots').innerHTML=
+    Array.from({length:OB_STEPS},(_,i)=>`<div class="ob-dot-pip${i===obStep?' active':''}"></div>`).join('');
+}
+function obRender(){
+  document.getElementById('ob-slides').style.transform=`translateX(-${obStep*100}%)`;
+  obDots();
+  const btn=document.getElementById('ob-next');
+  btn.textContent=obStep===OB_STEPS-1?'Enter the guide →':'Next';
+  document.getElementById('ob-skip').style.visibility=obStep===OB_STEPS-1?'hidden':'visible';
+}
+function obNext(){
+  if(obStep<OB_STEPS-1){obStep++;obRender();}else{obFinish();}
+}
+function obFinish(){
+  const d=getData();d.onboarded=true;setData(d);
+  const el=document.getElementById('onboarding');
+  el.classList.add('ob-hiding');
+  setTimeout(()=>{el.classList.remove('ob-visible','ob-hiding');},420);
+}
+function obReset(){
+  const d=getData();delete d.onboarded;setData(d);location.reload();
+}
+function obReplay(){
+  obStep=0;
+  const el=document.getElementById('onboarding');
+  el.classList.remove('ob-hiding');
+  el.classList.add('ob-visible');
+  obRender();
+}
+function obShow(){
+  const d=getData();if(d.onboarded)return;
+  const el=document.getElementById('onboarding');
+  el.classList.add('ob-visible');
+  obStep=0;obRender();
+  // horizontal swipe
+  let sx=0;
+  el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+  el.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>50){if(dx<0)obNext();else if(obStep>0){obStep--;obRender();}}
+  },{passive:true});
+}
+
+document.addEventListener('DOMContentLoaded',()=>{renderAll();loadData();obShow();});
 </script>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#05070d">
@@ -16,10 +16,17 @@
   --void:#05070d; --deep:#080c18; --space:#0b1120; --shell:#0f1829; --ridge:#141e32;
   --rim0:rgba(90,140,190,0.07); --rim1:rgba(90,140,190,0.13); --rim2:rgba(90,140,190,0.28);
   --glow:rgba(90,140,190,0.05);
-  --ink:#d4dde6; --ink2:rgba(180,200,218,0.85); --ink3:rgba(180,200,218,0.55);
+  --ink:#d4dde6; --ink2:rgba(180,200,218,0.85); --ink3:rgba(180,200,218,0.65);
   --gold:#c4a254; --gold1:rgba(196,162,84,0.10); --gold2:rgba(196,162,84,0.22);
   --cold:#3d7fa8; --cold1:rgba(61,127,168,0.09); --cold2:rgba(61,127,168,0.20);
   --sp:cubic-bezier(0.16,1,0.3,1); --dr:cubic-bezier(0.25,0,0.1,1);
+  --act-container:#4a9478; --act-container-bg:#0b1a14; --act-container1:rgba(74,148,120,0.10);
+  --act-orbit-bg:#0b1220; --act-anchor-bg:#181208;
+  --act-compass:#8070c0; --act-compass-bg:#120f22; --act-compass1:rgba(128,112,192,0.10);
+  --steel:#5e7da8;
+  --ok:#5aad80; --ok-bg:rgba(40,90,60,0.14); --ok-border:rgba(60,140,90,0.2); --ok-icon-bg:rgba(40,90,60,0.18); --ok-icon-border:rgba(60,140,90,0.22); --ok-strong:#15803d;
+  --warn:#d08888; --warn-bg:rgba(90,30,30,0.14); --warn-border:rgba(160,60,60,0.2); --warn-icon-bg:rgba(90,30,30,0.18); --warn-icon-border:rgba(160,60,60,0.22); --warn-strong:#b91c1c;
+  --avatar-crisis:#1e0a0a; --avatar-counsel:#0a1c12; --avatar-super:#130f22; --avatar-oad:#0a1220;
 }
 /* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -28,21 +35,21 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 /* ── Header ── */
 .header{background:var(--deep);padding:max(44px,env(safe-area-inset-top)) 20px 0;position:relative;overflow:hidden;border-bottom:1px solid var(--rim0);}
 .header::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 110%,rgba(61,127,168,0.07) 0%,transparent 70%);pointer-events:none;}
-.orb1{position:absolute;top:-70px;right:-50px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(61,127,168,0.05) 0%,transparent 70%);pointer-events:none;animation:orbFloat 14s ease-in-out infinite;}
-.orb2{position:absolute;bottom:-20px;left:-70px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(196,162,84,0.03) 0%,transparent 70%);pointer-events:none;animation:orbFloat 18s ease-in-out infinite 3s;}
+.orb1{position:absolute;top:-70px;right:-50px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(61,127,168,0.05) 0%,transparent 70%);pointer-events:none;animation:orbFloat 14s cubic-bezier(0.45,0,0.55,1) infinite;}
+.orb2{position:absolute;bottom:-20px;left:-70px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(196,162,84,0.03) 0%,transparent 70%);pointer-events:none;animation:orbFloat 18s cubic-bezier(0.45,0,0.55,1) infinite 3s;}
 @keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
 .logo-img{height:104px;width:auto;display:block;margin:0 auto 14px;mix-blend-mode:screen;position:relative;z-index:1;}
-.badge{display:inline-flex;align-items:center;gap:6px;background:var(--rim0);color:var(--ink3);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px solid var(--rim1);margin-bottom:10px;position:relative;z-index:1;}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--rim0);color:var(--ink3);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px solid var(--rim1);margin-bottom:10px;position:relative;z-index:1;}
 .badge-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;box-shadow:0 0 5px var(--gold);}
 .header h1{font-size:20px;font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:4px;position:relative;z-index:1;letter-spacing:-.01em;}
 .header-sub{font-size:12px;color:var(--ink3);line-height:1.6;margin-bottom:20px;position:relative;z-index:1;}
-.help-btn{position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;width:30px;height:30px;border-radius:50%;background:var(--rim0);border:1px solid var(--rim1);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;transition:border-color .6s var(--sp),box-shadow .6s var(--sp);}
+.help-btn{position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;width:44px;height:44px;border-radius:50%;background:var(--rim0);border:1px solid var(--rim1);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;transition:border-color .6s var(--sp),box-shadow .6s var(--sp);}
 .help-btn:hover{border-color:var(--rim2);box-shadow:0 0 14px var(--glow);}
 .help-btn svg{width:14px;height:14px;color:var(--ink3);transition:color .5s;}
 .help-btn:hover svg{color:var(--ink2);}
 /* ── Tab bar ── */
 .tab-bar{display:flex;background:var(--deep);padding:0 4px;border-bottom:1px solid var(--rim0);}
-.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 2px 14px;font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);border:none;background:none;cursor:pointer;border-bottom:1px solid transparent;transition:color .55s var(--sp),border-color .55s var(--sp);}
+.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 2px 14px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);border:none;background:none;cursor:pointer;border-bottom:1px solid transparent;transition:color .55s var(--sp),border-color .55s var(--sp);}
 .tab-btn svg{width:17px;height:17px;opacity:.28;transition:opacity .55s var(--sp);}
 .tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
 .tab-btn.active svg{opacity:.85;}
@@ -53,7 +60,7 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 .tab-panel.active{display:block;animation:panelIn .65s var(--sp) both;}
 @keyframes panelIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 /* ── Section labels ── */
-.slabel{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin:28px 0 12px;display:flex;align-items:center;gap:10px;}
+.slabel{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin:28px 0 12px;display:flex;align-items:center;gap:10px;}
 .slabel:first-child{margin-top:2px;}
 .slabel::after{content:'';flex:1;height:1px;background:var(--rim0);}
 /* ── Tool cards ── */
@@ -66,7 +73,7 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 .tool-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;}
 .tool-desc{font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:10px;}
 .tool-foot{display:flex;align-items:center;justify-content:space-between;}
-.ttag{display:inline-block;font-size:8.5px;font-weight:700;padding:3px 8px;border-radius:2px;letter-spacing:.1em;text-transform:uppercase;border:1px solid;}
+.ttag{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:2px;letter-spacing:.1em;text-transform:uppercase;border:1px solid;}
 .chev svg{width:14px;height:14px;display:block;opacity:.3;}
 /* ── Checklist ── */
 .checklist{background:var(--shell);border:1px solid var(--rim0);border-radius:5px;overflow:hidden;}
@@ -74,15 +81,17 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 .cr:last-child{border-bottom:none;}
 .cicon{width:26px;height:26px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid;}
 .cicon svg{width:13px;height:13px;}
-.cicon.yes{background:rgba(40,90,60,0.18);border-color:rgba(60,140,90,0.22);}
-.cicon.no{background:rgba(90,30,30,0.18);border-color:rgba(160,60,60,0.22);}
+.cicon.yes{background:var(--ok-icon-bg);border-color:var(--ok-icon-border);}
+.cicon.yes svg{color:var(--ok-strong);}
+.cicon.no{background:var(--warn-icon-bg);border-color:var(--warn-icon-border);}
+.cicon.no svg{color:var(--warn-strong);}
 .cq{flex:1;font-size:13px;color:var(--ink2);line-height:1.5;}
-.cpill{font-size:8.5px;font-weight:700;padding:2px 8px;border-radius:2px;flex-shrink:0;letter-spacing:.1em;text-transform:uppercase;border:1px solid;}
-.cpill.yes{background:rgba(40,90,60,0.14);color:#5aad80;border-color:rgba(60,140,90,0.2);}
-.cpill.no{background:rgba(90,30,30,0.14);color:#d08888;border-color:rgba(160,60,60,0.2);}
+.cpill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;flex-shrink:0;letter-spacing:.1em;text-transform:uppercase;border:1px solid;}
+.cpill.yes{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border);}
+.cpill.no{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border);}
 /* ── Pivot box ── */
-.pbox{background:var(--shell);border:1px solid var(--rim0);border-left:2px solid var(--cold);border-radius:0 5px 5px 0;padding:14px 15px;}
-.plabel{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--cold);margin-bottom:7px;}
+.pbox{background:var(--cold1);border:1px solid var(--cold2);border-radius:5px;padding:14px 15px;}
+.plabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--cold);margin-bottom:7px;}
 .ptext{font-size:13px;color:var(--ink2);font-style:italic;line-height:1.72;}
 /* ── Script steps ── */
 .sstep{display:flex;gap:0;position:relative;}
@@ -92,8 +101,8 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 .sstep:last-child .sline{display:none;}
 .sbody{flex:1;background:var(--shell);border:1px solid var(--rim0);border-radius:5px;padding:13px 14px;margin-bottom:10px;margin-left:5px;}
 .stitle{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:4px;}
-.ssub{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:8px;opacity:.85;}
-.squote{font-size:13px;color:var(--ink2);font-style:italic;line-height:1.72;border-left:2px solid rgba(196,162,84,0.25);padding-left:10px;}
+.ssub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:8px;opacity:.85;}
+.squote{font-size:13px;color:var(--ink2);font-style:italic;line-height:1.72;padding-left:10px;}
 /* ── Tonight mission ── */
 .tc{background:var(--space);border:1px solid var(--rim1);border-radius:5px;padding:17px;}
 .tc h3{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:5px;}
@@ -102,10 +111,10 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 .tinput::placeholder{color:var(--ink3);}
 .tinput:focus{border-color:var(--gold2);box-shadow:0 0 0 1px var(--gold1);}
 .trow{display:flex;gap:8px;align-items:center;margin-top:2px;}
-.bsave{flex:1;padding:10px;background:var(--gold1);color:var(--gold);border:1px solid var(--gold2);border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:background .6s var(--sp),box-shadow .6s var(--sp);}
+.bsave{flex:1;padding:10px;background:var(--gold1);color:var(--gold);border:1px solid var(--gold2);border-radius:3px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:background .6s var(--sp),box-shadow .6s var(--sp);}
 .bsave:hover{background:rgba(196,162,84,0.18);box-shadow:0 0 16px rgba(196,162,84,0.09);}
 .bsave:active{opacity:.8;}
-.sconf{display:none;align-items:center;gap:5px;font-size:10px;color:var(--gold);font-weight:700;letter-spacing:.06em;}
+.sconf{display:none;align-items:center;gap:5px;font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.06em;}
 .sconf.show{display:flex;}
 .sconf svg{width:14px;height:14px;}
 /* ── Reminders ── */
@@ -118,10 +127,10 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 .ravatar{width:40px;height:40px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--rim1);background:var(--space);}
 .ravatar svg{width:20px;height:20px;}
 .rtitle{font-size:13px;font-weight:700;color:var(--ink);}
-.rsub{font-size:10.5px;color:var(--ink3);margin-top:2px;letter-spacing:.04em;}
+.rsub{font-size:11px;color:var(--ink3);margin-top:2px;letter-spacing:.04em;}
 .rfield{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--rim0);gap:12px;}
 .rfield:last-child{border-bottom:none;}
-.rlabel{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);flex-shrink:0;}
+.rlabel{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);flex-shrink:0;}
 .rval{font-size:13px;color:var(--ink);text-align:right;}
 .rval a{color:var(--cold);text-decoration:none;font-weight:600;transition:color .5s;}
 .rval a:hover{color:#5aabcd;}
@@ -135,7 +144,7 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 .scopebox span{font-size:12px;color:var(--ink2);line-height:1.65;}
 .scopebox strong{color:var(--ink);}
 /* ── Toast ── */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--shell);color:var(--ink);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;border-radius:3px;border:1px solid var(--rim1);box-shadow:0 8px 40px rgba(0,0,0,0.6);display:flex;align-items:center;gap:7px;z-index:200;pointer-events:none;white-space:nowrap;transition:transform .6s var(--sp);}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--shell);color:var(--ink);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;border-radius:3px;border:1px solid var(--rim1);box-shadow:0 8px 40px rgba(0,0,0,0.6);display:flex;align-items:center;gap:7px;z-index:200;pointer-events:none;white-space:nowrap;transition:transform .6s var(--sp);}
 .toast.show{transform:translateX(-50%) translateY(0);}
 .toast svg{width:13px;height:13px;color:var(--gold);}
 /* ── Overlay + Drawer ── */
@@ -151,45 +160,45 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 .dicon{width:44px;height:44px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--rim1);background:var(--space);}
 .dicon svg{width:22px;height:22px;}
 .dtitle-wrap{flex:1;}
-.dnum{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;}
+.dnum{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;}
 .dtitle{font-size:17px;font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:3px;}
 .dtagline{font-size:12px;color:var(--ink3);line-height:1.5;font-style:italic;}
-.dclose{width:28px;height:28px;border-radius:3px;background:var(--rim0);border:1px solid var(--rim1);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:background .5s,border-color .5s;}
+.dclose{width:44px;height:44px;border-radius:3px;background:var(--rim0);border:1px solid var(--rim1);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:background .5s,border-color .5s;}
 .dclose:hover{background:var(--rim1);border-color:var(--rim2);}
 .dclose svg{width:12px;height:12px;color:var(--ink2);}
 .dmeta{display:flex;gap:7px;flex-wrap:wrap;padding:10px 16px 0;}
-.mtag{display:inline-flex;align-items:center;gap:5px;background:var(--rim0);border:1px solid var(--rim0);border-radius:2px;padding:4px 9px;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);}
+.mtag{display:inline-flex;align-items:center;gap:5px;background:var(--rim0);border:1px solid var(--rim0);border-radius:2px;padding:4px 9px;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);}
 .mtag svg{width:11px;height:11px;color:var(--ink3);opacity:.55;}
 .dbody{flex:1;overflow-y:auto;padding:16px 16px 40px;-webkit-overflow-scrolling:touch;}
 .dbody::-webkit-scrollbar{width:0;}
 .dbody.anim{animation:dbodyIn .55s .14s var(--sp) both;}
 @keyframes dbodyIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 /* ── Drawer content ── */
-.ds{font-size:9px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--ink3);margin:22px 0 9px;display:flex;align-items:center;gap:10px;}
+.ds{font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--ink3);margin:22px 0 9px;display:flex;align-items:center;gap:10px;}
 .ds:first-child{margin-top:0;}
 .ds::after{content:'';flex:1;height:1px;background:var(--rim0);}
 .dp{font-size:13.5px;color:var(--ink2);line-height:1.78;margin-bottom:10px;}
 .dp:last-child{margin-bottom:0;}
 .dstep{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start;}
-.dsnum{width:22px;height:22px;border-radius:50%;border:1px solid var(--rim2);background:var(--space);color:var(--ink2);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.dsnum{width:22px;height:22px;border-radius:50%;border:1px solid var(--rim2);background:var(--space);color:var(--ink2);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
 .dstxt{font-size:13.5px;color:var(--ink2);line-height:1.72;flex:1;}
 .dbul{display:flex;gap:10px;margin-bottom:9px;align-items:flex-start;}
 .dbd{width:4px;height:4px;border-radius:50%;background:var(--cold);flex-shrink:0;margin-top:9px;opacity:.65;}
 .dbt{font-size:13.5px;color:var(--ink2);line-height:1.72;flex:1;}
 .dprompt{background:var(--cold1);border:1px solid var(--cold2);border-radius:5px;padding:13px 14px;margin:4px 0;}
-.dplabel{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--cold);margin-bottom:8px;}
+.dplabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--cold);margin-bottom:8px;}
 .dptext{font-size:13px;color:var(--ink2);font-style:italic;line-height:1.78;}
 .dnote{background:rgba(196,162,84,0.05);border:1px solid rgba(196,162,84,0.16);border-radius:5px;padding:13px 14px;margin:4px 0;}
-.dnlabel{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:8px;opacity:.85;}
+.dnlabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:8px;opacity:.85;}
 .dntext{font-size:13px;color:var(--ink2);line-height:1.78;}
 .dsci{background:rgba(61,127,168,0.06);border:1px solid rgba(61,127,168,0.14);border-radius:5px;padding:13px 14px;margin:4px 0;}
-.dscilabel{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--cold);margin-bottom:8px;opacity:.85;}
+.dscilabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--cold);margin-bottom:8px;opacity:.85;}
 .dscitext{font-size:13px;color:var(--ink2);line-height:1.78;}
 /* ── Scroll reveal ── */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .95s var(--sp),transform .95s var(--sp);}
 .reveal.in{opacity:1;transform:translateY(0);}
 /* ── Reset link ── */
-.ob-reset{display:block;margin:14px auto 0;background:none;border:none;color:var(--ink3);font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;padding:6px;transition:color .5s;}
+.ob-reset{display:block;margin:14px auto 0;background:none;border:none;color:var(--ink3);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;padding:6px;transition:color .5s;}
 .ob-reset:hover{color:var(--ink2);}
 /* ── Onboarding ── */
 .ob-overlay{position:fixed;inset:0;background:var(--void);z-index:300;display:none;flex-direction:column;width:100%;max-width:430px;left:50%;transform:translateX(-50%);}
@@ -199,16 +208,10 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 .ob-slides{display:flex;height:100%;width:100%;transition:transform .6s var(--sp);}
 .ob-slide{flex:0 0 100%;width:100%;padding:40px 32px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;box-sizing:border-box;}
 .ob-logo{height:130px;width:auto;mix-blend-mode:screen;margin-bottom:24px;}
-.ob-badge{display:inline-flex;align-items:center;gap:6px;background:var(--rim0);color:var(--ink3);font-size:8.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px solid var(--rim1);margin-bottom:14px;}
+.ob-badge{display:inline-flex;align-items:center;gap:6px;background:var(--rim0);color:var(--ink3);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px solid var(--rim1);margin-bottom:14px;}
 .ob-badge-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;box-shadow:0 0 5px var(--gold);}
 .ob-title{font-size:26px;font-weight:700;color:var(--ink);text-align:center;line-height:1.2;margin-bottom:12px;letter-spacing:-.01em;}
 .ob-sub{font-size:13.5px;color:var(--ink3);text-align:center;line-height:1.72;}
-.ob-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%;margin-top:22px;}
-.ob-card{background:var(--shell);border:1px solid var(--rim1);border-radius:5px;padding:14px 12px;display:flex;flex-direction:column;align-items:flex-start;gap:7px;}
-.ob-card-icon{width:34px;height:34px;border-radius:4px;display:flex;align-items:center;justify-content:center;background:var(--space);border:1px solid var(--rim1);}
-.ob-card-icon svg{width:17px;height:17px;}
-.ob-card-label{font-size:11.5px;font-weight:700;color:var(--ink);line-height:1.3;}
-.ob-card-desc{font-size:10.5px;color:var(--ink3);line-height:1.45;}
 .ob-list{width:100%;margin-top:22px;display:flex;flex-direction:column;gap:13px;}
 .ob-item{display:flex;gap:12px;align-items:flex-start;}
 .ob-rdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px;opacity:.65;}
@@ -223,10 +226,25 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
 .ob-btn{width:100%;padding:14px;background:var(--gold1);color:var(--gold);border:1px solid var(--gold2);border-radius:3px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:background .6s var(--sp),box-shadow .6s var(--sp);}
 .ob-btn:hover{background:rgba(196,162,84,0.18);box-shadow:0 0 22px rgba(196,162,84,0.09);}
 .ob-btn:active{opacity:.8;}
-.ob-skip{background:none;border:none;color:var(--ink3);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;padding:6px 8px;transition:color .5s;}
+.ob-skip{background:none;border:none;color:var(--ink3);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;padding:12px 14px;transition:color .5s;}
 .ob-skip:hover{color:var(--ink2);}
 /* ── ob-inner (fills overlay on mobile, becomes modal card on desktop) ── */
 .ob-inner{display:flex;flex-direction:column;flex:1;overflow:hidden;width:100%;}
+/* ── Onboarding feature list ── */
+.ob-feat-list{width:100%;margin-top:20px;display:flex;flex-direction:column;}
+.ob-feat{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--rim0);}
+.ob-feat:first-child{padding-top:0;}
+.ob-feat:last-child{border-bottom:none;}
+.ob-feat-num{font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--ink3);width:20px;flex-shrink:0;padding-top:3px;}
+.ob-feat-name{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:3px;line-height:1.25;}
+.ob-feat-desc{font-size:11.5px;color:var(--ink3);line-height:1.5;}
+.ob-feat:first-child .ob-feat-name{font-size:15px;color:var(--gold);}
+/* ── Button resets ── */
+button.tool-card{width:100%;font:inherit;text-align:left;}
+/* ── Focus visible ── */
+:focus-visible{outline:2px solid var(--cold);outline-offset:3px;border-radius:3px;}
+/* ── Screen reader only ── */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 /* ── Responsive: tablet ── */
 @media (min-width:640px){
   .app{max-width:680px;}
@@ -243,13 +261,13 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
     padding:28px 18px 20px;overflow:visible;}
   .logo-img{height:72px;margin-bottom:10px;}
   .header h1{font-size:15px;margin-bottom:3px;}
-  .header-sub{font-size:10.5px;margin-bottom:0;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-  .badge{font-size:7.5px;padding:3px 8px;margin-bottom:8px;}
+  .header-sub{font-size:11px;margin-bottom:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;}
+  .badge{font-size:10px;padding:3px 8px;margin-bottom:8px;}
   /* Help button: move below logo so it never overlaps */
   .help-btn{position:static;margin:10px auto 0;display:flex;}
   /* Sidebar tab nav */
   .tab-bar{grid-column:1;grid-row:2;flex-direction:column;border-bottom:none;border-right:1px solid var(--rim0);padding:12px 8px;gap:2px;overflow-y:auto;align-items:stretch;}
-  .tab-btn{flex:unset;flex-direction:row;gap:10px;justify-content:flex-start;padding:10px 14px;border-bottom:none;border-left:2px solid transparent;border-radius:4px;font-size:9px;transition:color .5s var(--sp),border-color .5s var(--sp),background .5s var(--sp);}
+  .tab-btn{flex:unset;flex-direction:row;gap:10px;justify-content:flex-start;padding:10px 14px;border-bottom:none;border-left:2px solid transparent;border-radius:4px;font-size:11px;transition:color .5s var(--sp),border-color .5s var(--sp),background .5s var(--sp);}
   .tab-btn.active{border-bottom-color:transparent;border-left-color:var(--gold);background:var(--rim0);}
   .tab-btn svg{width:16px;height:16px;}
   /* Main content */
@@ -257,40 +275,43 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
   #panel-tools{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;}
   #panel-tools .slabel,#panel-tools .scopebox{grid-column:1/-1;}
   #panel-tools .tool-card{margin-bottom:0;}
+  /* Toast: center within the content column, not the full viewport */
+  .toast{left:calc(130px + 50%);}
   /* Onboarding as centered modal */
   .ob-overlay{max-width:none;left:0;transform:none;background:rgba(5,7,13,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);align-items:center;justify-content:center;}
   .ob-inner{width:500px;max-height:88vh;background:var(--deep);border:1px solid var(--rim1);border-radius:6px;flex:unset;overflow:hidden;}
 }
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;}}
 </style>
 </head>
 <body>
 
 <div class="app">
-  <div class="header">
+  <header class="header">
     <div class="orb1"></div><div class="orb2"></div>
-    <button class="help-btn" onclick="obReplay()" title="Replay guide"><svg viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M7.5 5C6.7 5 6 5.6 6 6.4c0 .4.2.7.4.9L7.5 8.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="7.5" cy="10.5" r=".6" fill="currentColor"/></svg></button>
-    <img class="logo-img" src="oadlogo.jpg" alt="IAU Office of Astronomy for Development">
+    <button class="help-btn" onclick="obReplay()" title="Replay guide" aria-label="Replay guide"><svg viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M7.5 5C6.7 5 6 5.6 6 6.4c0 .4.2.7.4.9L7.5 8.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="7.5" cy="10.5" r=".6" fill="currentColor"/></svg></button>
+    <img class="logo-img" src="oadlogo.jpg" alt="IAU Office of Astronomy for Development" width="1280" height="1281" fetchpriority="high">
     <div class="badge"><span class="badge-dot"></span><span id="badge-text"></span></div>
     <h1 id="header-title"></h1>
     <p class="header-sub" id="header-sub"></p>
-  </div>
-  <div class="tab-bar" id="tab-bar"></div>
-  <div class="main">
-    <div id="panel-tools"   class="tab-panel active"></div>
-    <div id="panel-check"   class="tab-panel"></div>
-    <div id="panel-script"  class="tab-panel"></div>
-    <div id="panel-support" class="tab-panel"></div>
-  </div>
+  </header>
+  <nav class="tab-bar" id="tab-bar" role="tablist" aria-label="Sections"></nav>
+  <main class="main">
+    <div id="panel-tools" class="tab-panel active" role="tabpanel" aria-labelledby="tab-tools"></div>
+    <div id="panel-check" class="tab-panel" role="tabpanel" aria-labelledby="tab-check"></div>
+    <div id="panel-script" class="tab-panel" role="tabpanel" aria-labelledby="tab-script"></div>
+    <div id="panel-support" class="tab-panel" role="tabpanel" aria-labelledby="tab-support"></div>
+  </main>
 </div>
 
-<div class="ob-overlay" id="onboarding">
+<div class="ob-overlay" id="onboarding" role="dialog" aria-modal="true" aria-label="Getting started guide">
   <div class="ob-inner">
   <div class="ob-slides-wrap">
     <div class="ob-slides" id="ob-slides">
 
       <!-- Step 1: Welcome -->
       <div class="ob-slide">
-        <img class="ob-logo" src="oadlogo.jpg" alt="IAU OAD">
+        <img class="ob-logo" src="oadlogo.jpg" alt="IAU OAD" width="1280" height="1281">
         <div class="ob-badge"><span class="ob-badge-dot"></span>IAU OAD · Astronomy for Mental Health</div>
         <div class="ob-title">Facilitator's<br>Pocket Guide</div>
         <div class="ob-sub">Your in-session companion — designed to fit in your pocket and your practice.</div>
@@ -300,26 +321,22 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
       <div class="ob-slide">
         <div class="ob-title" style="align-self:flex-start;text-align:left;">What's inside</div>
         <div class="ob-sub" style="text-align:left;align-self:flex-start;">Four sections, everything you need for a safe and meaningful sky session.</div>
-        <div class="ob-grid">
-          <div class="ob-card">
-            <div class="ob-card-icon"><svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="5.5" stroke="#4a9478" stroke-width="1.6"/><circle cx="9" cy="9" r="2" stroke="#4a9478" stroke-width="1.4"/><path d="M9 3.5V2M9 16v-1.5M14.5 9H16M2 9h1.5" stroke="#4a9478" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-            <div class="ob-card-label">4 ACT Tools</div>
-            <div class="ob-card-desc">Sky-based Container, Orbit, Anchor &amp; Compass activities</div>
+        <div class="ob-feat-list">
+          <div class="ob-feat">
+            <div class="ob-feat-num">01</div>
+            <div><div class="ob-feat-name">4 ACT Tools</div><div class="ob-feat-desc">Sky-based Container, Orbit, Anchor &amp; Compass — the core activities for any session</div></div>
           </div>
-          <div class="ob-card">
-            <div class="ob-card-icon"><svg viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="12" height="12" rx="2.5" stroke="#3d7fa8" stroke-width="1.5"/><path d="M6.5 9L8.5 11L12 7" stroke="#3d7fa8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="ob-card-label">Checklist</div>
-            <div class="ob-card-desc">Stay in scope before and during every session</div>
+          <div class="ob-feat">
+            <div class="ob-feat-num">02</div>
+            <div><div class="ob-feat-name">Checklist</div><div class="ob-feat-desc">Stay in scope before and during every session</div></div>
           </div>
-          <div class="ob-card">
-            <div class="ob-card-icon"><svg viewBox="0 0 18 18" fill="none"><path d="M4 5.5h10M4 9h7M4 12.5h5" stroke="#c4a254" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-            <div class="ob-card-label">Script</div>
-            <div class="ob-card-desc">A three-step universal opening for any session</div>
+          <div class="ob-feat">
+            <div class="ob-feat-num">03</div>
+            <div><div class="ob-feat-name">Script</div><div class="ob-feat-desc">A three-step universal opening for any session</div></div>
           </div>
-          <div class="ob-card">
-            <div class="ob-card-icon"><svg viewBox="0 0 18 18" fill="none"><path d="M5 2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="#8070c0" stroke-width="1.5"/><path d="M7 7h4M7 10h3" stroke="#8070c0" stroke-width="1.3" stroke-linecap="round"/></svg></div>
-            <div class="ob-card-label">Support</div>
-            <div class="ob-card-desc">Local contacts &amp; IAU OAD resources at your fingertips</div>
+          <div class="ob-feat">
+            <div class="ob-feat-num">04</div>
+            <div><div class="ob-feat-name">Support</div><div class="ob-feat-desc">Local contacts &amp; IAU OAD resources at your fingertips</div></div>
           </div>
         </div>
       </div>
@@ -329,17 +346,17 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
         <div class="ob-title" style="align-self:flex-start;text-align:left;">Your role</div>
         <div class="ob-sub" style="text-align:left;align-self:flex-start;">You are a facilitator, not a clinician. The sky does the teaching — you make the looking possible.</div>
         <div class="ob-list">
-          <div class="ob-item"><div class="ob-rdot" style="background:#4a9478;"></div><div class="ob-item-text">Guide observations of the sky, not personal disclosures</div></div>
-          <div class="ob-item"><div class="ob-rdot" style="background:#3d7fa8;"></div><div class="ob-item-text">Let silence and the sky do the work — resist filling it</div></div>
-          <div class="ob-item"><div class="ob-rdot" style="background:#c4a254;"></div><div class="ob-item-text">Know the pivot phrase for when the weather turns heavy</div></div>
-          <div class="ob-item"><div class="ob-rdot" style="background:#8070c0;"></div><div class="ob-item-text">Have your local support contacts ready before you begin</div></div>
-          <div class="ob-item"><div class="ob-rdot" style="background:#5e7da8;"></div><div class="ob-item-text">This guide supports wellbeing promotion — not clinical practice</div></div>
+          <div class="ob-item"><div class="ob-rdot" style="background:var(--act-container);"></div><div class="ob-item-text">Guide observations of the sky, not personal disclosures</div></div>
+          <div class="ob-item"><div class="ob-rdot" style="background:var(--cold);"></div><div class="ob-item-text">Let silence and the sky do the work — resist filling it</div></div>
+          <div class="ob-item"><div class="ob-rdot" style="background:var(--gold);"></div><div class="ob-item-text">Know the pivot phrase for when the weather turns heavy</div></div>
+          <div class="ob-item"><div class="ob-rdot" style="background:var(--act-compass);"></div><div class="ob-item-text">Have your local support contacts ready before you begin</div></div>
+          <div class="ob-item"><div class="ob-rdot" style="background:var(--steel);"></div><div class="ob-item-text">This guide supports wellbeing promotion — not clinical practice</div></div>
         </div>
       </div>
 
       <!-- Step 4: Get started -->
       <div class="ob-slide">
-        <div class="ob-ready-icon"><svg viewBox="0 0 30 30" fill="none"><path d="M15 4L18 11.5H26L20 16.3L22.5 23.8L15 19.5L7.5 23.8L10 16.3L4 11.5H12L15 4Z" stroke="#E8A020" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <div class="ob-ready-icon"><svg viewBox="0 0 30 30" fill="none"><path d="M15 4L18 11.5H26L20 16.3L22.5 23.8L15 19.5L7.5 23.8L10 16.3L4 11.5H12L15 4Z" stroke="#c4a254" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
         <div class="ob-title">You're ready.</div>
         <div class="ob-sub">Fill in your local support contacts in the Support tab first — they are the foundation of safe facilitation.</div>
         <div class="ob-hint">This guide saves everything locally on your device.<br>No account required.</div>
@@ -355,12 +372,13 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
   </div>
 </div>
 
+<div id="a11y-live" aria-live="polite" class="sr-only"></div>
 <div class="toast" id="toast">
   <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5 6.5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   Saved to your device
 </div>
 <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
-<div class="drawer" id="drawer">
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dtitle">
   <div class="dhandle-row"><div class="dhandle"></div></div>
   <div class="dheader">
     <div class="dheader-inner">
@@ -370,7 +388,7 @@ body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,
         <div class="dtitle" id="dtitle"></div>
         <div class="dtagline" id="dtagline"></div>
       </div>
-      <button class="dclose" onclick="closeDrawer()"><svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+      <button class="dclose" id="dclose-btn" onclick="closeDrawer()" aria-label="Close"><svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
     </div>
     <div class="dmeta" id="dmeta"></div>
   </div>
@@ -408,32 +426,32 @@ const CONFIG = {
     label: 'The four ACT tools — tap any to open full activity',
     cards: [
       {
-        key: 'container', iconBg: '#0b1a14',
+        key: 'container', iconBg: 'var(--act-container-bg)',
         iconSvg: `<svg viewBox="0 0 22 22" fill="none"><path d="M11 3C7 3 4.5 6.5 4.5 10c0 5.5 6.5 9.5 6.5 9.5s6.5-4 6.5-9.5C17.5 6.5 15 3 11 3z" stroke="#4a9478" stroke-width="1.7"/><path d="M8.5 9.5C9 8 10 7 11 7s2 1 2.5 2.5" stroke="#4a9478" stroke-width="1.4" stroke-linecap="round"/></svg>`,
         name: 'Container · The Sky',
         desc: 'The vast, stable space that holds all weather without being changed by it. You are not your thoughts — you are the sky they pass through.',
-        tag: 'Self-as-context', tagBg: 'rgba(74,148,120,0.1)', tagColor: '#4a9478',
+        tag: 'Self-as-context', tagBg: 'var(--act-container1)', tagColor: 'var(--act-container)',
       },
       {
-        key: 'orbit', iconBg: '#0b1220',
+        key: 'orbit', iconBg: 'var(--act-orbit-bg)',
         iconSvg: `<svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7" stroke="#3d7fa8" stroke-width="1.6"/><circle cx="11" cy="11" r="2.2" stroke="#3d7fa8" stroke-width="1.3"/><path d="M11 4V2M11 20v-2M4 11H2M20 11h-2" stroke="#3d7fa8" stroke-width="1.3" stroke-linecap="round"/></svg>`,
         name: 'Orbit · The Distance',
         desc: 'Placing thoughts at a distance like objects crossing the sky — they can be watched rather than inhabited. A thought is not a fact.',
-        tag: 'Cognitive defusion', tagBg: 'rgba(61,127,168,0.1)', tagColor: '#3d7fa8',
+        tag: 'Cognitive defusion', tagBg: 'var(--cold1)', tagColor: 'var(--cold)',
       },
       {
-        key: 'anchor', iconBg: '#181208',
+        key: 'anchor', iconBg: 'var(--act-anchor-bg)',
         iconSvg: `<svg viewBox="0 0 22 22" fill="none"><path d="M11 2L13.2 8.5H20L14.4 12.3L16.6 18.8L11 15L5.4 18.8L7.6 12.3L2 8.5H8.8L11 2Z" stroke="#c4a254" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
         name: 'Anchor · The Now',
         desc: 'The sensory reality of the sky returns attention to the present moment — the only moment in which reflection and choice are possible.',
-        tag: 'Present moment', tagBg: 'rgba(196,162,84,0.1)', tagColor: '#c4a254',
+        tag: 'Present moment', tagBg: 'var(--gold1)', tagColor: 'var(--gold)',
       },
       {
-        key: 'compass', iconBg: '#120f22',
+        key: 'compass', iconBg: 'var(--act-compass-bg)',
         iconSvg: `<svg viewBox="0 0 22 22" fill="none"><path d="M11 3v16M11 3L7.5 8M11 3L14.5 8" stroke="#8070c0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 16.5h11" stroke="#8070c0" stroke-width="1.3" stroke-linecap="round"/></svg>`,
         name: 'Compass · The Values',
         desc: 'Guiding stars as personal values — fixed points of orientation in a changing world. Navigating by what matters rather than by avoiding discomfort.',
-        tag: 'Values &amp; action', tagBg: 'rgba(128,112,192,0.1)', tagColor: '#8070c0',
+        tag: 'Values &amp; action', tagBg: 'var(--act-compass1)', tagColor: 'var(--act-compass)',
       },
     ],
   },
@@ -476,11 +494,11 @@ const CONFIG = {
     },
     remindersLabel: 'Keep in mind',
     reminders: [
-      { color:'#3d7fa8', text:'Silence is not empty. It is where the work happens. Hold it without filling it.' },
-      { color:'#c4a254', text:'Your quality of presence matters more than perfect language. Be where you are.' },
-      { color:'#4a9478', text:'The sky does the teaching. Your role is to make the looking possible.' },
-      { color:'#8070c0', text:'You are not here to fix anyone. You are here to hold a space in which they can notice something.' },
-      { color:'#5e7da8', text:'Knowing your limits clearly is not a weakness. It is what makes the space safe.' },
+      { color:'var(--cold)', text:'Silence is not empty. It is where the work happens. Hold it without filling it.' },
+      { color:'var(--gold)', text:'Your quality of presence matters more than perfect language. Be where you are.' },
+      { color:'var(--act-container)', text:'The sky does the teaching. Your role is to make the looking possible.' },
+      { color:'var(--act-compass)', text:'You are not here to fix anyone. You are here to hold a space in which they can notice something.' },
+      { color:'var(--steel)', text:'Knowing your limits clearly is not a weakness. It is what makes the space safe.' },
     ],
   },
 
@@ -502,7 +520,7 @@ const CONFIG = {
     contactsIntro: 'Tap any field to fill in. Saves automatically to this device only.',
     contacts: [
       {
-        title:'Crisis / emergency line', sub:'Immediate mental health support', avatarBg:'#1e0a0a',
+        title:'Crisis / emergency line', sub:'Immediate mental health support', avatarBg:'var(--avatar-crisis)',
         avatarSvg:`<svg viewBox="0 0 20 20" fill="none"><path d="M7 2h6a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="white" stroke-width="1.4"/><path d="M7.5 7.5h5M7.5 10.5h4" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg>`,
         fields: [
           { id:'crisis-org',   label:'Organisation', type:'text', placeholder:'Add name…'             },
@@ -512,7 +530,7 @@ const CONFIG = {
         ],
       },
       {
-        title:'Counselling / community support', sub:'Ongoing mental health services', avatarBg:'#0a1c12',
+        title:'Counselling / community support', sub:'Ongoing mental health services', avatarBg:'var(--avatar-counsel)',
         avatarSvg:`<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7.5" r="3.5" stroke="white" stroke-width="1.4"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>`,
         fields: [
           { id:'counsel-org',   label:'Organisation', type:'text',  placeholder:'Add name…'           },
@@ -522,7 +540,7 @@ const CONFIG = {
         ],
       },
       {
-        title:'Your supervisor / mentor', sub:'Your first call when you are unsure', avatarBg:'#130f22',
+        title:'Your supervisor / mentor', sub:'Your first call when you are unsure', avatarBg:'var(--avatar-super)',
         avatarSvg:`<svg viewBox="0 0 20 20" fill="none"><path d="M10 2l2 6h6l-5 3.6L15 18l-5-3.6L5 18l2-6.4L2 8h6l2-6z" stroke="white" stroke-width="1.3" stroke-linejoin="round"/></svg>`,
         fields: [
           { id:'super-name',  label:'Name',  type:'text',  placeholder:'Add name…'  },
@@ -540,7 +558,7 @@ const CONFIG = {
     container: {
       num:'Activity 1', title:'The Sky and the Observer',
       tagline:'Helping participants locate the stable witnessing awareness they carry',
-      iconBg:'#0b1a14', nc:'#4a9478',
+      iconBg:'var(--act-container-bg)', nc:'var(--act-container)',
       iconSvg:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 3C8 3 5 7 5 11c0 6 7 10.5 7 10.5S19 17 19 11C19 7 16 3 12 3z" stroke="#4a9478" stroke-width="1.8"/><path d="M9 10.5C9.5 9 10.5 8 12 8s2.5 1 3 2.5" stroke="#4a9478" stroke-width="1.5" stroke-linecap="round"/></svg>`,
       meta:[
         { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'15–20 min' },
@@ -553,7 +571,7 @@ const CONFIG = {
     orbit: {
       num:'Activity 2', title:'Placing Thoughts in the Sky',
       tagline:'Gaining perspective on recurring thoughts by observing them from a distance',
-      iconBg:'#0b1220', nc:'#3d7fa8',
+      iconBg:'var(--act-orbit-bg)', nc:'var(--cold)',
       iconSvg:`<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#3d7fa8" stroke-width="1.8"/><circle cx="12" cy="12" r="2.5" stroke="#3d7fa8" stroke-width="1.5"/><path d="M12 4V2M12 22v-2M4 12H2M22 12h-2" stroke="#3d7fa8" stroke-width="1.4" stroke-linecap="round"/></svg>`,
       meta:[
         { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'15–20 min' },
@@ -566,7 +584,7 @@ const CONFIG = {
     anchor: {
       num:'Activity 3', title:'The Five-Sense Landing',
       tagline:'Grounding participants in the present moment through the sensory environment of the sky',
-      iconBg:'#181208', nc:'#c4a254',
+      iconBg:'var(--act-anchor-bg)', nc:'var(--gold)',
       iconSvg:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5L12 2Z" stroke="#c4a254" stroke-width="1.7" stroke-linejoin="round"/></svg>`,
       meta:[
         { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'10–15 min' },
@@ -579,14 +597,14 @@ const CONFIG = {
     compass: {
       num:'Activities 4 & 5', title:'Finding Your Guiding Stars',
       tagline:'Using cosmic perspective and the Narratives Booklet to reconnect with what matters most',
-      iconBg:'#120f22', nc:'#8070c0',
+      iconBg:'var(--act-compass-bg)', nc:'var(--act-compass)',
       iconSvg:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M12 3L8 9M12 3L16 9" stroke="#8070c0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 18h12" stroke="#8070c0" stroke-width="1.4" stroke-linecap="round"/></svg>`,
       meta:[
         { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'25–35 min' },
         { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'Any setting' },
         { ic:`<svg viewBox="0 0 12 12" fill="none"><rect x="1.5" y="2" width="9" height="7" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 11h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`, t:'Narratives booklet required' },
       ],
-      body:`<p class="ds">Purpose</p><p class="dp">This is the culminating activity of the sequence. It uses cosmic perspective and awe to move participants from reflection toward direction — from noticing what is, to considering what could be, and from awareness toward a clearer sense of the values that can guide them forward.</p><p class="dp">Just as sailors navigated by fixed stars, participants are invited to identify the values and commitments that can help them navigate the terrain of their own lives with greater intention. The Narratives Reference Booklet (Vertue, Mdhluli &amp; Ledimo, 2025) is the primary tool for opening this conversation.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Awe reliably produces the Small Self effect — reducing preoccupied self-referential thinking and increasing openness and meaning (Piff et al., 2015). The Overview Effect shows that viewing Earth at cosmic scale catalyses significant reorientations in values and priorities (Yaden et al., 2016). Values-guided behaviour is associated with greater meaning, resilience, and sustained wellbeing (Hayes et al., 2006).</div></div><p class="ds">Using the Narratives Booklet</p><p class="dp">Before the session, read through the booklet and select one narrative that feels most relevant to your group. Download at <a href="https://doi.org/10.5281/zenodo.16420872" target="_blank" style="color:#2B7A9E;font-weight:600;">doi.org/10.5281/zenodo.16420872</a></p><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Read it aloud.</strong> Slowly, with genuine attention. Allow silence before moving on.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Tell it in your own words.</strong> Once you know it well, share it conversationally. This feels more immediate.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Pair it with the sky.</strong> When outdoors, invite participants to look at the relevant part of the sky as you share the narrative.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Invite participants to share their own.</strong> In groups with indigenous sky traditions, open space for local stories after sharing from the booklet.</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">From a settled present state, briefly introduce the framing: navigators have used stars for orientation for thousands of years — not because the stars told them where to go, but because they provided a fixed point of reference in a changing world.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Share a narrative from the booklet. Read slowly, with silence after. Do not explain or direct its interpretation.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Offer three questions one at a time with two minutes of quiet between each. Participants may hold them internally, write, or draw.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Invite participants to choose one value and give it a name — their guiding star. Make it specific and personal. Not just "courage" but the kind of courage it takes to have an honest conversation.</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Invite each participant to name one small concrete step they could take in the coming week in the direction of their guiding star. Movement, not transformation.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Close by inviting participants to look up and acknowledge that the stars above them have been used for navigation for as long as human beings have been looking up.</div></div><p class="ds">The three reflection questions</p><div class="dprompt"><div class="dplabel">Hold these one at a time, with silence between each</div><div class="dptext">"What in that story felt true to something in your own life?"<br><br>"If you were to name two or three things you genuinely value — things you want your life to actually be about — what would they be?"<br><br>"If those values were stars you could navigate by, where would they be pointing you right now?"</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Values work can surface the recognition of a gap between where a person is and where they want to be. That gap is not evidence of failure — it is evidence of honesty, and honesty is the beginning of movement.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants find it hard to name what they value. Offer a simpler entry: think of a person you admire — what quality in them most draws you? That quality is often a window into a value they hold but have not yet claimed.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For collectivist communities: the guiding star can be a shared community value rather than only an individual one.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">Spend time with the Narratives Booklet before you use it — not just to select a narrative but to let the stories work on you. The narratives are most powerful when delivered by someone who has genuinely sat with them. Download: doi.org/10.5281/zenodo.16420872</div></div>`,
+      body:`<p class="ds">Purpose</p><p class="dp">This is the culminating activity of the sequence. It uses cosmic perspective and awe to move participants from reflection toward direction — from noticing what is, to considering what could be, and from awareness toward a clearer sense of the values that can guide them forward.</p><p class="dp">Just as sailors navigated by fixed stars, participants are invited to identify the values and commitments that can help them navigate the terrain of their own lives with greater intention. The Narratives Reference Booklet (Vertue, Mdhluli &amp; Ledimo, 2025) is the primary tool for opening this conversation.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Awe reliably produces the Small Self effect — reducing preoccupied self-referential thinking and increasing openness and meaning (Piff et al., 2015). The Overview Effect shows that viewing Earth at cosmic scale catalyses significant reorientations in values and priorities (Yaden et al., 2016). Values-guided behaviour is associated with greater meaning, resilience, and sustained wellbeing (Hayes et al., 2006).</div></div><p class="ds">Using the Narratives Booklet</p><p class="dp">Before the session, read through the booklet and select one narrative that feels most relevant to your group. Download at <a href="https://doi.org/10.5281/zenodo.16420872" target="_blank" rel="noopener noreferrer" style="color:var(--cold);font-weight:600;">doi.org/10.5281/zenodo.16420872<span class="sr-only"> (opens in new tab)</span></a></p><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Read it aloud.</strong> Slowly, with genuine attention. Allow silence before moving on.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Tell it in your own words.</strong> Once you know it well, share it conversationally. This feels more immediate.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Pair it with the sky.</strong> When outdoors, invite participants to look at the relevant part of the sky as you share the narrative.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Invite participants to share their own.</strong> In groups with indigenous sky traditions, open space for local stories after sharing from the booklet.</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">From a settled present state, briefly introduce the framing: navigators have used stars for orientation for thousands of years — not because the stars told them where to go, but because they provided a fixed point of reference in a changing world.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Share a narrative from the booklet. Read slowly, with silence after. Do not explain or direct its interpretation.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Offer three questions one at a time with two minutes of quiet between each. Participants may hold them internally, write, or draw.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Invite participants to choose one value and give it a name — their guiding star. Make it specific and personal. Not just "courage" but the kind of courage it takes to have an honest conversation.</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Invite each participant to name one small concrete step they could take in the coming week in the direction of their guiding star. Movement, not transformation.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Close by inviting participants to look up and acknowledge that the stars above them have been used for navigation for as long as human beings have been looking up.</div></div><p class="ds">The three reflection questions</p><div class="dprompt"><div class="dplabel">Hold these one at a time, with silence between each</div><div class="dptext">"What in that story felt true to something in your own life?"<br><br>"If you were to name two or three things you genuinely value — things you want your life to actually be about — what would they be?"<br><br>"If those values were stars you could navigate by, where would they be pointing you right now?"</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Values work can surface the recognition of a gap between where a person is and where they want to be. That gap is not evidence of failure — it is evidence of honesty, and honesty is the beginning of movement.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants find it hard to name what they value. Offer a simpler entry: think of a person you admire — what quality in them most draws you? That quality is often a window into a value they hold but have not yet claimed.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For collectivist communities: the guiding star can be a shared community value rather than only an individual one.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">Spend time with the Narratives Booklet before you use it — not just to select a narrative but to let the stories work on you. The narratives are most powerful when delivered by someone who has genuinely sat with them. Download: doi.org/10.5281/zenodo.16420872</div></div>`,
     },
 
   }, // end act
@@ -600,8 +618,8 @@ const CONFIG = {
 function disclaimer(){return`<div class="scopebox" style="margin-top:20px;">${INFO_ICON}<span>${CONFIG.support.scopeNote}</span></div>`;}
 
 const CHEV = `<span class="chev"><svg viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
-const CHECK_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="#15803d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const CROSS_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#b91c1c" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+const CHECK_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const CROSS_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
 const OAD_AVATAR = `<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.5"/><path d="M10 7v4l2.5 2" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>`;
 const INFO_ICON  = `<svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v4M8 11v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
 const SAVED_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -613,7 +631,7 @@ function renderAll() {
   document.getElementById('header-sub').textContent = H.sub;
 
   document.getElementById('tab-bar').innerHTML = CONFIG.tabs.map((t,i) =>
-    `<button class="tab-btn${i===0?' active':''}" onclick="switchTab('${t.id}',this)">${t.icon}${t.label}</button>`
+    `<button class="tab-btn${i===0?' active':''}" role="tab" id="tab-${t.id}" aria-selected="${i===0?'true':'false'}" aria-controls="panel-${t.id}" onclick="switchTab('${t.id}',this)">${t.icon}${t.label}</button>`
   ).join('');
 
   renderTools();
@@ -627,7 +645,7 @@ function renderTools() {
   document.getElementById('panel-tools').innerHTML =
     `<p class="slabel">${C.label}</p>` +
     C.cards.map(c =>
-      `<div class="tool-card" onclick="openDrawer('${c.key}')">
+      `<button class="tool-card" type="button" onclick="openDrawer('${c.key}')">
         <div class="tool-icon" style="background:${c.iconBg};">${c.iconSvg}</div>
         <div class="tool-r">
           <div class="tool-name">${c.name}</div>
@@ -637,7 +655,7 @@ function renderTools() {
             ${CHEV}
           </div>
         </div>
-      </div>`
+      </button>`
     ).join('') + disclaimer();
 }
 
@@ -685,8 +703,8 @@ function renderScript() {
      <div class="tc">
        <h3>${C.mission.title}</h3>
        <p>${C.mission.body}</p>
-       <input class="tinput" id="tonight-who" type="text" placeholder="${C.mission.whoPlaceholder}" autocomplete="off" oninput="saveField('tonight-who',this.value)">
-       <input class="tinput" id="tonight-when" type="text" placeholder="${C.mission.whenPlaceholder}" autocomplete="off" oninput="saveField('tonight-when',this.value)">
+       <input class="tinput" id="tonight-who" type="text" aria-label="${C.mission.whoPlaceholder}" placeholder="${C.mission.whoPlaceholder}" autocomplete="off" oninput="saveField('tonight-who',this.value)">
+       <input class="tinput" id="tonight-when" type="text" aria-label="${C.mission.whenPlaceholder}" placeholder="${C.mission.whenPlaceholder}" autocomplete="off" oninput="saveField('tonight-when',this.value)">
        <div class="trow">
          <button class="bsave" onclick="saveTonightMission()">${C.mission.btnLabel}</button>
          <div class="sconf" id="tonight-saved">${SAVED_ICON}Saved</div>
@@ -708,13 +726,13 @@ function renderSupport() {
     `<p class="slabel">${C.resourcesLabel}</p>
      <div class="rcard">
        <div class="rhead">
-         <div class="ravatar" style="background:#0a1220;">${OAD_AVATAR}</div>
+         <div class="ravatar" style="background:var(--avatar-oad);">${OAD_AVATAR}</div>
          <div><div class="rtitle">${C.oad.title}</div><div class="rsub">${C.oad.sub}</div></div>
        </div>
        ${C.oad.links.map(l =>
          `<div class="rfield">
            <span class="rlabel">${l.label}</span>
-           <span class="rval"><a href="${l.url}" target="_blank">${l.text}</a></span>
+           <span class="rval"><a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.text}<span class="sr-only"> (opens in new tab)</span></a></span>
          </div>`
        ).join('')}
      </div>
@@ -729,7 +747,7 @@ function renderSupport() {
          ${card.fields.map(f =>
            `<div class="rfield">
              <span class="rlabel">${f.label}</span>
-             <input class="finput" id="${f.id}" type="${f.type}" placeholder="${f.placeholder}" oninput="saveField('${f.id}',this.value);fi(this)" autocomplete="off">
+             <input class="finput" id="${f.id}" type="${f.type}" aria-label="${f.label}" placeholder="${f.placeholder}" oninput="saveField('${f.id}',this.value);fi(this)" autocomplete="off">
            </div>`
          ).join('')}
        </div>`
@@ -750,7 +768,10 @@ function saveField(k,v){const d=getData();d[k]=v;setData(d);showToast();}
 function fi(el){el.classList.toggle('filled',el.value.trim().length>0);}
 
 let tt;
-function showToast(){const t=document.getElementById('toast');t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1700);}
+function showToast(){
+  const t=document.getElementById('toast');t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1700);
+  const l=document.getElementById('a11y-live');if(l){l.textContent='';requestAnimationFrame(()=>{l.textContent='Saved to your device';});}
+}
 
 function saveTonightMission(){
   const d=getData();
@@ -775,13 +796,32 @@ function loadData(){
 
 function switchTab(id,btn){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false');});
   document.getElementById('panel-'+id).classList.add('active');
   btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
   document.querySelector('.main').scrollTo({top:0,behavior:'smooth'});
 }
 
+/* ── Focus trap ── */
+function trapFocus(el){
+  releaseFocus(el);
+  const sel='a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex="-1"])';
+  el._trap=function(e){
+    if(e.key!=='Tab')return;
+    const items=Array.from(el.querySelectorAll(sel)).filter(f=>f.offsetParent!==null);
+    if(!items.length)return;
+    const first=items[0],last=items[items.length-1];
+    if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus();}}
+    else{if(document.activeElement===last){e.preventDefault();first.focus();}}
+  };
+  el.addEventListener('keydown',el._trap);
+}
+function releaseFocus(el){if(el._trap){el.removeEventListener('keydown',el._trap);delete el._trap;}}
+
+let _drawerTrigger=null;
 function openDrawer(key){
+  _drawerTrigger=document.activeElement;
   const a=CONFIG.act[key]; if(!a) return;
   document.getElementById('dnum').textContent=a.num;
   document.getElementById('dnum').style.color=a.nc;
@@ -796,15 +836,19 @@ function openDrawer(key){
   db.scrollTop=0;
   void db.offsetWidth;
   db.classList.add('anim');
-  document.getElementById('drawer').classList.add('open');
+  const dr=document.getElementById('drawer');
+  dr.classList.add('open');
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow='hidden';
+  setTimeout(()=>{const b=document.getElementById('dclose-btn');if(b)b.focus();trapFocus(dr);},50);
 }
 
 function closeDrawer(){
+  releaseFocus(document.getElementById('drawer'));
   document.getElementById('drawer').classList.remove('open','dragging');
   document.getElementById('overlay').classList.remove('open');
   document.body.style.overflow='';
+  if(_drawerTrigger){_drawerTrigger.focus();_drawerTrigger=null;}
 }
 
 let ty=0,tst=0;
@@ -825,12 +869,13 @@ function obRender(){
   obDots();
   const btn=document.getElementById('ob-next');
   btn.textContent=obStep===OB_STEPS-1?'Enter the guide →':'Next';
-  document.getElementById('ob-skip').style.visibility=obStep===OB_STEPS-1?'hidden':'visible';
+  document.getElementById('ob-skip').style.display=obStep===OB_STEPS-1?'none':'';
 }
 function obNext(){
   if(obStep<OB_STEPS-1){obStep++;obRender();}else{obFinish();}
 }
 function obFinish(){
+  releaseFocus(document.getElementById('onboarding'));
   const d=getData();d.onboarded=true;setData(d);
   const el=document.getElementById('onboarding');
   el.classList.add('ob-hiding');
@@ -845,12 +890,14 @@ function obReplay(){
   el.classList.remove('ob-hiding');
   el.classList.add('ob-visible');
   obRender();
+  setTimeout(()=>{const b=document.getElementById('ob-next');if(b)b.focus();trapFocus(el);},50);
 }
 function obShow(){
   const d=getData();if(d.onboarded)return;
   const el=document.getElementById('onboarding');
   el.classList.add('ob-visible');
   obStep=0;obRender();
+  setTimeout(()=>{const b=document.getElementById('ob-next');if(b)b.focus();trapFocus(el);},50);
   // horizontal swipe
   let sx=0;
   el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
@@ -864,7 +911,7 @@ function obShow(){
 function renderStars(){
   const h=document.querySelector('.header');
   if(!h)return;
-  const W=430,H=220,N=110;
+  const W=h.offsetWidth||430,H=h.offsetHeight||220,N=110;
   let s=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;" aria-hidden="true">`;
   for(let i=0;i<N;i++){
     const x=Math.floor(Math.random()*W);

@@ -2,943 +2,2227 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#05070d">
-<title>Facilitator's Pocket Guide · IAU OAD</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#eaf6fb">
+<title>Astronomy for Mental Health Facilitator Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ── Tokens ── */
-:root {
-  --void:#05070d; --deep:#080c18; --space:#0b1120; --shell:#0f1829; --ridge:#141e32;
-  --rim0:rgba(90,140,190,0.07); --rim1:rgba(90,140,190,0.13); --rim2:rgba(90,140,190,0.28);
-  --glow:rgba(90,140,190,0.05);
-  --ink:#d4dde6; --ink2:rgba(180,200,218,0.85); --ink3:rgba(180,200,218,0.65);
-  --gold:#c4a254; --gold1:rgba(196,162,84,0.10); --gold2:rgba(196,162,84,0.22);
-  --cold:#3d7fa8; --cold1:rgba(61,127,168,0.09); --cold2:rgba(61,127,168,0.20);
-  --sp:cubic-bezier(0.16,1,0.3,1); --dr:cubic-bezier(0.25,0,0.1,1);
-  --act-container:#4a9478; --act-container-bg:#0b1a14; --act-container1:rgba(74,148,120,0.10);
-  --act-orbit-bg:#0b1220; --act-anchor-bg:#181208;
-  --act-compass:#8070c0; --act-compass-bg:#120f22; --act-compass1:rgba(128,112,192,0.10);
-  --steel:#5e7da8;
-  --ok:#5aad80; --ok-bg:rgba(40,90,60,0.14); --ok-border:rgba(60,140,90,0.2); --ok-icon-bg:rgba(40,90,60,0.18); --ok-icon-border:rgba(60,140,90,0.22); --ok-strong:#15803d;
-  --warn:#d08888; --warn-bg:rgba(90,30,30,0.14); --warn-border:rgba(160,60,60,0.2); --warn-icon-bg:rgba(90,30,30,0.18); --warn-icon-border:rgba(160,60,60,0.22); --warn-strong:#b91c1c;
-  --avatar-crisis:#1e0a0a; --avatar-counsel:#0a1c12; --avatar-super:#130f22; --avatar-oad:#0a1220;
+:root{
+  color-scheme:light;
+  --sky-50:oklch(98% .014 225);
+  --sky-100:oklch(95% .032 224);
+  --sky-200:oklch(89% .055 225);
+  --sky-500:oklch(61% .14 236);
+  --sky-700:oklch(43% .13 244);
+  --ink:oklch(25% .042 246);
+  --ink-soft:oklch(42% .04 248);
+  --muted:oklch(55% .035 245);
+  --paper:oklch(98% .01 90);
+  --paper-2:oklch(96% .018 105);
+  --line:oklch(84% .028 225);
+  --sun:oklch(82% .145 86);
+  --sun-soft:oklch(94% .065 88);
+  --leaf:oklch(58% .11 162);
+  --coral:oklch(70% .14 31);
+  --night:oklch(23% .055 250);
+  --night-2:oklch(29% .065 247);
+  --night-line:oklch(45% .055 246);
+  --radius-lg:30px;
+  --radius-md:20px;
+  --radius-sm:14px;
+  --shadow:0 20px 70px oklch(45% .08 235 / .16);
+  --ease:cubic-bezier(.16,1,.3,1);
 }
-/* ── Reset ── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{font-family:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--void);min-height:100vh;color:var(--ink);-webkit-font-smoothing:antialiased;}
-.app{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--deep);}
-/* ── Header ── */
-.header{background:var(--deep);padding:max(44px,env(safe-area-inset-top)) 20px 0;position:relative;overflow:hidden;border-bottom:1px solid var(--rim0);}
-.header::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 110%,rgba(61,127,168,0.07) 0%,transparent 70%);pointer-events:none;}
-.orb1{position:absolute;top:-70px;right:-50px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(61,127,168,0.05) 0%,transparent 70%);pointer-events:none;animation:orbFloat 14s cubic-bezier(0.45,0,0.55,1) infinite;}
-.orb2{position:absolute;bottom:-20px;left:-70px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(196,162,84,0.03) 0%,transparent 70%);pointer-events:none;animation:orbFloat 18s cubic-bezier(0.45,0,0.55,1) infinite 3s;}
-@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
-.logo-img{height:104px;width:auto;display:block;margin:0 auto 14px;mix-blend-mode:screen;position:relative;z-index:1;}
-.badge{display:inline-flex;align-items:center;gap:6px;background:var(--rim0);color:var(--ink3);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px solid var(--rim1);margin-bottom:10px;position:relative;z-index:1;}
-.badge-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;box-shadow:0 0 5px var(--gold);}
-.header h1{font-size:20px;font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:4px;position:relative;z-index:1;letter-spacing:-.01em;}
-.header-sub{font-size:12px;color:var(--ink3);line-height:1.6;margin-bottom:20px;position:relative;z-index:1;}
-.help-btn{position:absolute;top:max(14px,env(safe-area-inset-top));right:16px;width:44px;height:44px;border-radius:50%;background:var(--rim0);border:1px solid var(--rim1);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;transition:border-color .6s var(--sp),box-shadow .6s var(--sp);}
-.help-btn:hover{border-color:var(--rim2);box-shadow:0 0 14px var(--glow);}
-.help-btn svg{width:14px;height:14px;color:var(--ink3);transition:color .5s;}
-.help-btn:hover svg{color:var(--ink2);}
-/* ── Tab bar ── */
-.tab-bar{display:flex;background:var(--deep);padding:0 4px;border-bottom:1px solid var(--rim0);}
-.tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 2px 14px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);border:none;background:none;cursor:pointer;border-bottom:1px solid transparent;transition:color .55s var(--sp),border-color .55s var(--sp);}
-.tab-btn svg{width:17px;height:17px;opacity:.28;transition:opacity .55s var(--sp);}
-.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
-.tab-btn.active svg{opacity:.85;}
-/* ── Main ── */
-.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:22px 14px 90px;background:var(--deep);position:relative;z-index:3;}
-.main::-webkit-scrollbar{width:0;}
-.tab-panel{display:none;}
-.tab-panel.active{display:block;animation:panelIn .65s var(--sp) both;}
-@keyframes panelIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-/* ── Section labels ── */
-.slabel{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin:28px 0 12px;display:flex;align-items:center;gap:10px;}
-.slabel:first-child{margin-top:2px;}
-.slabel::after{content:'';flex:1;height:1px;background:var(--rim0);}
-/* ── Tool cards ── */
-.tool-card{background:var(--shell);border:1px solid var(--rim0);border-radius:5px;padding:16px 15px 14px;margin-bottom:8px;display:flex;gap:13px;align-items:flex-start;cursor:pointer;transition:border-color .7s var(--sp),box-shadow .7s var(--sp),transform .5s var(--sp);-webkit-user-select:none;user-select:none;}
-.tool-card:hover{border-color:var(--rim2);box-shadow:0 0 22px var(--glow),inset 0 0 0 1px var(--rim1);}
-.tool-card:active{transform:scale(0.989);}
-.tool-icon{width:44px;height:44px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--rim1);background:var(--space);}
-.tool-icon svg{width:22px;height:22px;}
-.tool-r{flex:1;min-width:0;}
-.tool-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;}
-.tool-desc{font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:10px;}
-.tool-foot{display:flex;align-items:center;justify-content:space-between;}
-.ttag{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:2px;letter-spacing:.1em;text-transform:uppercase;border:1px solid;}
-.chev svg{width:14px;height:14px;display:block;opacity:.3;}
-/* ── Checklist ── */
-.checklist{background:var(--shell);border:1px solid var(--rim0);border-radius:5px;overflow:hidden;}
-.cr{display:flex;align-items:center;gap:11px;padding:12px 14px;border-bottom:1px solid var(--rim0);}
-.cr:last-child{border-bottom:none;}
-.cicon{width:26px;height:26px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid;}
-.cicon svg{width:13px;height:13px;}
-.cicon.yes{background:var(--ok-icon-bg);border-color:var(--ok-icon-border);}
-.cicon.yes svg{color:var(--ok-strong);}
-.cicon.no{background:var(--warn-icon-bg);border-color:var(--warn-icon-border);}
-.cicon.no svg{color:var(--warn-strong);}
-.cq{flex:1;font-size:13px;color:var(--ink2);line-height:1.5;}
-.cpill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;flex-shrink:0;letter-spacing:.1em;text-transform:uppercase;border:1px solid;}
-.cpill.yes{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border);}
-.cpill.no{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border);}
-/* ── Pivot box ── */
-.pbox{background:var(--cold1);border:1px solid var(--cold2);border-radius:5px;padding:14px 15px;}
-.plabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--cold);margin-bottom:7px;}
-.ptext{font-size:13px;color:var(--ink2);font-style:italic;line-height:1.72;}
-/* ── Script steps ── */
-.sstep{display:flex;gap:0;position:relative;}
-.sleft{display:flex;flex-direction:column;align-items:center;width:42px;flex-shrink:0;}
-.snum{width:30px;height:30px;border-radius:50%;border:1px solid var(--rim2);background:var(--space);color:var(--ink2);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;}
-.sline{width:1px;flex:1;min-height:14px;background:var(--rim0);margin:4px 0;}
-.sstep:last-child .sline{display:none;}
-.sbody{flex:1;background:var(--shell);border:1px solid var(--rim0);border-radius:5px;padding:13px 14px;margin-bottom:10px;margin-left:5px;}
-.stitle{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:4px;}
-.ssub{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:8px;opacity:.85;}
-.squote{font-size:13px;color:var(--ink2);font-style:italic;line-height:1.72;padding-left:10px;}
-/* ── Tonight mission ── */
-.tc{background:var(--space);border:1px solid var(--rim1);border-radius:5px;padding:17px;}
-.tc h3{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:5px;}
-.tc p{font-size:12.5px;color:var(--ink2);line-height:1.6;margin-bottom:14px;}
-.tinput{width:100%;background:rgba(255,255,255,0.02);border:1px solid var(--rim1);border-radius:3px;padding:10px 12px;font-size:13px;color:var(--ink);font-family:inherit;margin-bottom:8px;outline:none;transition:border-color .6s var(--sp),box-shadow .6s var(--sp);}
-.tinput::placeholder{color:var(--ink3);}
-.tinput:focus{border-color:var(--gold2);box-shadow:0 0 0 1px var(--gold1);}
-.trow{display:flex;gap:8px;align-items:center;margin-top:2px;}
-.bsave{flex:1;padding:10px;background:var(--gold1);color:var(--gold);border:1px solid var(--gold2);border-radius:3px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:background .6s var(--sp),box-shadow .6s var(--sp);}
-.bsave:hover{background:rgba(196,162,84,0.18);box-shadow:0 0 16px rgba(196,162,84,0.09);}
-.bsave:active{opacity:.8;}
-.sconf{display:none;align-items:center;gap:5px;font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.06em;}
-.sconf.show{display:flex;}
-.sconf svg{width:14px;height:14px;}
-/* ── Reminders ── */
-.rem{display:flex;gap:12px;align-items:flex-start;background:var(--shell);border:1px solid var(--rim0);border-radius:5px;padding:12px 14px;margin-bottom:8px;}
-.rdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px;opacity:.65;}
-.rtext{font-size:13px;color:var(--ink2);line-height:1.6;}
-/* ── Support cards ── */
-.rcard{background:var(--shell);border:1px solid var(--rim0);border-radius:5px;overflow:hidden;margin-bottom:10px;}
-.rhead{display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid var(--rim0);}
-.ravatar{width:40px;height:40px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--rim1);background:var(--space);}
-.ravatar svg{width:20px;height:20px;}
-.rtitle{font-size:13px;font-weight:700;color:var(--ink);}
-.rsub{font-size:11px;color:var(--ink3);margin-top:2px;letter-spacing:.04em;}
-.rfield{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--rim0);gap:12px;}
-.rfield:last-child{border-bottom:none;}
-.rlabel{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);flex-shrink:0;}
-.rval{font-size:13px;color:var(--ink);text-align:right;}
-.rval a{color:var(--cold);text-decoration:none;font-weight:600;transition:color .5s;}
-.rval a:hover{color:#5aabcd;}
-.finput{text-align:right;background:none;border:none;border-bottom:1px solid var(--rim1);font-size:13px;color:var(--ink);font-family:inherit;padding:1px 3px;width:100%;max-width:185px;outline:none;transition:border-color .5s var(--sp);}
-.finput::placeholder{color:var(--ink3);font-style:italic;}
-.finput:focus{border-bottom-color:var(--cold);}
-.finput.filled{border-bottom-color:var(--rim0);}
-/* ── Scope box ── */
-.scopebox{background:rgba(196,162,84,0.04);border:1px solid rgba(196,162,84,0.14);border-radius:5px;padding:13px 14px;display:flex;gap:10px;align-items:flex-start;margin-top:6px;}
-.scopebox svg{width:14px;height:14px;color:var(--gold);flex-shrink:0;margin-top:1px;opacity:.7;}
-.scopebox span{font-size:12px;color:var(--ink2);line-height:1.65;}
-.scopebox strong{color:var(--ink);}
-/* ── Toast ── */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--shell);color:var(--ink);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;border-radius:3px;border:1px solid var(--rim1);box-shadow:0 8px 40px rgba(0,0,0,0.6);display:flex;align-items:center;gap:7px;z-index:200;pointer-events:none;white-space:nowrap;transition:transform .6s var(--sp);}
-.toast.show{transform:translateX(-50%) translateY(0);}
-.toast svg{width:13px;height:13px;color:var(--gold);}
-/* ── Overlay + Drawer ── */
-.overlay{position:fixed;inset:0;background:rgba(4,6,12,0.82);z-index:100;opacity:0;pointer-events:none;transition:opacity .55s var(--dr);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);}
-.overlay.open{opacity:1;pointer-events:all;}
-.drawer{position:fixed;left:50%;bottom:0;width:100%;max-width:430px;transform:translateX(-50%) translateY(100%);background:var(--deep);border-top:1px solid var(--rim1);border-radius:12px 12px 0 0;z-index:101;max-height:92vh;display:flex;flex-direction:column;transition:transform .6s var(--sp);box-shadow:0 -16px 60px rgba(0,0,0,0.6);}
-.drawer.open{transform:translateX(-50%) translateY(0);}
-.dhandle-row{display:flex;justify-content:center;padding:12px 0 6px;flex-shrink:0;}
-.dhandle{width:34px;height:3px;background:var(--rim1);border-radius:2px;transition:width .4s,background .4s;}
-.drawer.dragging .dhandle{width:50px;background:var(--rim2);}
-.dheader{padding:8px 16px 14px;flex-shrink:0;border-bottom:1px solid var(--rim0);}
-.dheader-inner{display:flex;align-items:flex-start;gap:12px;}
-.dicon{width:44px;height:44px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--rim1);background:var(--space);}
-.dicon svg{width:22px;height:22px;}
-.dtitle-wrap{flex:1;}
-.dnum{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;}
-.dtitle{font-size:17px;font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:3px;}
-.dtagline{font-size:12px;color:var(--ink3);line-height:1.5;font-style:italic;}
-.dclose{width:44px;height:44px;border-radius:3px;background:var(--rim0);border:1px solid var(--rim1);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:background .5s,border-color .5s;}
-.dclose:hover{background:var(--rim1);border-color:var(--rim2);}
-.dclose svg{width:12px;height:12px;color:var(--ink2);}
-.dmeta{display:flex;gap:7px;flex-wrap:wrap;padding:10px 16px 0;}
-.mtag{display:inline-flex;align-items:center;gap:5px;background:var(--rim0);border:1px solid var(--rim0);border-radius:2px;padding:4px 9px;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);}
-.mtag svg{width:11px;height:11px;color:var(--ink3);opacity:.55;}
-.dbody{flex:1;overflow-y:auto;padding:16px 16px 40px;-webkit-overflow-scrolling:touch;}
-.dbody::-webkit-scrollbar{width:0;}
-.dbody.anim{animation:dbodyIn .55s .14s var(--sp) both;}
-@keyframes dbodyIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-/* ── Drawer content ── */
-.ds{font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--ink3);margin:22px 0 9px;display:flex;align-items:center;gap:10px;}
-.ds:first-child{margin-top:0;}
-.ds::after{content:'';flex:1;height:1px;background:var(--rim0);}
-.dp{font-size:13.5px;color:var(--ink2);line-height:1.78;margin-bottom:10px;}
-.dp:last-child{margin-bottom:0;}
-.dstep{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start;}
-.dsnum{width:22px;height:22px;border-radius:50%;border:1px solid var(--rim2);background:var(--space);color:var(--ink2);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
-.dstxt{font-size:13.5px;color:var(--ink2);line-height:1.72;flex:1;}
-.dbul{display:flex;gap:10px;margin-bottom:9px;align-items:flex-start;}
-.dbd{width:4px;height:4px;border-radius:50%;background:var(--cold);flex-shrink:0;margin-top:9px;opacity:.65;}
-.dbt{font-size:13.5px;color:var(--ink2);line-height:1.72;flex:1;}
-.dprompt{background:var(--cold1);border:1px solid var(--cold2);border-radius:5px;padding:13px 14px;margin:4px 0;}
-.dplabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--cold);margin-bottom:8px;}
-.dptext{font-size:13px;color:var(--ink2);font-style:italic;line-height:1.78;}
-.dnote{background:rgba(196,162,84,0.05);border:1px solid rgba(196,162,84,0.16);border-radius:5px;padding:13px 14px;margin:4px 0;}
-.dnlabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:8px;opacity:.85;}
-.dntext{font-size:13px;color:var(--ink2);line-height:1.78;}
-.dsci{background:rgba(61,127,168,0.06);border:1px solid rgba(61,127,168,0.14);border-radius:5px;padding:13px 14px;margin:4px 0;}
-.dscilabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--cold);margin-bottom:8px;opacity:.85;}
-.dscitext{font-size:13px;color:var(--ink2);line-height:1.78;}
-/* ── Scroll reveal ── */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .95s var(--sp),transform .95s var(--sp);}
-.reveal.in{opacity:1;transform:translateY(0);}
-/* ── Reset link ── */
-.ob-reset{display:block;margin:14px auto 0;background:none;border:none;color:var(--ink3);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;padding:6px;transition:color .5s;}
-.ob-reset:hover{color:var(--ink2);}
-/* ── Onboarding ── */
-.ob-overlay{position:fixed;inset:0;background:var(--void);z-index:300;display:none;flex-direction:column;width:100%;max-width:430px;left:50%;transform:translateX(-50%);}
-.ob-overlay.ob-visible{display:flex;}
-.ob-overlay.ob-hiding{opacity:0;transition:opacity .7s var(--dr);pointer-events:none;}
-.ob-slides-wrap{flex:1;overflow:hidden;width:100%;}
-.ob-slides{display:flex;height:100%;width:100%;transition:transform .6s var(--sp);}
-.ob-slide{flex:0 0 100%;width:100%;padding:40px 32px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;box-sizing:border-box;}
-.ob-logo{height:130px;width:auto;mix-blend-mode:screen;margin-bottom:24px;}
-.ob-badge{display:inline-flex;align-items:center;gap:6px;background:var(--rim0);color:var(--ink3);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px solid var(--rim1);margin-bottom:14px;}
-.ob-badge-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;box-shadow:0 0 5px var(--gold);}
-.ob-title{font-size:26px;font-weight:700;color:var(--ink);text-align:center;line-height:1.2;margin-bottom:12px;letter-spacing:-.01em;}
-.ob-sub{font-size:13.5px;color:var(--ink3);text-align:center;line-height:1.72;}
-.ob-list{width:100%;margin-top:22px;display:flex;flex-direction:column;gap:13px;}
-.ob-item{display:flex;gap:12px;align-items:flex-start;}
-.ob-rdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px;opacity:.65;}
-.ob-item-text{font-size:13.5px;color:var(--ink2);line-height:1.62;}
-.ob-ready-icon{width:58px;height:58px;border-radius:50%;border:1px solid var(--gold2);background:var(--gold1);display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 0 28px rgba(196,162,84,0.07);}
-.ob-ready-icon svg{width:26px;height:26px;}
-.ob-hint{font-size:11px;color:var(--ink3);text-align:center;line-height:1.65;margin-top:16px;letter-spacing:.03em;}
-.ob-footer{padding:16px 32px max(24px,env(safe-area-inset-bottom)) 32px;display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0;}
-.ob-dots{display:flex;gap:6px;margin-bottom:2px;}
-.ob-dot-pip{width:6px;height:6px;border-radius:50%;background:var(--rim1);transition:background .5s var(--sp),width .5s var(--sp),border-radius .5s var(--sp);}
-.ob-dot-pip.active{background:var(--gold);width:18px;border-radius:3px;}
-.ob-btn{width:100%;padding:14px;background:var(--gold1);color:var(--gold);border:1px solid var(--gold2);border-radius:3px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:background .6s var(--sp),box-shadow .6s var(--sp);}
-.ob-btn:hover{background:rgba(196,162,84,0.18);box-shadow:0 0 22px rgba(196,162,84,0.09);}
-.ob-btn:active{opacity:.8;}
-.ob-skip{background:none;border:none;color:var(--ink3);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-family:inherit;padding:12px 14px;transition:color .5s;}
-.ob-skip:hover{color:var(--ink2);}
-/* ── ob-inner (fills overlay on mobile, becomes modal card on desktop) ── */
-.ob-inner{display:flex;flex-direction:column;flex:1;overflow:hidden;width:100%;}
-/* ── Onboarding feature list ── */
-.ob-feat-list{width:100%;margin-top:20px;display:flex;flex-direction:column;}
-.ob-feat{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--rim0);}
-.ob-feat:first-child{padding-top:0;}
-.ob-feat:last-child{border-bottom:none;}
-.ob-feat-num{font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--ink3);width:20px;flex-shrink:0;padding-top:3px;}
-.ob-feat-name{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:3px;line-height:1.25;}
-.ob-feat-desc{font-size:11.5px;color:var(--ink3);line-height:1.5;}
-.ob-feat:first-child .ob-feat-name{font-size:15px;color:var(--gold);}
-/* ── Button resets ── */
-button.tool-card{width:100%;font:inherit;text-align:left;}
-/* ── Focus visible ── */
-:focus-visible{outline:2px solid var(--cold);outline-offset:3px;border-radius:3px;}
-/* ── Screen reader only ── */
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-/* ── Responsive: tablet ── */
-@media (min-width:640px){
-  .app{max-width:680px;}
-  #panel-tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start;}
-  #panel-tools .slabel,#panel-tools .scopebox{grid-column:1/-1;}
-  #panel-tools .tool-card{margin-bottom:0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"Atkinson Hyperlegible",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  background:
+    radial-gradient(circle at 18% 8%,oklch(96% .06 91 / .9),transparent 24rem),
+    radial-gradient(circle at 80% 0%,oklch(88% .08 222 / .75),transparent 28rem),
+    linear-gradient(145deg,var(--sky-50),var(--sky-100) 44%,oklch(94% .03 175));
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
 }
-/* ── Responsive: desktop ── */
-@media (min-width:1024px){
-  body{overflow:hidden;}
-  .app{display:grid;grid-template-columns:260px 1fr;grid-template-rows:auto 1fr;max-width:1400px;height:100vh;margin:0 auto;}
-  /* Sidebar header — compact, nothing clips */
-  .header{grid-column:1;grid-row:1;border-bottom:none;border-right:1px solid var(--rim0);
-    padding:28px 18px 20px;overflow:visible;}
-  .logo-img{height:72px;margin-bottom:10px;}
-  .header h1{font-size:15px;margin-bottom:3px;}
-  .header-sub{font-size:11px;margin-bottom:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;}
-  .badge{font-size:10px;padding:3px 8px;margin-bottom:8px;}
-  /* Help button: move below logo so it never overlaps */
-  .help-btn{position:static;margin:10px auto 0;display:flex;}
-  /* Sidebar tab nav */
-  .tab-bar{grid-column:1;grid-row:2;flex-direction:column;border-bottom:none;border-right:1px solid var(--rim0);padding:12px 8px;gap:2px;overflow-y:auto;align-items:stretch;}
-  .tab-btn{flex:unset;flex-direction:row;gap:10px;justify-content:flex-start;padding:10px 14px;border-bottom:none;border-left:2px solid transparent;border-radius:4px;font-size:11px;transition:color .5s var(--sp),border-color .5s var(--sp),background .5s var(--sp);}
-  .tab-btn.active{border-bottom-color:transparent;border-left-color:var(--gold);background:var(--rim0);}
-  .tab-btn svg{width:16px;height:16px;}
-  /* Main content */
-  .main{grid-column:2;grid-row:1/3;height:100vh;padding:48px 52px 60px;overflow-y:auto;}
-  #panel-tools{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;}
-  #panel-tools .slabel,#panel-tools .scopebox{grid-column:1/-1;}
-  #panel-tools .tool-card{margin-bottom:0;}
-  /* Toast: center within the content column, not the full viewport */
-  .toast{left:calc(130px + 50%);}
-  /* Onboarding as centered modal */
-  .ob-overlay{max-width:none;left:0;transform:none;background:rgba(5,7,13,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);align-items:center;justify-content:center;}
-  .ob-inner{width:500px;max-height:88vh;background:var(--deep);border:1px solid var(--rim1);border-radius:6px;flex:unset;overflow:hidden;}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.app{
+  min-height:100vh;
+  max-width:1220px;
+  margin:0 auto;
+  padding:18px;
 }
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;}}
+.shell{
+  position:relative;
+  display:grid;
+  grid-template-columns:282px minmax(0,1fr);
+  gap:18px;
+}
+.sky-map{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.82;
+  background-image:
+    radial-gradient(circle at 12% 24%,oklch(62% .11 237 / .32) 0 1px,transparent 1.7px),
+    radial-gradient(circle at 38% 18%,oklch(86% .13 86 / .6) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 72% 32%,oklch(62% .11 237 / .3) 0 1px,transparent 1.7px),
+    radial-gradient(circle at 88% 14%,oklch(86% .13 86 / .52) 0 1px,transparent 1.8px);
+  overflow:hidden;
+}
+.sky-map::before{
+  content:"";
+  position:absolute;
+  width:48rem;
+  height:48rem;
+  right:-18rem;
+  top:-18rem;
+  border:1px solid oklch(68% .09 235 / .23);
+  border-radius:50%;
+  box-shadow:inset 0 0 0 5rem oklch(96% .02 220 / .12), inset 0 0 0 9rem oklch(96% .02 220 / .08);
+}
+.sky-map::after{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  background-image:
+    radial-gradient(circle,oklch(100% 0 0 / .78) 0 1px,transparent 1.6px),
+    radial-gradient(circle,oklch(86% .13 86 / .62) 0 1px,transparent 1.5px),
+    radial-gradient(circle,oklch(68% .09 235 / .52) 0 1.2px,transparent 1.8px);
+  background-size:132px 132px,214px 214px,318px 318px;
+  background-position:0 0,32px 74px,98px 24px;
+  opacity:.52;
+  animation:starDrift 56s linear infinite,starPulse 7s ease-in-out infinite;
+}
+@keyframes starDrift{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-132px,72px,0)}
+}
+@keyframes starPulse{
+  0%,100%{opacity:.42}
+  50%{opacity:.68}
+}
+.side{
+  position:sticky;
+  top:18px;
+  align-self:start;
+  min-height:calc(100vh - 36px);
+  display:flex;
+  flex-direction:column;
+  padding:18px;
+  border:1px solid oklch(92% .027 224);
+  border-radius:var(--radius-lg);
+  background:oklch(99% .008 96 / .86);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(16px);
+}
+.brand{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line);
+}
+.mark{
+  width:54px;
+  height:54px;
+  display:block;
+  overflow:hidden;
+  border-radius:18px;
+  background:oklch(10% .02 245);
+  border:1px solid oklch(66% .05 245);
+  box-shadow:0 10px 24px oklch(28% .08 245 / .18);
+}
+.mark img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center 34%;
+}
+.brand-kicker{
+  margin:0 0 2px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.brand-title{
+  margin:0;
+  font-size:16px;
+  line-height:1.15;
+}
+.nav{
+  display:grid;
+  gap:8px;
+  margin:18px 0;
+}
+.nav button{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  border:0;
+  border-radius:16px;
+  padding:12px;
+  color:var(--ink-soft);
+  background:transparent;
+  text-align:left;
+  transition:background .18s var(--ease),color .18s var(--ease),transform .18s var(--ease);
+}
+.nav button:hover{background:oklch(95% .024 222)}
+.nav button.active{
+  color:var(--ink);
+  background:linear-gradient(135deg,var(--sky-100),var(--paper));
+  box-shadow:inset 0 0 0 1px oklch(88% .04 224);
+}
+.nav svg{width:21px;height:21px;flex:0 0 auto}
+.nav span{
+  font-size:14px;
+  font-weight:700;
+}
+.side-card{
+  margin-top:auto;
+  padding:16px;
+  border-radius:22px;
+  color:oklch(93% .022 236);
+  background:
+    radial-gradient(circle at 82% 16%,oklch(78% .11 86 / .28),transparent 9rem),
+    linear-gradient(145deg,var(--night),var(--night-2));
+}
+.side-card p{margin:0 0 12px;color:oklch(82% .03 235);font-size:13px;line-height:1.55}
+.mode-toggle{
+  width:100%;
+  border:1px solid oklch(62% .06 240 / .55);
+  border-radius:14px;
+  padding:10px 12px;
+  color:oklch(96% .018 90);
+  background:oklch(96% .015 95 / .1);
+}
+.quick-mode{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:12px;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:oklch(98% .01 96 / .72);
+}
+.quick-mode span{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.quick-mode .mode-toggle{
+  width:auto;
+  color:var(--sky-700);
+  border-color:oklch(84% .04 226);
+  background:var(--sky-100);
+}
+.main{
+  position:relative;
+  min-width:0;
+}
+.hero{
+  position:relative;
+  min-height:390px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 320px;
+  gap:22px;
+  padding:32px;
+  border:1px solid oklch(92% .03 224);
+  border-radius:36px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 78% 18%,oklch(85% .11 85 / .52),transparent 12rem),
+    radial-gradient(circle at 18% 88%,oklch(79% .09 181 / .34),transparent 15rem),
+    linear-gradient(145deg,oklch(99% .01 95 / .94),oklch(94% .04 218 / .9));
+  box-shadow:var(--shadow);
+  transition:min-height .28s var(--ease),padding .28s var(--ease),border-radius .28s var(--ease);
+}
+.hero-toggle{
+  position:absolute;
+  top:18px;
+  right:18px;
+  z-index:2;
+  border:1px solid oklch(82% .04 226);
+  border-radius:999px;
+  padding:9px 12px;
+  color:var(--sky-700);
+  background:oklch(99% .01 95 / .78);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.04em;
+}
+.hero.collapsed{
+  min-height:0;
+  grid-template-columns:1fr;
+  padding:18px 20px;
+  border-radius:28px;
+}
+.hero.collapsed .official-brand,
+.hero.collapsed .hero-lede,
+.hero.collapsed .hero-actions,
+.hero.collapsed .hero-dashboard,
+.hero.collapsed .orbit-card{display:none}
+.hero.collapsed h1{
+  max-width:760px;
+  font-size:clamp(26px,3.4vw,42px);
+  line-height:1.02;
+}
+.hero.collapsed .eyebrow{margin-bottom:10px}
+.hero-copy{position:relative;z-index:1}
+.official-brand{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  margin:0 0 18px;
+  padding:8px 12px 8px 8px;
+  border:1px solid oklch(84% .04 226);
+  border-radius:22px;
+  background:oklch(99% .01 95 / .72);
+  color:var(--ink-soft);
+  box-shadow:0 10px 28px oklch(43% .08 232 / .08);
+}
+.official-brand img{
+  width:62px;
+  height:62px;
+  display:block;
+  object-fit:cover;
+  object-position:center 42%;
+  border-radius:17px;
+  background:oklch(10% .02 245);
+}
+.official-brand span{
+  display:block;
+  max-width:260px;
+  font-size:12px;
+  font-weight:700;
+  line-height:1.25;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin:0 0 18px;
+  padding:7px 11px;
+  border:1px solid oklch(84% .04 226);
+  border-radius:999px;
+  background:oklch(98% .01 95 / .7);
+  color:var(--sky-700);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.eyebrow::before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--sun);
+}
+h1{
+  max-width:720px;
+  margin:0;
+  font-size:clamp(36px,6.6vw,72px);
+  line-height:.96;
+  letter-spacing:-.06em;
+}
+.hero-lede{
+  max-width:640px;
+  margin:22px 0 0;
+  color:var(--ink-soft);
+  font-size:18px;
+  line-height:1.6;
+}
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:28px;
+}
+.hero-dashboard{
+  display:grid;
+  grid-template-columns:1fr 1.25fr;
+  gap:12px;
+  max-width:760px;
+  margin-top:22px;
+}
+.stat-card,.next-card{
+  padding:15px;
+  border:1px solid oklch(87% .035 225);
+  border-radius:22px;
+  background:oklch(99% .01 95 / .76);
+  box-shadow:0 12px 30px oklch(43% .08 232 / .08);
+}
+.stat-label,.next-label{
+  margin:0 0 8px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.stat-value{
+  display:flex;
+  align-items:baseline;
+  gap:7px;
+  margin:0 0 10px;
+  font-size:32px;
+  font-weight:700;
+  letter-spacing:-.04em;
+}
+.stat-value small{font-size:14px;color:var(--muted)}
+.progress-rail{
+  height:11px;
+  overflow:hidden;
+  border-radius:999px;
+  background:oklch(90% .032 224);
+}
+.progress-fill{
+  width:0%;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,var(--sky-500),var(--leaf),var(--sun));
+  transition:width .45s var(--ease);
+}
+.next-card h2{
+  margin:0 0 7px;
+  font-size:20px;
+  letter-spacing:-.03em;
+}
+.next-card p{
+  margin:0 0 12px;
+  color:var(--ink-soft);
+  line-height:1.5;
+}
+.next-card button{
+  border:0;
+  border-radius:14px;
+  padding:10px 12px;
+  color:oklch(98% .01 95);
+  background:var(--sky-700);
+  font-weight:700;
+}
+.btn{
+  border:0;
+  border-radius:16px;
+  padding:12px 16px;
+  font-weight:700;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease);
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:disabled{
+  cursor:not-allowed;
+  opacity:.48;
+  transform:none;
+}
+.btn-primary{
+  color:oklch(98% .01 95);
+  background:var(--sky-700);
+  box-shadow:0 12px 26px oklch(45% .13 244 / .22);
+}
+.btn-secondary{
+  color:var(--sky-700);
+  background:oklch(99% .01 95 / .78);
+  box-shadow:inset 0 0 0 1px oklch(84% .04 226);
+}
+.orbit-card{
+  position:relative;
+  min-height:310px;
+  align-self:center;
+  display:grid;
+  place-items:center;
+  border-radius:32px;
+  background:oklch(99% .009 95 / .5);
+  border:1px solid oklch(89% .034 226);
+}
+.orbit{
+  position:relative;
+  width:238px;
+  height:238px;
+  border:1px solid oklch(67% .08 233 / .32);
+  border-radius:50%;
+}
+.orbit::before,.orbit::after{
+  content:"";
+  position:absolute;
+  inset:34px;
+  border:1px solid oklch(67% .08 233 / .22);
+  border-radius:50%;
+}
+.orbit::after{
+  inset:76px;
+  background:radial-gradient(circle,var(--sun-soft),transparent 64%);
+}
+.planet{
+  position:absolute;
+  display:grid;
+  place-items:center;
+  width:74px;
+  height:74px;
+  border-radius:26px;
+  color:var(--ink);
+  background:var(--paper);
+  border:1px solid oklch(86% .035 225);
+  box-shadow:0 16px 38px oklch(45% .08 230 / .12);
+  font-size:12px;
+  font-weight:700;
+  text-align:center;
+}
+.planet:nth-child(1){left:-18px;top:26px}
+.planet:nth-child(2){right:-20px;top:58px}
+.planet:nth-child(3){left:84px;bottom:-20px}
+.section{
+  display:none;
+  margin-top:18px;
+}
+.section.active{display:block;animation:sectionIn .28s var(--ease) both}
+@keyframes sectionIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  align-items:end;
+  margin:28px 4px 16px;
+}
+.section-head h2{margin:0;font-size:30px;letter-spacing:-.04em}
+.section-head p{max-width:570px;margin:8px 0 0;color:var(--ink-soft);line-height:1.55}
+.flow-note{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin:0 0 16px;
+  padding:14px 16px;
+  border:1px solid oklch(86% .04 226);
+  border-radius:20px;
+  color:var(--ink-soft);
+  background:oklch(99% .01 95 / .72);
+  line-height:1.55;
+}
+.flow-note b{color:var(--ink)}
+.flow-note::before{
+  content:"";
+  width:10px;
+  height:10px;
+  flex:0 0 auto;
+  margin-top:7px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--sky-500),var(--sun));
+}
+.journey-strip{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:8px;
+  margin:0 0 16px;
+}
+.journey-step{
+  min-height:86px;
+  padding:12px;
+  border:1px solid oklch(88% .035 225);
+  border-radius:18px;
+  background:oklch(99% .01 95 / .72);
+  color:var(--ink-soft);
+  text-align:left;
+}
+.journey-step strong{
+  display:block;
+  margin-bottom:5px;
+  color:var(--ink);
+  font-size:13px;
+  line-height:1.25;
+}
+.journey-step span{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.journey-step.active{
+  border-color:oklch(72% .08 232);
+  background:linear-gradient(145deg,var(--sky-100),var(--paper));
+  color:var(--sky-700);
+  box-shadow:0 10px 26px oklch(43% .08 232 / .11);
+}
+.journey-step.done{
+  border-color:oklch(76% .08 160);
+  background:oklch(96% .035 160);
+}
+.update-pill{
+  flex:0 0 auto;
+  padding:8px 11px;
+  border-radius:999px;
+  background:var(--sun-soft);
+  color:oklch(38% .08 75);
+  font-size:12px;
+  font-weight:700;
+}
+.module-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.module{
+  position:relative;
+  min-height:250px;
+  padding:20px;
+  border:1px solid oklch(90% .03 224);
+  border-radius:26px;
+  background:oklch(99% .009 95 / .86);
+  box-shadow:0 14px 36px oklch(43% .08 232 / .1);
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease);
+}
+.module:hover{
+  transform:translateY(-3px);
+  border-color:oklch(78% .07 232);
+  box-shadow:0 20px 46px oklch(43% .08 232 / .14);
+}
+.module.done{background:linear-gradient(145deg,oklch(97% .03 165),oklch(99% .01 95))}
+.module.next{
+  border-color:oklch(78% .1 86);
+  background:
+    radial-gradient(circle at 90% 12%,oklch(89% .12 86 / .5),transparent 7rem),
+    oklch(99% .009 95 / .9);
+}
+.module-num{
+  display:inline-grid;
+  place-items:center;
+  width:36px;
+  height:36px;
+  margin-bottom:18px;
+  border-radius:14px;
+  background:var(--sky-100);
+  color:var(--sky-700);
+  font-weight:700;
+}
+.module h3{margin:0 0 9px;font-size:20px;letter-spacing:-.025em}
+.module p{margin:0;color:var(--ink-soft);font-size:14px;line-height:1.55}
+.module-status{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:12px;
+  padding:6px 9px;
+  border-radius:999px;
+  color:var(--sky-700);
+  background:var(--sky-100);
+  font-size:12px;
+  font-weight:700;
+}
+.module-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+.module-preview{
+  display:grid;
+  gap:7px;
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+}
+.module-preview span{
+  display:flex;
+  gap:8px;
+  color:var(--ink-soft);
+  font-size:13px;
+  line-height:1.45;
+}
+.module-preview span::before{
+  content:"";
+  width:7px;
+  height:7px;
+  flex:0 0 auto;
+  margin-top:6px;
+  border-radius:50%;
+  background:var(--sky-500);
+}
+.module-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+.module-open{
+  border:0;
+  border-radius:15px;
+  padding:10px 12px;
+  color:oklch(98% .01 95);
+  background:var(--sky-700);
+  font-weight:700;
+}
+.module-mark{
+  border:1px solid oklch(84% .032 224);
+  border-radius:15px;
+  padding:10px 12px;
+  color:var(--sky-700);
+  background:var(--sky-100);
+  font-weight:700;
+}
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 9px;
+  border-radius:999px;
+  background:oklch(95% .024 223);
+  color:var(--ink-soft);
+  font-size:12px;
+  font-weight:700;
+}
+.check{
+  position:absolute;
+  right:18px;
+  top:18px;
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border:0;
+  border-radius:12px;
+  color:var(--leaf);
+  background:oklch(94% .045 158);
+}
+.activity-list{
+  display:grid;
+  gap:13px;
+}
+.activity{
+  display:grid;
+  grid-template-columns:74px minmax(0,1fr) auto;
+  gap:18px;
+  align-items:center;
+  padding:18px;
+  border:1px solid oklch(90% .03 224);
+  border-radius:26px;
+  background:oklch(99% .009 95 / .9);
+  box-shadow:0 14px 36px oklch(43% .08 232 / .08);
+}
+.activity-icon{
+  height:74px;
+  border-radius:25px;
+  display:grid;
+  place-items:center;
+  color:var(--sky-700);
+  background:
+    radial-gradient(circle at 68% 32%,var(--sun) 0 4px,transparent 4.5px),
+    linear-gradient(145deg,var(--sky-100),var(--paper));
+  border:1px solid oklch(86% .04 224);
+}
+.activity-icon svg{width:34px;height:34px}
+.activity h3{margin:0 0 6px;font-size:20px;letter-spacing:-.025em}
+.activity p{margin:0;color:var(--ink-soft);line-height:1.55}
+.open-activity{
+  border:0;
+  border-radius:16px;
+  padding:10px 12px;
+  color:var(--sky-700);
+  background:var(--sky-100);
+  font-weight:700;
+}
+.toolkit{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:14px;
+}
+.panel{
+  padding:22px;
+  border:1px solid oklch(90% .03 224);
+  border-radius:28px;
+  background:oklch(99% .009 95 / .88);
+  box-shadow:0 14px 36px oklch(43% .08 232 / .08);
+}
+.panel h3{margin:0 0 14px;font-size:22px;letter-spacing:-.03em}
+.resources-panel{grid-column:1/-1}
+.resource-list{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.resource-card{
+  display:grid;
+  gap:10px;
+  min-height:168px;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  color:var(--ink);
+  background:oklch(98% .01 96);
+  text-decoration:none;
+  transition:transform .2s var(--ease),border-color .2s var(--ease),box-shadow .2s var(--ease);
+}
+.resource-card:hover{
+  transform:translateY(-2px);
+  border-color:oklch(74% .08 232);
+  box-shadow:0 14px 30px oklch(43% .08 232 / .12);
+}
+.resource-kind{
+  width:max-content;
+  padding:6px 9px;
+  border-radius:999px;
+  color:var(--sky-700);
+  background:var(--sky-100);
+  font-size:12px;
+  font-weight:700;
+}
+.resource-card b{font-size:17px;letter-spacing:-.02em}
+.resource-card span{color:var(--ink-soft);line-height:1.5}
+.resource-card small{
+  align-self:end;
+  color:var(--sky-700);
+  font-weight:700;
+}
+.boundary{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  gap:12px;
+  padding:13px 0;
+  border-top:1px solid var(--line);
+}
+.boundary:first-of-type{border-top:0}
+.boundary b{display:block;margin-bottom:3px}
+.boundary span{color:var(--ink-soft);line-height:1.5}
+.contact-grid{display:grid;gap:10px}
+.field{
+  display:grid;
+  gap:6px;
+}
+.field label{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.field span{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.field input,.field textarea{
+  width:100%;
+  border:1px solid oklch(84% .032 224);
+  border-radius:15px;
+  padding:11px 12px;
+  color:var(--ink);
+  background:oklch(98% .01 96);
+  outline:none;
+}
+.field textarea{min-height:116px;resize:vertical;line-height:1.5}
+.field input:focus,.field textarea:focus{
+  border-color:var(--sky-500);
+  box-shadow:0 0 0 4px oklch(78% .08 232 / .18);
+}
+.reflect-grid{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:14px;
+}
+.mission{
+  color:oklch(94% .02 235);
+  background:
+    radial-gradient(circle at 85% 12%,oklch(80% .11 86 / .22),transparent 12rem),
+    linear-gradient(145deg,var(--night),var(--night-2));
+  border-color:oklch(45% .055 246);
+}
+.mission h3{color:oklch(96% .018 90)}
+.mission .chip{
+  color:oklch(96% .018 90);
+  background:oklch(96% .015 95 / .14);
+  box-shadow:inset 0 0 0 1px oklch(72% .055 246 / .55);
+}
+.mission p{color:oklch(88% .026 235);line-height:1.6}
+.mission .field label,
+.mission .field span{
+  color:oklch(91% .034 86);
+}
+.mission input{
+  color:oklch(96% .018 90);
+  background:oklch(98% .012 96 / .14);
+  border-color:oklch(70% .055 246);
+}
+.mission input::placeholder{
+  color:oklch(78% .03 235);
+}
+.mission input:focus{
+  border-color:oklch(84% .12 86);
+  box-shadow:0 0 0 4px oklch(84% .12 86 / .16);
+}
+.session-mode .hero,
+.session-mode .module,
+.session-mode .activity,
+.session-mode .panel,
+.session-mode .side{
+  color:oklch(93% .02 235);
+  background:linear-gradient(145deg,var(--night),var(--night-2));
+  border-color:var(--night-line);
+}
+.session-mode body,
+body.session-mode{
+  background:
+    radial-gradient(circle at 20% 0%,oklch(45% .08 245 / .18),transparent 20rem),
+    linear-gradient(150deg,oklch(18% .05 250),oklch(24% .055 245));
+}
+.session-mode h1,.session-mode h2,.session-mode h3,.session-mode .brand-title{color:oklch(96% .018 90)}
+.session-mode p,.session-mode .hero-lede,.session-mode .module p,.session-mode .activity p,.session-mode .boundary span{color:oklch(80% .035 238)}
+.session-mode .nav button{color:oklch(82% .03 235)}
+.session-mode .nav button.active{background:oklch(96% .015 95 / .09)}
+.session-mode .field label,
+.session-mode .field span{color:oklch(88% .035 86)}
+.session-mode .field input,
+.session-mode .field textarea{
+  color:oklch(96% .018 90);
+  background:oklch(96% .015 95 / .1);
+  border-color:oklch(65% .05 246);
+}
+.session-mode .field input::placeholder,
+.session-mode .field textarea::placeholder{color:oklch(76% .03 235)}
+.session-mode .module-preview{border-color:var(--night-line)}
+.session-mode .module-preview span{color:oklch(80% .035 238)}
+.session-mode .stat-card,
+.session-mode .next-card,
+.session-mode .journey-step,
+.session-mode .drawer-summary,
+.session-mode .flow-note,
+.session-mode .resource-card{
+  color:oklch(93% .02 235);
+  background:oklch(96% .015 95 / .08);
+  border-color:var(--night-line);
+}
+.session-mode .stat-label,
+.session-mode .next-label,
+.session-mode .drawer-progress span,
+.session-mode .journey-step span{color:oklch(78% .03 235)}
+.session-mode .stat-value,
+.session-mode .next-card h2,
+.session-mode .journey-step strong{color:oklch(96% .018 90)}
+.session-mode .official-brand{
+  color:oklch(91% .018 90);
+  background:oklch(96% .015 95 / .08);
+  border-color:var(--night-line);
+}
+.session-mode .hero-toggle{
+  color:oklch(96% .018 90);
+  background:oklch(96% .015 95 / .1);
+  border-color:var(--night-line);
+}
+.session-mode .resource-card b{color:oklch(96% .018 90)}
+.session-mode .resource-card span{color:oklch(80% .035 238)}
+.session-mode .quick-mode{
+  border-color:var(--night-line);
+  background:oklch(96% .015 95 / .08);
+}
+.session-mode .quick-mode span{color:oklch(82% .03 235)}
+.session-mode .quick-mode .mode-toggle{
+  color:oklch(96% .018 90);
+  border-color:oklch(62% .06 240 / .55);
+  background:oklch(96% .015 95 / .1);
+}
+.drawer{
+  position:fixed;
+  inset:0 0 auto auto;
+  z-index:20;
+  width:min(620px,100%);
+  height:100vh;
+  transform:translateX(104%);
+  transition:transform .32s var(--ease);
+  padding:18px;
+  background:oklch(98% .012 96);
+  box-shadow:-20px 0 70px oklch(28% .05 245 / .22);
+  overflow:auto;
+}
+.drawer.open{transform:none}
+.drawer-head{
+  position:sticky;
+  top:0;
+  z-index:1;
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  align-items:start;
+  padding:0 0 16px;
+  background:linear-gradient(var(--paper),var(--paper));
+}
+.drawer h2{margin:6px 0 8px;font-size:34px;letter-spacing:-.045em}
+.drawer p{line-height:1.65;color:var(--ink-soft)}
+.drawer-summary{
+  display:grid;
+  gap:10px;
+  margin:2px 0 14px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:oklch(99% .008 96);
+}
+.drawer-summary p{margin:0}
+.drawer-progress{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.drawer-progress .progress-rail{flex:1}
+.drawer-progress span{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  white-space:nowrap;
+}
+.close{
+  border:0;
+  border-radius:14px;
+  width:42px;
+  height:42px;
+  background:var(--sky-100);
+  color:var(--sky-700);
+  font-weight:700;
+}
+.steps{
+  counter-reset:step;
+  display:grid;
+  gap:10px;
+  margin-top:18px;
+}
+.step{
+  counter-increment:step;
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  gap:12px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:oklch(99% .008 96);
+}
+.step::before{
+  content:counter(step);
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  color:var(--sky-700);
+  background:var(--sky-100);
+  font-weight:700;
+}
+.quote{
+  margin-top:16px;
+  padding:18px;
+  border-radius:22px;
+  color:oklch(34% .055 245);
+  background:var(--sun-soft);
+  line-height:1.7;
+}
+.lesson-progress{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:8px;
+  margin:12px 0 18px;
+}
+.lesson-progress button{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:10px;
+  color:var(--ink-soft);
+  background:oklch(99% .008 96);
+  text-align:left;
+  font-size:13px;
+  font-weight:700;
+  transition:background .18s var(--ease),border-color .18s var(--ease),transform .18s var(--ease);
+}
+.lesson-progress button:hover{transform:translateY(-1px);border-color:oklch(76% .07 232)}
+.lesson-progress button.active{
+  color:var(--sky-700);
+  border-color:oklch(72% .08 232);
+  background:var(--sky-100);
+}
+.lesson-block{
+  display:grid;
+  gap:12px;
+  padding:16px;
+  margin-top:12px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:oklch(99% .008 96);
+}
+.lesson-block h3{
+  margin:0;
+  font-size:20px;
+  letter-spacing:-.03em;
+}
+.lesson-block ul{
+  margin:0;
+  padding-left:20px;
+  color:var(--ink-soft);
+  line-height:1.65;
+}
+.lesson-section{
+  display:grid;
+  gap:9px;
+}
+.lesson-section-title{
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.lesson-checklist{
+  display:grid;
+  gap:8px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.lesson-checklist li{
+  position:relative;
+  padding:11px 12px 11px 42px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  color:var(--ink-soft);
+  background:oklch(98% .01 96);
+  line-height:1.55;
+}
+.lesson-checklist li::before{
+  content:"";
+  position:absolute;
+  left:13px;
+  top:13px;
+  width:18px;
+  height:18px;
+  border-radius:7px;
+  background:linear-gradient(135deg,var(--sky-500),var(--leaf));
+  box-shadow:inset 0 0 0 4px oklch(98% .01 96);
+}
+.lesson-two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.mini-panel{
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:oklch(98% .01 96);
+}
+.mini-panel b{
+  display:block;
+  margin-bottom:6px;
+  color:var(--ink);
+}
+.mini-panel p{
+  margin:0;
+  color:var(--ink-soft);
+  line-height:1.55;
+}
+.session-mode .lesson-block,
+.session-mode .step,
+.session-mode .lesson-progress button,
+.session-mode .lesson-checklist li,
+.session-mode .mini-panel{
+  color:oklch(82% .03 235);
+  background:oklch(96% .015 95 / .08);
+  border-color:var(--night-line);
+}
+.session-mode .mini-panel b,
+.session-mode .lesson-block h3{color:oklch(96% .018 90)}
+.session-mode .drawer{
+  color:oklch(93% .02 235);
+  background:linear-gradient(145deg,var(--night),var(--night-2));
+}
+.session-mode .drawer-head{background:linear-gradient(var(--night),var(--night))}
+.session-mode .drawer p{color:oklch(80% .035 238)}
+.lesson-prompt{
+  padding:14px;
+  border-radius:18px;
+  color:oklch(34% .055 245);
+  background:var(--sun-soft);
+  line-height:1.65;
+}
+.checkpoint{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:12px;
+  border-radius:16px;
+  background:oklch(95% .03 160);
+  color:oklch(34% .07 160);
+  font-weight:700;
+  line-height:1.45;
+}
+.checkpoint input{
+  width:20px;
+  height:20px;
+  margin-top:1px;
+}
+.drawer-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:18px 0;
+}
+.reflection-area{
+  width:100%;
+  min-height:120px;
+  border:1px solid oklch(84% .032 224);
+  border-radius:18px;
+  padding:12px;
+  color:var(--ink);
+  background:oklch(98% .01 96);
+  resize:vertical;
+  line-height:1.55;
+}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  z-index:40;
+  transform:translate(-50%,80px);
+  padding:11px 14px;
+  border-radius:999px;
+  color:oklch(96% .018 90);
+  background:var(--night);
+  box-shadow:0 12px 40px oklch(28% .05 245 / .28);
+  transition:transform .28s var(--ease);
+  font-size:13px;
+  font-weight:700;
+}
+.toast.show{transform:translate(-50%,0)}
+@media (max-width:940px){
+  .shell{grid-template-columns:1fr}
+  .side{position:relative;top:auto;min-height:auto}
+  .nav{grid-template-columns:repeat(5,minmax(0,1fr));overflow:auto}
+  .nav button{justify-content:center;flex-direction:column;gap:6px;padding:11px 8px}
+  .nav span{font-size:12px}
+  .nav svg{width:22px;height:22px}
+  .side-card{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-dashboard{grid-template-columns:1fr}
+  .orbit-card{display:none}
+  .module-grid,.toolkit,.reflect-grid{grid-template-columns:1fr}
+  .resource-list{grid-template-columns:1fr 1fr}
+  .journey-strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .app{padding:10px}
+  .side,.hero,.panel,.module,.activity{border-radius:22px}
+  .hero{padding:24px}
+  .section-head{display:block}
+  .module-grid{grid-template-columns:1fr}
+  .activity{grid-template-columns:54px minmax(0,1fr)}
+  .activity-icon{height:54px;border-radius:18px}
+  .open-activity{grid-column:1/-1}
+  .drawer{padding:14px}
+  .lesson-two-col{grid-template-columns:1fr}
+  .resource-list{grid-template-columns:1fr}
+  .journey-strip{grid-template-columns:1fr 1fr}
+  .nav{gap:5px}
+  .nav button{padding:10px 5px}
+  .nav span{font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
 </style>
 </head>
 <body>
-
+<div class="sky-map" aria-hidden="true"></div>
 <div class="app">
-  <header class="header">
-    <div class="orb1"></div><div class="orb2"></div>
-    <button class="help-btn" onclick="obReplay()" title="Replay guide" aria-label="Replay guide"><svg viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M7.5 5C6.7 5 6 5.6 6 6.4c0 .4.2.7.4.9L7.5 8.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="7.5" cy="10.5" r=".6" fill="currentColor"/></svg></button>
-    <img class="logo-img" src="oadlogo.jpg" alt="IAU Office of Astronomy for Development" width="1280" height="1281" fetchpriority="high">
-    <div class="badge"><span class="badge-dot"></span><span id="badge-text"></span></div>
-    <h1 id="header-title"></h1>
-    <p class="header-sub" id="header-sub"></p>
-  </header>
-  <nav class="tab-bar" id="tab-bar" role="tablist" aria-label="Sections"></nav>
-  <main class="main">
-    <div id="panel-tools" class="tab-panel active" role="tabpanel" aria-labelledby="tab-tools"></div>
-    <div id="panel-check" class="tab-panel" role="tabpanel" aria-labelledby="tab-check"></div>
-    <div id="panel-script" class="tab-panel" role="tabpanel" aria-labelledby="tab-script"></div>
-    <div id="panel-support" class="tab-panel" role="tabpanel" aria-labelledby="tab-support"></div>
-  </main>
-</div>
-
-<div class="ob-overlay" id="onboarding" role="dialog" aria-modal="true" aria-label="Getting started guide">
-  <div class="ob-inner">
-  <div class="ob-slides-wrap">
-    <div class="ob-slides" id="ob-slides">
-
-      <!-- Step 1: Welcome -->
-      <div class="ob-slide">
-        <img class="ob-logo" src="oadlogo.jpg" alt="IAU OAD" width="1280" height="1281">
-        <div class="ob-badge"><span class="ob-badge-dot"></span>IAU OAD · Astronomy for Mental Health</div>
-        <div class="ob-title">Facilitator's<br>Pocket Guide</div>
-        <div class="ob-sub">Your in-session companion — designed to fit in your pocket and your practice.</div>
-      </div>
-
-      <!-- Step 2: What's inside -->
-      <div class="ob-slide">
-        <div class="ob-title" style="align-self:flex-start;text-align:left;">What's inside</div>
-        <div class="ob-sub" style="text-align:left;align-self:flex-start;">Four sections, everything you need for a safe and meaningful sky session.</div>
-        <div class="ob-feat-list">
-          <div class="ob-feat">
-            <div class="ob-feat-num">01</div>
-            <div><div class="ob-feat-name">4 ACT Tools</div><div class="ob-feat-desc">Sky-based Container, Orbit, Anchor &amp; Compass — the core activities for any session</div></div>
-          </div>
-          <div class="ob-feat">
-            <div class="ob-feat-num">02</div>
-            <div><div class="ob-feat-name">Checklist</div><div class="ob-feat-desc">Stay in scope before and during every session</div></div>
-          </div>
-          <div class="ob-feat">
-            <div class="ob-feat-num">03</div>
-            <div><div class="ob-feat-name">Script</div><div class="ob-feat-desc">A three-step universal opening for any session</div></div>
-          </div>
-          <div class="ob-feat">
-            <div class="ob-feat-num">04</div>
-            <div><div class="ob-feat-name">Support</div><div class="ob-feat-desc">Local contacts &amp; IAU OAD resources at your fingertips</div></div>
-          </div>
+  <div class="shell">
+    <aside class="side" aria-label="Training navigation">
+      <div class="brand">
+        <div class="mark" aria-hidden="true">
+          <img src="oadlogo.jpg" alt="">
+        </div>
+        <div>
+          <p class="brand-kicker">IAU OAD</p>
+          <p class="brand-title">Astronomy for Mental Health</p>
         </div>
       </div>
+      <nav class="nav" id="nav"></nav>
+      <div class="quick-mode">
+        <span>Low light</span>
+        <button class="mode-toggle" id="modeToggle">Session mode</button>
+      </div>
+      <div class="side-card">
+        <p><b>Session-ready mode</b><br>Switch to a low-light surface when you are facilitating under the sky.</p>
+        <button class="mode-toggle" id="modeToggleLarge">Use session-ready mode</button>
+      </div>
+    </aside>
 
-      <!-- Step 3: Your role -->
-      <div class="ob-slide">
-        <div class="ob-title" style="align-self:flex-start;text-align:left;">Your role</div>
-        <div class="ob-sub" style="text-align:left;align-self:flex-start;">You are a facilitator, not a clinician. The sky does the teaching — you make the looking possible.</div>
-        <div class="ob-list">
-          <div class="ob-item"><div class="ob-rdot" style="background:var(--act-container);"></div><div class="ob-item-text">Guide observations of the sky, not personal disclosures</div></div>
-          <div class="ob-item"><div class="ob-rdot" style="background:var(--cold);"></div><div class="ob-item-text">Let silence and the sky do the work — resist filling it</div></div>
-          <div class="ob-item"><div class="ob-rdot" style="background:var(--gold);"></div><div class="ob-item-text">Know the pivot phrase for when the weather turns heavy</div></div>
-          <div class="ob-item"><div class="ob-rdot" style="background:var(--act-compass);"></div><div class="ob-item-text">Have your local support contacts ready before you begin</div></div>
-          <div class="ob-item"><div class="ob-rdot" style="background:var(--steel);"></div><div class="ob-item-text">This guide supports wellbeing promotion — not clinical practice</div></div>
+    <main class="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <button class="hero-toggle" id="heroToggle" aria-expanded="true">Collapse intro</button>
+        <div class="hero-copy">
+          <div class="official-brand">
+            <img src="oadlogo.jpg" alt="Office of Astronomy for Development logo">
+            <span>Office of Astronomy for Development</span>
+          </div>
+          <p class="eyebrow">Facilitator training app</p>
+          <h1 id="hero-title">Train to guide safe, sky-based reflection.</h1>
+          <p class="hero-lede">Move from foundation, to practice, to first facilitation. The app keeps the theory, scripts, activities, resources, and reflection tools in one calm pathway.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-jump="learn">Continue training</button>
+            <button class="btn btn-secondary" data-jump="practice">Open activities</button>
+          </div>
+          <div class="hero-dashboard" id="heroDashboard"></div>
         </div>
-      </div>
+        <div class="orbit-card" aria-hidden="true">
+          <div class="orbit">
+            <div class="planet">Learn</div>
+            <div class="planet">Practice</div>
+            <div class="planet">Reflect</div>
+          </div>
+        </div>
+      </section>
 
-      <!-- Step 4: Get started -->
-      <div class="ob-slide">
-        <div class="ob-ready-icon"><svg viewBox="0 0 30 30" fill="none"><path d="M15 4L18 11.5H26L20 16.3L22.5 23.8L15 19.5L7.5 23.8L10 16.3L4 11.5H12L15 4Z" stroke="#c4a254" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
-        <div class="ob-title">You're ready.</div>
-        <div class="ob-sub">Fill in your local support contacts in the Support tab first — they are the foundation of safe facilitation.</div>
-        <div class="ob-hint">This guide saves everything locally on your device.<br>No account required.</div>
-      </div>
+      <section class="section active" id="home">
+        <div class="section-head">
+          <div>
+            <h2>Today&apos;s pathway</h2>
+            <p>Follow the sequence from understanding the role to guiding a real five-minute sky check-in. Each step builds confidence without asking you to become a clinician.</p>
+          </div>
+          <span class="update-pill">Content updated from training v1</span>
+        </div>
+        <div class="flow-note"><span><b>Recommended route:</b> complete the first three modules before opening the activity guides. They establish the boundary, evidence, and safety frame that make the practices work well.</span></div>
+        <div class="journey-strip" id="journeyStrip"></div>
+        <div class="module-grid" id="homeModules"></div>
+      </section>
 
+      <section class="section" id="learn">
+        <div class="section-head">
+          <div>
+            <h2>Training modules</h2>
+            <p>Work through the facilitator&apos;s internal map: scope, science, safety, script, activities, and adaptation. Keep the theory inside you so the session can stay simple.</p>
+          </div>
+          <span class="update-pill">6 modules</span>
+        </div>
+        <div class="flow-note"><span><b>How to use this section:</b> open the recommended module, complete each lesson checkpoint, and leave one reflection note before moving on.</span></div>
+        <div class="module-grid" id="learnModules"></div>
+      </section>
+
+      <section class="section" id="practice">
+        <div class="section-head">
+          <div>
+            <h2>Practice activities</h2>
+            <p>Use these cards after the training modules, or during a real session. Each card is structured for quick facilitation: purpose, setup, steps, language, and watch-fors.</p>
+          </div>
+          <span class="update-pill">5 activities</span>
+        </div>
+        <div class="flow-note"><span><b>Facilitation sequence:</b> arrive first, widen perspective second, then invite values or action. If the group becomes unsettled, return to the Five-Sense Landing.</span></div>
+        <div class="activity-list" id="activityList"></div>
+      </section>
+
+      <section class="section" id="toolkit">
+        <div class="section-head">
+          <div>
+            <h2>Facilitator toolkit</h2>
+            <p>Prepare the safety layer before you facilitate. Confirm your boundaries, add local support contacts, and keep core programme resources close at hand.</p>
+          </div>
+          <span class="update-pill">Editable contacts</span>
+        </div>
+        <div class="flow-note"><span><b>Before any session:</b> complete the support contacts, review the care boundaries, and open the relevant programme resources if you need to brief a host organisation.</span></div>
+        <div class="toolkit">
+          <div class="panel">
+            <h3>Care boundaries</h3>
+            <div id="boundaries"></div>
+          </div>
+          <div class="panel">
+            <h3>Local support contacts</h3>
+            <div class="contact-grid">
+              <div class="field"><label for="crisis">Crisis or emergency line</label><input id="crisis" placeholder="Organisation, number, hours"></div>
+              <div class="field"><label for="community">Counselling or community support</label><input id="community" placeholder="Organisation, referral path"></div>
+              <div class="field"><label for="mentor">Supervisor or mentor</label><input id="mentor" placeholder="Name and contact"></div>
+            </div>
+          </div>
+          <div class="panel resources-panel">
+            <h3>Resource library</h3>
+            <div class="resource-list" id="resourceList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="reflect">
+        <div class="section-head">
+          <div>
+            <h2>Reflect and begin</h2>
+            <p>Close the training by naming a real first practice moment. Afterward, record what worked, what felt difficult, and what you would adjust.</p>
+          </div>
+          <span class="update-pill">Tonight Mission</span>
+        </div>
+        <div class="flow-note"><span><b>Completion step:</b> a named person, time, and place turns intention into practice. Keep the first check-in short, safe, and simple.</span></div>
+        <div class="reflect-grid">
+          <div class="panel mission">
+            <span class="chip">Commitment</span>
+            <h3>Your Tonight Mission</h3>
+            <p>Choose one person or small group you will lead through a five-minute sky check-in within twenty-four hours.</p>
+            <div class="field"><label for="missionWho">Who will you invite?</label><input id="missionWho" placeholder="Name or group"></div>
+            <div class="field"><label for="missionWhen">When and where?</label><input id="missionWhen" placeholder="Time and setting"></div>
+          </div>
+          <div class="panel">
+            <h3>Post-session reflection</h3>
+            <div class="field"><label for="worked">What worked?</label><textarea id="worked" placeholder="Notice what helped the group settle, look, or reflect."></textarea></div>
+            <div class="field"><label for="difficult">What felt difficult?</label><textarea id="difficult" placeholder="Name uncertainty without judging it. This is practice data."></textarea></div>
+            <div class="field"><label for="adjust">What would you adjust?</label><textarea id="adjust" placeholder="One concrete change for next time."></textarea></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawerTitle">
+  <div class="drawer-head">
+    <div>
+      <span class="chip" id="drawerMeta"></span>
+      <h2 id="drawerTitle"></h2>
     </div>
+    <button class="close" id="closeDrawer" aria-label="Close activity">X</button>
   </div>
-  <div class="ob-footer">
-    <div class="ob-dots" id="ob-dots"></div>
-    <button class="ob-btn" id="ob-next" onclick="obNext()">Next</button>
-    <button class="ob-skip" id="ob-skip" onclick="obFinish()">Skip</button>
-  </div>
-  </div>
-</div>
-
-<div id="a11y-live" aria-live="polite" class="sr-only"></div>
-<div class="toast" id="toast">
-  <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5 6.5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  Saved to your device
-</div>
-<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
-<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dtitle">
-  <div class="dhandle-row"><div class="dhandle"></div></div>
-  <div class="dheader">
-    <div class="dheader-inner">
-      <div class="dicon" id="dicon"></div>
-      <div class="dtitle-wrap">
-        <div class="dnum" id="dnum"></div>
-        <div class="dtitle" id="dtitle"></div>
-        <div class="dtagline" id="dtagline"></div>
-      </div>
-      <button class="dclose" id="dclose-btn" onclick="closeDrawer()" aria-label="Close"><svg viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-    </div>
-    <div class="dmeta" id="dmeta"></div>
-  </div>
-  <div class="dbody" id="dbody"></div>
-</div>
+  <div id="drawerBody"></div>
+</aside>
+<div class="toast" id="toast">Saved to this device</div>
 
 <script>
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CONFIG — edit all text content here
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const icons={
+  home:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 11.2 12 4.8l8 6.4V20a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1v-8.8Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>',
+  learn:'<svg viewBox="0 0 24 24" fill="none"><path d="M5 5.8c3.8-1.6 7-1.2 7 1.4v12.1c0-2.6-3.2-3-7-1.4V5.8Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M19 5.8c-3.8-1.6-7-1.2-7 1.4v12.1c0-2.6 3.2-3 7-1.4V5.8Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8 9.5h1.9M15 9.5h1.9M8 12.7h2.4M14.6 12.7H17" stroke="currentColor" stroke-width="1.45" stroke-linecap="round"/></svg>',
+  practice:'<svg viewBox="0 0 24 24" fill="none"><path d="m5 18 5.3-5.3M11.2 11.8l6.5-6.5 1.9 1.9-6.5 6.5-1.9-1.9Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="m8.2 14.8 3 3M14.8 8.2l3 3" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"/><circle cx="18.8" cy="5.2" r="1.5" fill="currentColor"/><path d="M5.5 20h11" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>',
+  toolkit:'<svg viewBox="0 0 24 24" fill="none"><path d="M8 7V5.8C8 4.8 8.8 4 9.8 4h4.4c1 0 1.8.8 1.8 1.8V7" stroke="currentColor" stroke-width="1.9"/><rect x="4" y="7" width="16" height="13" rx="3" stroke="currentColor" stroke-width="1.9"/><path d="M4 12h16M10 12v2h4v-2" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  reflect:'<svg viewBox="0 0 24 24" fill="none"><path d="M6 4.5h9.5L19 8v11.5H6v-15Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M15.5 4.5V8H19M8.5 12h7M8.5 15h5" stroke="currentColor" stroke-width="1.55" stroke-linecap="round"/><path d="m14.7 17.7 3.1-3.1 1.4 1.4-3.1 3.1h-1.4v-1.4Z" fill="currentColor"/></svg>',
+  landing:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 16.2c4.8-4.6 11.2-4.6 16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 18.8c3.2-2.2 6.8-2.2 10 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 5v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="5" r="2" fill="currentColor"/></svg>',
+  sky:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 14.5c5.2-6.5 10.8-6.5 16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 17.6c3.5-3.1 6.5-3.1 10 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8.5 7.8h.01M15.5 6h.01M12 10h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
+  thought:'<svg viewBox="0 0 24 24" fill="none"><path d="M4.2 13.5c5.4-4.6 10.2-4.6 15.6 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7.5 9.8c2.1-2.1 6.9-2.1 9 0 1.7 1.7.6 4.2-1.5 4.2H9c-2.1 0-3.2-2.5-1.5-4.2Z" stroke="currentColor" stroke-width="1.8"/><path d="M10 16.8h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  pale:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7.7" stroke="currentColor" stroke-width="1.8"/><path d="M4.8 15.2c4.7-2.1 9.5-2.1 14.4 0M8.7 6.2c.7 2.3.5 4.6-.6 6.8M15.3 6.2c-.7 2.3-.5 4.6.6 6.8" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/><circle cx="14.4" cy="10.5" r="1.5" fill="currentColor"/></svg>',
+  stars:'<svg viewBox="0 0 24 24" fill="none"><path d="m12 3 1.8 5.1 5.2.1-4.1 3.2 1.5 5.2L12 13.5l-4.4 3.1 1.5-5.2L5 8.2l5.2-.1L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 19.5h16M18.5 4.5h.01M5.5 5.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
+};
 
-const CONFIG = {
+const navItems=[
+  ['home','Home',icons.home],
+  ['learn','Learn',icons.learn],
+  ['practice','Practice',icons.practice],
+  ['toolkit','Toolkit',icons.toolkit],
+  ['reflect','Reflect',icons.reflect]
+];
 
-  // ── HEADER ────────────────────────────────────────────────
-  header: {
-    badge: 'IAU OAD · Astronomy for Mental Health',
-    title: "Facilitator's Pocket Guide",
-    sub:   'Everything you need, in your pocket, for every session',
-  },
-
-  // ── TAB BAR ───────────────────────────────────────────────
-  tabs: [
-    { id:'tools',   label:'4 Tools',
-      icon:`<svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="9" r="2" stroke="currentColor" stroke-width="1.4"/><path d="M9 3.5V2M9 16v-1.5M14.5 9H16M2 9h1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>` },
-    { id:'check',   label:'Checklist',
-      icon:`<svg viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 9L8.5 11L12 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
-    { id:'script',  label:'Script',
-      icon:`<svg viewBox="0 0 18 18" fill="none"><path d="M4 5.5h10M4 9h7M4 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>` },
-    { id:'support', label:'Support',
-      icon:`<svg viewBox="0 0 18 18" fill="none"><path d="M5 2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" stroke-width="1.5"/><path d="M7 7h4M7 10h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>` },
-  ],
-
-  // ── TOOLS PANEL ───────────────────────────────────────────
-  tools: {
-    label: 'The four ACT tools — tap any to open full activity',
-    cards: [
+const modules=[
+  {
+    title:'The mindset shift',
+    tag:'Phase 1',
+    time:'20 min',
+    text:'Clarify the offer: astronomy creates the setting, facilitation provides the structure, and participants retain choice over what they share.',
+    outcome:'By the end, you should be able to describe the session in one grounded sentence and name the boundary between reflection and therapy.',
+    lessons:[
       {
-        key: 'container', iconBg: 'var(--act-container-bg)',
-        iconSvg: `<svg viewBox="0 0 22 22" fill="none"><path d="M11 3C7 3 4.5 6.5 4.5 10c0 5.5 6.5 9.5 6.5 9.5s6.5-4 6.5-9.5C17.5 6.5 15 3 11 3z" stroke="#4a9478" stroke-width="1.7"/><path d="M8.5 9.5C9 8 10 7 11 7s2 1 2.5 2.5" stroke="#4a9478" stroke-width="1.4" stroke-linecap="round"/></svg>`,
-        name: 'Container · The Sky',
-        desc: 'The vast, stable space that holds all weather without being changed by it. You are not your thoughts — you are the sky they pass through.',
-        tag: 'Self-as-context', tagBg: 'var(--act-container1)', tagColor: 'var(--act-container)',
-      },
-      {
-        key: 'orbit', iconBg: 'var(--act-orbit-bg)',
-        iconSvg: `<svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="7" stroke="#3d7fa8" stroke-width="1.6"/><circle cx="11" cy="11" r="2.2" stroke="#3d7fa8" stroke-width="1.3"/><path d="M11 4V2M11 20v-2M4 11H2M20 11h-2" stroke="#3d7fa8" stroke-width="1.3" stroke-linecap="round"/></svg>`,
-        name: 'Orbit · The Distance',
-        desc: 'Placing thoughts at a distance like objects crossing the sky — they can be watched rather than inhabited. A thought is not a fact.',
-        tag: 'Cognitive defusion', tagBg: 'var(--cold1)', tagColor: 'var(--cold)',
-      },
-      {
-        key: 'anchor', iconBg: 'var(--act-anchor-bg)',
-        iconSvg: `<svg viewBox="0 0 22 22" fill="none"><path d="M11 2L13.2 8.5H20L14.4 12.3L16.6 18.8L11 15L5.4 18.8L7.6 12.3L2 8.5H8.8L11 2Z" stroke="#c4a254" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
-        name: 'Anchor · The Now',
-        desc: 'The sensory reality of the sky returns attention to the present moment — the only moment in which reflection and choice are possible.',
-        tag: 'Present moment', tagBg: 'var(--gold1)', tagColor: 'var(--gold)',
-      },
-      {
-        key: 'compass', iconBg: 'var(--act-compass-bg)',
-        iconSvg: `<svg viewBox="0 0 22 22" fill="none"><path d="M11 3v16M11 3L7.5 8M11 3L14.5 8" stroke="#8070c0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 16.5h11" stroke="#8070c0" stroke-width="1.3" stroke-linecap="round"/></svg>`,
-        name: 'Compass · The Values',
-        desc: 'Guiding stars as personal values — fixed points of orientation in a changing world. Navigating by what matters rather than by avoiding discomfort.',
-        tag: 'Values &amp; action', tagBg: 'var(--act-compass1)', tagColor: 'var(--act-compass)',
-      },
-    ],
-  },
-
-  // ── CHECKLIST PANEL ───────────────────────────────────────
-  checklist: {
-    label: 'Stay on the side of growth',
-    intro: 'Ask yourself these before and during every session. The boundary is not a limitation — it is the work done well.',
-    items: [
-      { ok:true,  q:'Am I guiding observations of the sky, not directing personal disclosures?',       pill:'Yes'   },
-      { ok:true,  q:'Am I encouraging awe, present-moment awareness, and open reflection?',            pill:'Yes'   },
-      { ok:true,  q:'Am I letting silence and the sky do the work?',                                   pill:'Yes'   },
-      { ok:true,  q:'Do I have my local support contacts ready before I begin?',                       pill:'Yes'   },
-      { ok:false, q:'Am I asking about their childhood, history, or past trauma?',                     pill:'No'    },
-      { ok:false, q:'Am I trying to diagnose, interpret, or fix what someone has shared?',             pill:'No'    },
-      { ok:false, q:'Am I continuing the session if someone is in genuine distress?',                  pill:'Pivot' },
-    ],
-    pivotLabel: 'The pivot to the present',
-    pivotTitle: 'When the weather turns heavy — use this',
-    pivotQuote: '"Thank you for sharing that. It sounds like a heavy cloud. For right now, let\'s bring our attention back to the sky above us. Let\'s find the light of [star or object] together and just rest our eyes there for a moment."',
-    footer:     'After the session, check in privately, express genuine care, and share the support contacts from the Support tab.',
-  },
-
-  // ── SCRIPT PANEL ──────────────────────────────────────────
-  script: {
-    label: 'Three-step universal script',
-    intro: 'Every session. Every length. Every context. Know this so well you can leave it behind.',
-    steps: [
-      { title:'Arrive · Ground in the present',             sub:'The anchor',    quote:'"Notice your breath and the air on your skin. Let the day fall back a little. We are here now."' },
-      { title:'The cosmic hook · Open perspective',         sub:'The orbit',     quote:'"This light left its star five hundred years ago. The star itself may no longer exist. But the light is here, in your eyes, right now, in this moment."' },
-      { title:'The reflection · Invite the observing self', sub:'The container', quote:'"You are the sky that is holding this moment. What does that feel like?"' },
-    ],
-    missionLabel: 'Tonight mission',
-    mission: {
-      title:           'Your first session starts tonight',
-      body:            'Before tomorrow, lead one person or a small group through a 5-minute sky check-in using the three steps above.',
-      whoPlaceholder:  'Who will you lead? (name or group)',
-      whenPlaceholder: 'When and where?',
-      btnLabel:        'Save commitment',
-    },
-    remindersLabel: 'Keep in mind',
-    reminders: [
-      { color:'var(--cold)', text:'Silence is not empty. It is where the work happens. Hold it without filling it.' },
-      { color:'var(--gold)', text:'Your quality of presence matters more than perfect language. Be where you are.' },
-      { color:'var(--act-container)', text:'The sky does the teaching. Your role is to make the looking possible.' },
-      { color:'var(--act-compass)', text:'You are not here to fix anyone. You are here to hold a space in which they can notice something.' },
-      { color:'var(--steel)', text:'Knowing your limits clearly is not a weakness. It is what makes the space safe.' },
-    ],
-  },
-
-  // ── SUPPORT PANEL ─────────────────────────────────────────
-  support: {
-    resourcesLabel: 'IAU OAD resources',
-    oad: {
-      title: 'IAU Office of Astronomy for Development',
-      sub:   'Astronomy for Mental Health',
-      links: [
-        { label:'Website',            text:'astro4dev.org ↗',   url:'https://astro4dev.org' },
-        { label:'Mental Health',      text:'astro4dev.org/mh ↗', url:'https://astro4dev.org/astronomy-mental-health/' },
-        { label:'Online course',      text:'OpenLearn ↗',       url:'https://www.open.edu/openlearncreate/course/view.php?id=16561' },
-        { label:'Narratives booklet', text:'zenodo.16420872 ↗', url:'https://doi.org/10.5281/zenodo.16420872' },
-        { label:'Guidelines',         text:'zenodo.15878612 ↗', url:'https://zenodo.org/records/15878612' },
-      ],
-    },
-    contactsLabel: 'Your local support contacts',
-    contactsIntro: 'Tap any field to fill in. Saves automatically to this device only.',
-    contacts: [
-      {
-        title:'Crisis / emergency line', sub:'Immediate mental health support', avatarBg:'var(--avatar-crisis)',
-        avatarSvg:`<svg viewBox="0 0 20 20" fill="none"><path d="M7 2h6a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="white" stroke-width="1.4"/><path d="M7.5 7.5h5M7.5 10.5h4" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg>`,
-        fields: [
-          { id:'crisis-org',   label:'Organisation', type:'text', placeholder:'Add name…'             },
-          { id:'crisis-phone', label:'Phone / SMS',  type:'tel',  placeholder:'Add number…'           },
-          { id:'crisis-web',   label:'Website',      type:'url',  placeholder:'Add URL…'              },
-          { id:'crisis-hours', label:'Hours',        type:'text', placeholder:'24hr / office hours…'  },
+        title:'What you are offering',
+        learn:[
+          'This work is the deliberate creation of a safe and considered space where people can slow down, look up, and reflect.',
+          'Astronomy provides the setting. Your role provides the structure. The sky provides the spaciousness.',
+          'The activity is not counselling, assessment, treatment, or a substitute for professional support.'
         ],
+        practice:'Write a one-sentence description you could say to a host organisation before a session begins.',
+        checkpoint:'I can describe the session as reflective facilitation, not therapy.'
       },
       {
-        title:'Counselling / community support', sub:'Ongoing mental health services', avatarBg:'var(--avatar-counsel)',
-        avatarSvg:`<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7.5" r="3.5" stroke="white" stroke-width="1.4"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>`,
-        fields: [
-          { id:'counsel-org',   label:'Organisation', type:'text',  placeholder:'Add name…'           },
-          { id:'counsel-phone', label:'Phone',        type:'tel',   placeholder:'Add number…'         },
-          { id:'counsel-web',   label:'Website',      type:'url',   placeholder:'Add URL…'            },
-          { id:'counsel-ref',   label:'Referral',     type:'text',  placeholder:'Self-referral / GP…' },
+        title:'The sky and the observer',
+        learn:[
+          'The sky is not just scenery. It is a containing space where weather, light, darkness, and movement occur.',
+          'ACT calls this self-as-context: the witnessing awareness that notices thoughts, emotions, and sensations without being identical to them.',
+          'Your job is not to explain the concept into being. Your job is to create conditions where it can be felt.'
         ],
+        practice:'Look outside or imagine a sky you know well. Notice what changes within it and what holds those changes.',
+        checkpoint:'I can guide the Sky Within activity with spacious language and silence.'
       },
       {
-        title:'Your supervisor / mentor', sub:'Your first call when you are unsure', avatarBg:'var(--avatar-super)',
-        avatarSvg:`<svg viewBox="0 0 20 20" fill="none"><path d="M10 2l2 6h6l-5 3.6L15 18l-5-3.6L5 18l2-6.4L2 8h6l2-6z" stroke="white" stroke-width="1.3" stroke-linejoin="round"/></svg>`,
-        fields: [
-          { id:'super-name',  label:'Name',  type:'text',  placeholder:'Add name…'  },
-          { id:'super-phone', label:'Phone', type:'tel',   placeholder:'Add number…' },
-          { id:'super-email', label:'Email', type:'email', placeholder:'Add email…' },
+        title:'The view from a distance',
+        learn:[
+          'Cognitive defusion means learning to look at thoughts rather than from inside them.',
+          'The scale of the cosmos helps a thought reveal its proportions without dismissing what it carries.',
+          'A thought can matter and still be observed as a thought.'
         ],
-      },
-    ],
-    scopeNote: 'This guide supports <strong>wellbeing promotion</strong>, not clinical practice. If a participant is in crisis: listen with care, use the pivot, connect them with the contacts above, and ensure they are not left alone.',
+        practice:'Choose a recurring thought and imagine placing it in the sky. Notice its size, edge, movement, and distance.',
+        checkpoint:'I can help participants gain perspective without interpreting their thoughts.'
+      }
+    ]
   },
-
-  // ── ACTIVITY DRAWERS ──────────────────────────────────────
-  act: {
-
-    container: {
-      num:'Activity 1', title:'The Sky and the Observer',
-      tagline:'Helping participants locate the stable witnessing awareness they carry',
-      iconBg:'var(--act-container-bg)', nc:'var(--act-container)',
-      iconSvg:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 3C8 3 5 7 5 11c0 6 7 10.5 7 10.5S19 17 19 11C19 7 16 3 12 3z" stroke="#4a9478" stroke-width="1.8"/><path d="M9 10.5C9.5 9 10.5 8 12 8s2.5 1 3 2.5" stroke="#4a9478" stroke-width="1.5" stroke-linecap="round"/></svg>`,
-      meta:[
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'15–20 min' },
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'Outdoors preferred' },
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M2 9V4.5L6 2l4 2.5V9l-4 1.5L2 9z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'No equipment' },
-      ],
-      body:`<p class="ds">Purpose</p><p class="dp">There is a part of you that has been present for everything. Every difficult moment, every period of joy or confusion, every ordinary afternoon you can barely remember — something in you was there, watching, noticing. Your thoughts have changed. Your feelings shift constantly. But the awareness behind all of that, the one doing the noticing, has remained consistent since you first became conscious.</p><p class="dp">This activity invites participants to discover that awareness through direct experience of the sky rather than through explanation. The aim is not to teach a concept but to create the conditions in which it can be felt.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">ACT describes the observing self as the consistent dimension of a person present across the full span of their life, distinct from their thoughts, emotions, and circumstances. The capacity to access this perspective is associated with greater psychological flexibility and wellbeing (Hayes et al., 2006).</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">Invite participants to look up at the sky and take in its scale. Allow thirty seconds of silence before speaking.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Ask them to notice what the sky is doing right now: what is moving through it, what kind of light is present, what feels close and what feels far.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Ask them to consider whether the sky above them has changed across their lifetime. Invite a brief memory from childhood, one from a few years ago, one from this week. The sky was present for all of them.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Offer the reflection: the sky holds all the weather that passes through it, including storms, without being defined by any of it. Is there anything in themselves that feels like that?</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Allow three to four minutes of quiet. This is a contemplative space, not a problem to solve. No particular answer is required.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Gently invite the group back. Ask if anyone would like to share what, if anything, came up. This is always optional.</div></div><p class="ds">Suggested language</p><div class="dprompt"><div class="dplabel">Facilitator prompt</div><div class="dptext">"Look at the sky above you. Notice what is moving through it right now. That sky has been above you your whole life — in your earliest memories, through your hardest seasons, above mornings you have long forgotten. It was never altered by any of it. Is there anything in you that feels like that? Something that has been present throughout, watching, without being swept away? You do not need to find an answer. Just sit with the question."</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants will feel this immediately and powerfully. Others will find it abstract. Both responses are fine — the aim is simply to open a door.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">Avoid explaining the concept at length before or during the activity. The discovery is more powerful than the explanation.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">In communities with strong indigenous sky traditions, connect the witnessing quality to ancestral wisdom keepers who looked at these same stars.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">Your role is not to explain the observing self. It is to create the conditions in which it can be encountered directly. The less you say during the contemplative portion, the more space there is for genuine discovery. Trust the sky to do the teaching.</div></div>`,
-    },
-
-    orbit: {
-      num:'Activity 2', title:'Placing Thoughts in the Sky',
-      tagline:'Gaining perspective on recurring thoughts by observing them from a distance',
-      iconBg:'var(--act-orbit-bg)', nc:'var(--cold)',
-      iconSvg:`<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#3d7fa8" stroke-width="1.8"/><circle cx="12" cy="12" r="2.5" stroke="#3d7fa8" stroke-width="1.5"/><path d="M12 4V2M12 22v-2M4 12H2M22 12h-2" stroke="#3d7fa8" stroke-width="1.4" stroke-linecap="round"/></svg>`,
-      meta:[
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'15–20 min' },
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'Any setting' },
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><rect x="1.5" y="2" width="9" height="7" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 11h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`, t:'Optional: cards &amp; pens' },
-      ],
-      body:`<p class="ds">Purpose</p><p class="dp">When a person is fully merged with a thought, they are not experiencing a thought at all — they are experiencing what feels like reality. The thought "I am not enough" does not announce itself as a thought; it arrives as a fact, demanding to be taken at face value.</p><p class="dp">This activity helps participants move from being inside their thinking to being able to look at it from the outside — using the sky as a literal canvas for that shift. The goal is not to challenge or replace difficult thoughts. It is simply to see them as thoughts.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Cognitive defusion creates separation between a person and their thinking without requiring them to argue against it. Against the backdrop of a universe in which light takes millennia to cross between neighbouring stars, a thought that has dominated someone's week begins to reveal its actual proportions.</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">Ask participants to bring to mind a thought that has been recurring recently. Reassure them they do not need to share it.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">If using cards, invite them to write the thought in a few words and hold it — giving the thought a physical form separate from the person holding it.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Ask them to look up and imagine placing the thought in the sky at a distance. Not to get rid of it, but to give it space. What would it look like as an object moving slowly across the sky?</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Invite them to notice: what is it like to look at this thought rather than from inside it? What do they notice from this position that they couldn't notice before?</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Allow two to three minutes of quiet. Bring attention to the scale of the sky — to stars whose light has travelled for hundreds of years to reach this moment.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Invite participants to watch the thought complete its movement and pass out of sight, like a satellite tracing its arc and disappearing. It has not been solved. It has simply passed through.</div></div><div class="dstep"><div class="dsnum">7</div><div class="dstxt">Invite optional sharing: not what changed about the thought itself, but what changed about their relationship to it.</div></div><p class="ds">Suggested language</p><div class="dprompt"><div class="dplabel">Facilitator prompt</div><div class="dptext">"Bring to mind a thought that comes back often — one that tends to feel heavy. Look up and imagine placing that thought somewhere up there. Give it some space. What would it look like as an object moving slowly across the sky? Notice what it is like to look at this thought from out here, rather than from inside it. The light from some of those stars left its source a thousand years before you were born. From that kind of distance — what size is your thought? Watch it move. Watch it pass. It does not need to be solved. It is just passing through."</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants may feel placing a thought at distance dismisses something that matters. The aim is not to make the thought unimportant, but to change the perspective from which it is seen.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">This is not an opportunity to offer solutions or interpretations. Receive what is shared with simple acknowledgement.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For daytime sessions: the same activity works with clouds — invite participants to imagine the thought as a cloud and watch it move and shift.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">You do not need to name cognitive defusion. The experience of the activity is the teaching. If participants ask what they were doing, describe it simply: learning to look at thoughts rather than from inside them — a skill that can be practised anywhere, any time.</div></div>`,
-    },
-
-    anchor: {
-      num:'Activity 3', title:'The Five-Sense Landing',
-      tagline:'Grounding participants in the present moment through the sensory environment of the sky',
-      iconBg:'var(--act-anchor-bg)', nc:'var(--gold)',
-      iconSvg:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5L12 2Z" stroke="#c4a254" stroke-width="1.7" stroke-linejoin="round"/></svg>`,
-      meta:[
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'10–15 min' },
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'Outdoors preferred' },
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M2 9V4.5L6 2l4 2.5V9l-4 1.5L2 9z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'No equipment' },
-      ],
-      body:`<p class="ds">Purpose</p><p class="dp">Most people arrive at a session carrying the residue of their day: unfinished thoughts, physical tension, a mind somewhere else in time. This activity creates a deliberate transition. It uses the sensory environment of the sky and the natural world to bring participants into genuine contact with the present moment — creating the conditions in which everything that follows becomes more accessible.</p><p class="dp">This is not a warm-up. It is the foundation of the session. A group that has genuinely arrived is a group that can genuinely reflect.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Attention Restoration Theory identifies soft fascination as the mechanism by which natural environments help the mind recover from directed-attention fatigue. The night sky is a near-perfect soft fascination environment: vast, gently complex, intrinsically engaging without being demanding. Even brief exposure produces measurable improvements in attentional capacity (Berto, 2005; Kaplan, 1995).</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">Position the group outside if possible. Ask everyone to find a comfortable standing or seated position and, if willing, to close their eyes or soften their gaze downward.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Invite a moment of stillness. Allow ten to fifteen seconds of silence before speaking. Resist the urge to fill this space.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Ask participants to notice what they can feel physically: the ground beneath their feet, the temperature of the air on their skin, the weight of their own body.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Ask them to notice what they can hear: sounds nearest to them, then further away, then any sounds at the very edge of hearing.</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">When ready, invite them to open their eyes and look up. Ask them to notice what they can actually see — not what they expect, but what is genuinely there.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Allow two to three minutes of quiet looking. Your role is to hold the space, not to fill it.</div></div><div class="dstep"><div class="dsnum">7</div><div class="dstxt">Gently bring the group together. Invite anyone who would like to share one thing they noticed, without pressure.</div></div><p class="ds">Suggested language</p><div class="dprompt"><div class="dplabel">Facilitator prompt</div><div class="dptext">"We are going to begin by simply arriving. There is nowhere to be right now except here. Let the day fall back a little. What is the temperature of the air on your skin right now? What can you hear? When you are ready, look up — and simply let your eyes rest on what is actually there."</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants find silence uncomfortable at first. Hold it gently and allow it to settle rather than filling it with reassurance.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">In groups under significant stress, this activity may surface emotion quickly. Acknowledge it quietly and continue to hold the space with steadiness.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For indoor settings: open a window if possible or project a night sky image. The sensory anchor is less immediate but the structure remains effective.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">This activity works best when you have genuinely experienced it yourself before facilitating it. Your own quality of presence is the most important variable. If you are still in your own head, participants will feel it.</div></div>`,
-    },
-
-    compass: {
-      num:'Activities 4 & 5', title:'Finding Your Guiding Stars',
-      tagline:'Using cosmic perspective and the Narratives Booklet to reconnect with what matters most',
-      iconBg:'var(--act-compass-bg)', nc:'var(--act-compass)',
-      iconSvg:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M12 3L8 9M12 3L16 9" stroke="#8070c0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 18h12" stroke="#8070c0" stroke-width="1.4" stroke-linecap="round"/></svg>`,
-      meta:[
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 3.5V6l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`, t:'25–35 min' },
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><path d="M6 2C3.8 2 2 4 2 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" stroke="currentColor" stroke-width="1.1"/></svg>`, t:'Any setting' },
-        { ic:`<svg viewBox="0 0 12 12" fill="none"><rect x="1.5" y="2" width="9" height="7" rx="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M4 11h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>`, t:'Narratives booklet required' },
-      ],
-      body:`<p class="ds">Purpose</p><p class="dp">This is the culminating activity of the sequence. It uses cosmic perspective and awe to move participants from reflection toward direction — from noticing what is, to considering what could be, and from awareness toward a clearer sense of the values that can guide them forward.</p><p class="dp">Just as sailors navigated by fixed stars, participants are invited to identify the values and commitments that can help them navigate the terrain of their own lives with greater intention. The Narratives Reference Booklet (Vertue, Mdhluli &amp; Ledimo, 2025) is the primary tool for opening this conversation.</p><div class="dsci"><div class="dscilabel">The science</div><div class="dscitext">Awe reliably produces the Small Self effect — reducing preoccupied self-referential thinking and increasing openness and meaning (Piff et al., 2015). The Overview Effect shows that viewing Earth at cosmic scale catalyses significant reorientations in values and priorities (Yaden et al., 2016). Values-guided behaviour is associated with greater meaning, resilience, and sustained wellbeing (Hayes et al., 2006).</div></div><p class="ds">Using the Narratives Booklet</p><p class="dp">Before the session, read through the booklet and select one narrative that feels most relevant to your group. Download at <a href="https://doi.org/10.5281/zenodo.16420872" target="_blank" rel="noopener noreferrer" style="color:var(--cold);font-weight:600;">doi.org/10.5281/zenodo.16420872<span class="sr-only"> (opens in new tab)</span></a></p><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Read it aloud.</strong> Slowly, with genuine attention. Allow silence before moving on.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Tell it in your own words.</strong> Once you know it well, share it conversationally. This feels more immediate.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Pair it with the sky.</strong> When outdoors, invite participants to look at the relevant part of the sky as you share the narrative.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt"><strong>Invite participants to share their own.</strong> In groups with indigenous sky traditions, open space for local stories after sharing from the booklet.</div></div><p class="ds">Step by step</p><div class="dstep"><div class="dsnum">1</div><div class="dstxt">From a settled present state, briefly introduce the framing: navigators have used stars for orientation for thousands of years — not because the stars told them where to go, but because they provided a fixed point of reference in a changing world.</div></div><div class="dstep"><div class="dsnum">2</div><div class="dstxt">Share a narrative from the booklet. Read slowly, with silence after. Do not explain or direct its interpretation.</div></div><div class="dstep"><div class="dsnum">3</div><div class="dstxt">Offer three questions one at a time with two minutes of quiet between each. Participants may hold them internally, write, or draw.</div></div><div class="dstep"><div class="dsnum">4</div><div class="dstxt">Invite participants to choose one value and give it a name — their guiding star. Make it specific and personal. Not just "courage" but the kind of courage it takes to have an honest conversation.</div></div><div class="dstep"><div class="dsnum">5</div><div class="dstxt">Invite each participant to name one small concrete step they could take in the coming week in the direction of their guiding star. Movement, not transformation.</div></div><div class="dstep"><div class="dsnum">6</div><div class="dstxt">Close by inviting participants to look up and acknowledge that the stars above them have been used for navigation for as long as human beings have been looking up.</div></div><p class="ds">The three reflection questions</p><div class="dprompt"><div class="dplabel">Hold these one at a time, with silence between each</div><div class="dptext">"What in that story felt true to something in your own life?"<br><br>"If you were to name two or three things you genuinely value — things you want your life to actually be about — what would they be?"<br><br>"If those values were stars you could navigate by, where would they be pointing you right now?"</div></div><p class="ds">What to watch for</p><div class="dbul"><div class="dbd"></div><div class="dbt">Values work can surface the recognition of a gap between where a person is and where they want to be. That gap is not evidence of failure — it is evidence of honesty, and honesty is the beginning of movement.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">Some participants find it hard to name what they value. Offer a simpler entry: think of a person you admire — what quality in them most draws you? That quality is often a window into a value they hold but have not yet claimed.</div></div><div class="dbul"><div class="dbd"></div><div class="dbt">For collectivist communities: the guiding star can be a shared community value rather than only an individual one.</div></div><div class="dnote"><div class="dnlabel">Facilitator note</div><div class="dntext">Spend time with the Narratives Booklet before you use it — not just to select a narrative but to let the stories work on you. The narratives are most powerful when delivered by someone who has genuinely sat with them. Download: doi.org/10.5281/zenodo.16420872</div></div>`,
-    },
-
-  }, // end act
-
-}; // end CONFIG
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   RENDERING — structure & logic (no user-editable text below)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
-function disclaimer(){return`<div class="scopebox" style="margin-top:20px;">${INFO_ICON}<span>${CONFIG.support.scopeNote}</span></div>`;}
-
-const CHEV = `<span class="chev"><svg viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
-const CHECK_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const CROSS_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
-const OAD_AVATAR = `<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.5"/><path d="M10 7v4l2.5 2" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>`;
-const INFO_ICON  = `<svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v4M8 11v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`;
-const SAVED_ICON = `<svg viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3.5 3.5 5.5-6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-
-function renderAll() {
-  const H = CONFIG.header;
-  document.getElementById('badge-text').textContent = H.badge;
-  document.getElementById('header-title').textContent = H.title;
-  document.getElementById('header-sub').textContent = H.sub;
-
-  document.getElementById('tab-bar').innerHTML = CONFIG.tabs.map((t,i) =>
-    `<button class="tab-btn${i===0?' active':''}" role="tab" id="tab-${t.id}" aria-selected="${i===0?'true':'false'}" aria-controls="panel-${t.id}" onclick="switchTab('${t.id}',this)">${t.icon}${t.label}</button>`
-  ).join('');
-
-  renderTools();
-  renderChecklist();
-  renderScript();
-  renderSupport();
-}
-
-function renderTools() {
-  const C = CONFIG.tools;
-  document.getElementById('panel-tools').innerHTML =
-    `<p class="slabel">${C.label}</p>` +
-    C.cards.map(c =>
-      `<button class="tool-card" type="button" onclick="openDrawer('${c.key}')">
-        <div class="tool-icon" style="background:${c.iconBg};">${c.iconSvg}</div>
-        <div class="tool-r">
-          <div class="tool-name">${c.name}</div>
-          <div class="tool-desc">${c.desc}</div>
-          <div class="tool-foot">
-            <span class="ttag" style="background:${c.tagBg};color:${c.tagColor};">${c.tag}</span>
-            ${CHEV}
-          </div>
-        </div>
-      </button>`
-    ).join('') + disclaimer();
-}
-
-function renderChecklist() {
-  const C = CONFIG.checklist;
-  document.getElementById('panel-check').innerHTML =
-    `<p class="slabel">${C.label}</p>
-     <p style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:14px;">${C.intro}</p>
-     <div class="checklist">
-       ${C.items.map(item =>
-         `<div class="cr">
-           <div class="cicon ${item.ok?'yes':'no'}">${item.ok ? CHECK_ICON : CROSS_ICON}</div>
-           <div class="cq">${item.q}</div>
-           <div class="cpill ${item.ok?'yes':'no'}">${item.pill}</div>
-         </div>`
-       ).join('')}
-     </div>
-     <p class="slabel" style="margin-top:22px;">${C.pivotLabel}</p>
-     <div class="pbox">
-       <div class="plabel">${C.pivotTitle}</div>
-       <div class="ptext">${C.pivotQuote}</div>
-     </div>
-     <p style="font-size:12px;color:var(--ink3);line-height:1.6;margin-top:11px;">${C.footer}</p>
-     ${disclaimer()}`;
-}
-
-function renderScript() {
-  const C = CONFIG.script;
-  document.getElementById('panel-script').innerHTML =
-    `<p class="slabel">${C.label}</p>
-     <p style="font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:18px;">${C.intro}</p>
-     <div>
-       ${C.steps.map((s,i) =>
-         `<div class="sstep">
-           <div class="sleft"><div class="snum">${i+1}</div><div class="sline"></div></div>
-           <div class="sbody">
-             <div class="stitle">${s.title}</div>
-             <div class="ssub">${s.sub}</div>
-             <div class="squote">${s.quote}</div>
-           </div>
-         </div>`
-       ).join('')}
-     </div>
-     <p class="slabel">${C.missionLabel}</p>
-     <div class="tc">
-       <h3>${C.mission.title}</h3>
-       <p>${C.mission.body}</p>
-       <input class="tinput" id="tonight-who" type="text" aria-label="${C.mission.whoPlaceholder}" placeholder="${C.mission.whoPlaceholder}" autocomplete="off" oninput="saveField('tonight-who',this.value)">
-       <input class="tinput" id="tonight-when" type="text" aria-label="${C.mission.whenPlaceholder}" placeholder="${C.mission.whenPlaceholder}" autocomplete="off" oninput="saveField('tonight-when',this.value)">
-       <div class="trow">
-         <button class="bsave" onclick="saveTonightMission()">${C.mission.btnLabel}</button>
-         <div class="sconf" id="tonight-saved">${SAVED_ICON}Saved</div>
-       </div>
-     </div>
-     <p class="slabel">${C.remindersLabel}</p>
-     ${C.reminders.map(r =>
-       `<div class="rem">
-         <div class="rdot" style="background:${r.color};"></div>
-         <div class="rtext">${r.text}</div>
-       </div>`
-     ).join('')}
-     ${disclaimer()}`;
-}
-
-function renderSupport() {
-  const C = CONFIG.support;
-  document.getElementById('panel-support').innerHTML =
-    `<p class="slabel">${C.resourcesLabel}</p>
-     <div class="rcard">
-       <div class="rhead">
-         <div class="ravatar" style="background:var(--avatar-oad);">${OAD_AVATAR}</div>
-         <div><div class="rtitle">${C.oad.title}</div><div class="rsub">${C.oad.sub}</div></div>
-       </div>
-       ${C.oad.links.map(l =>
-         `<div class="rfield">
-           <span class="rlabel">${l.label}</span>
-           <span class="rval"><a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.text}<span class="sr-only"> (opens in new tab)</span></a></span>
-         </div>`
-       ).join('')}
-     </div>
-     <p class="slabel">${C.contactsLabel}</p>
-     <p style="font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:14px;">${C.contactsIntro}</p>
-     ${C.contacts.map(card =>
-       `<div class="rcard">
-         <div class="rhead">
-           <div class="ravatar" style="background:${card.avatarBg};">${card.avatarSvg}</div>
-           <div><div class="rtitle">${card.title}</div><div class="rsub">${card.sub}</div></div>
-         </div>
-         ${card.fields.map(f =>
-           `<div class="rfield">
-             <span class="rlabel">${f.label}</span>
-             <input class="finput" id="${f.id}" type="${f.type}" aria-label="${f.label}" placeholder="${f.placeholder}" oninput="saveField('${f.id}',this.value);fi(this)" autocomplete="off">
-           </div>`
-         ).join('')}
-       </div>`
-     ).join('')}
-     <div class="scopebox">
-       ${INFO_ICON}
-       <span>${C.scopeNote}</span>
-     </div>
-     <button class="ob-reset" onclick="obReset()">Replay onboarding</button>`;
-}
-
-/* ── App logic ─────────────────────────────────────────────── */
-
-const KEY = 'iau-oad-v2';
-function getData(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch{return{};}}
-function setData(d){localStorage.setItem(KEY,JSON.stringify(d));}
-function saveField(k,v){const d=getData();d[k]=v;setData(d);showToast();}
-function fi(el){el.classList.toggle('filled',el.value.trim().length>0);}
-
-let tt;
-function showToast(){
-  const t=document.getElementById('toast');t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1700);
-  const l=document.getElementById('a11y-live');if(l){l.textContent='';requestAnimationFrame(()=>{l.textContent='Saved to your device';});}
-}
-
-function saveTonightMission(){
-  const d=getData();
-  d['tonight-who']=document.getElementById('tonight-who').value;
-  d['tonight-when']=document.getElementById('tonight-when').value;
-  setData(d);
-  const c=document.getElementById('tonight-saved');
-  c.classList.add('show');showToast();
-  setTimeout(()=>c.classList.remove('show'),2800);
-}
-
-function loadData(){
-  const d=getData();
-  ['crisis-org','crisis-phone','crisis-web','crisis-hours',
-   'counsel-org','counsel-phone','counsel-web','counsel-ref',
-   'super-name','super-phone','super-email',
-   'tonight-who','tonight-when'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el&&d[id]){el.value=d[id];fi(el);}
-  });
-}
-
-function switchTab(id,btn){
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false');});
-  document.getElementById('panel-'+id).classList.add('active');
-  btn.classList.add('active');
-  btn.setAttribute('aria-selected','true');
-  document.querySelector('.main').scrollTo({top:0,behavior:'smooth'});
-}
-
-/* ── Focus trap ── */
-function trapFocus(el){
-  releaseFocus(el);
-  const sel='a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex="-1"])';
-  el._trap=function(e){
-    if(e.key!=='Tab')return;
-    const items=Array.from(el.querySelectorAll(sel)).filter(f=>f.offsetParent!==null);
-    if(!items.length)return;
-    const first=items[0],last=items[items.length-1];
-    if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus();}}
-    else{if(document.activeElement===last){e.preventDefault();first.focus();}}
-  };
-  el.addEventListener('keydown',el._trap);
-}
-function releaseFocus(el){if(el._trap){el.removeEventListener('keydown',el._trap);delete el._trap;}}
-
-let _drawerTrigger=null;
-function openDrawer(key){
-  _drawerTrigger=document.activeElement;
-  const a=CONFIG.act[key]; if(!a) return;
-  document.getElementById('dnum').textContent=a.num;
-  document.getElementById('dnum').style.color=a.nc;
-  document.getElementById('dtitle').textContent=a.title;
-  document.getElementById('dtagline').textContent=a.tagline;
-  const ic=document.getElementById('dicon');
-  ic.style.background=a.iconBg; ic.innerHTML=a.iconSvg;
-  document.getElementById('dmeta').innerHTML=a.meta.map(m=>`<div class="mtag">${m.ic}<span>${m.t}</span></div>`).join('');
-  const db=document.getElementById('dbody');
-  db.classList.remove('anim');
-  db.innerHTML=a.body;
-  db.scrollTop=0;
-  void db.offsetWidth;
-  db.classList.add('anim');
-  const dr=document.getElementById('drawer');
-  dr.classList.add('open');
-  document.getElementById('overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-  setTimeout(()=>{const b=document.getElementById('dclose-btn');if(b)b.focus();trapFocus(dr);},50);
-}
-
-function closeDrawer(){
-  releaseFocus(document.getElementById('drawer'));
-  document.getElementById('drawer').classList.remove('open','dragging');
-  document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow='';
-  if(_drawerTrigger){_drawerTrigger.focus();_drawerTrigger=null;}
-}
-
-let ty=0,tst=0;
-const drEl=document.getElementById('drawer'),dbEl=document.getElementById('dbody');
-drEl.addEventListener('touchstart',e=>{ty=e.touches[0].clientY;tst=dbEl.scrollTop;},{passive:true});
-drEl.addEventListener('touchmove',e=>{const dy=e.touches[0].clientY-ty;if(tst<5){drEl.classList.toggle('dragging',dy>10);if(dy>60)closeDrawer();}},{passive:true});
-drEl.addEventListener('touchend',()=>drEl.classList.remove('dragging'),{passive:true});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
-
-/* ── Onboarding ─────────────────────────────────────────── */
-const OB_STEPS=4;let obStep=0;
-function obDots(){
-  document.getElementById('ob-dots').innerHTML=
-    Array.from({length:OB_STEPS},(_,i)=>`<div class="ob-dot-pip${i===obStep?' active':''}"></div>`).join('');
-}
-function obRender(){
-  document.getElementById('ob-slides').style.transform=`translateX(-${obStep*100}%)`;
-  obDots();
-  const btn=document.getElementById('ob-next');
-  btn.textContent=obStep===OB_STEPS-1?'Enter the guide →':'Next';
-  document.getElementById('ob-skip').style.display=obStep===OB_STEPS-1?'none':'';
-}
-function obNext(){
-  if(obStep<OB_STEPS-1){obStep++;obRender();}else{obFinish();}
-}
-function obFinish(){
-  releaseFocus(document.getElementById('onboarding'));
-  const d=getData();d.onboarded=true;setData(d);
-  const el=document.getElementById('onboarding');
-  el.classList.add('ob-hiding');
-  setTimeout(()=>{el.classList.remove('ob-visible','ob-hiding');},420);
-}
-function obReset(){
-  const d=getData();delete d.onboarded;setData(d);location.reload();
-}
-function obReplay(){
-  obStep=0;
-  const el=document.getElementById('onboarding');
-  el.classList.remove('ob-hiding');
-  el.classList.add('ob-visible');
-  obRender();
-  setTimeout(()=>{const b=document.getElementById('ob-next');if(b)b.focus();trapFocus(el);},50);
-}
-function obShow(){
-  const d=getData();if(d.onboarded)return;
-  const el=document.getElementById('onboarding');
-  el.classList.add('ob-visible');
-  obStep=0;obRender();
-  setTimeout(()=>{const b=document.getElementById('ob-next');if(b)b.focus();trapFocus(el);},50);
-  // horizontal swipe
-  let sx=0;
-  el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
-  el.addEventListener('touchend',e=>{
-    const dx=e.changedTouches[0].clientX-sx;
-    if(Math.abs(dx)>50){if(dx<0)obNext();else if(obStep>0){obStep--;obRender();}}
-  },{passive:true});
-}
-
-/* ── Star field ─────────────────────────────────────────── */
-function renderStars(){
-  const h=document.querySelector('.header');
-  if(!h)return;
-  const W=h.offsetWidth||430,H=h.offsetHeight||220,N=110;
-  let s=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;" aria-hidden="true">`;
-  for(let i=0;i<N;i++){
-    const x=Math.floor(Math.random()*W);
-    const y=Math.floor(Math.random()*H);
-    const r=Math.random()<0.1?1.1:Math.random()<0.3?0.7:0.4;
-    const op=(0.07+Math.random()*0.26).toFixed(2);
-    s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="white" opacity="${op}"/>`;
+  {
+    title:'The science behind the sky',
+    tag:'Phase 2',
+    time:'25 min',
+    text:'Understand the evidence base: ACT micro-skills, attention restoration, awe, and why quiet looking can support wellbeing.',
+    outcome:'By the end, you should know why the activities work without needing to teach the theory to participants.',
+    lessons:[
+      {
+        title:'Acceptance and Commitment work',
+        learn:[
+          'ACT is concerned with psychological flexibility: noticing inner experience, contacting the present, and moving toward values.',
+          'The astronomy setting naturally supports these micro-skills through spacious attention, sensory contact, and perspective.',
+          'Participants do not need clinical vocabulary. The framework is your internal map.'
+        ],
+        practice:'Translate self-as-context, defusion, and values into plain sky-based language a participant could understand.',
+        checkpoint:'I can hold the ACT framework internally without making the session feel clinical.'
+      },
+      {
+        title:'Attention restoration',
+        learn:[
+          'Directed attention becomes fatigued through daily demands, decision-making, stress, and information overload.',
+          'Natural environments restore attention through soft fascination: gentle interest that holds attention without demanding it.',
+          'The night sky offers being away, spaciousness, quiet fascination, and compatibility with reflection.'
+        ],
+        practice:'Plan two minutes of arrival time before any reflective question. No teaching, just sensory contact.',
+        checkpoint:'I will treat quiet looking as part of the intervention, not a warm-up.'
+      },
+      {
+        title:'Awe and the small self',
+        learn:[
+          'Awe arises when something vast requires the mind to expand its frame.',
+          'Research links awe with reduced self-preoccupation, openness, generosity, patience, and meaning.',
+          'Cosmic scale is powerful because it changes the vantage point before personal reflection begins.'
+        ],
+        practice:'Choose one true cosmic hook: old starlight, the Moon, the Pale Blue Dot, or local star lore.',
+        checkpoint:'I can use one simple astronomy fact or story to open perspective before inviting reflection.'
+      }
+    ]
+  },
+  {
+    title:'Scope and safety',
+    tag:'Phase 3',
+    time:'22 min',
+    text:'Prepare for emotional safety: scope, pivots, local contacts, and warm hand-offs when someone needs more support.',
+    outcome:'By the end, you should have a practical response for distress and a support plan ready before any session.',
+    lessons:[
+      {
+        title:'The boundary that keeps the work safe',
+        learn:[
+          'You are not diagnosing, advising, interpreting disclosures, or assessing risk.',
+          'You can receive someone with care, keep them from feeling alone, and connect them to appropriate support.',
+          'Clear boundaries do not make the space colder. They make it safer.'
+        ],
+        practice:'Say aloud: I am here to facilitate reflection, not to provide therapy or solve people&apos;s experiences.',
+        checkpoint:'I can name my boundary without embarrassment.'
+      },
+      {
+        title:'When weather turns heavy',
+        learn:[
+          'If distress appears during a group session, first return the group to the present through sensory grounding.',
+          'Avoid making the distressed person the centre of the group unless immediate safety requires it.',
+          'After the session, check in privately and share support contacts.'
+        ],
+        practice:'Rehearse the pivot: Let us come back to the ground under our feet, the air on our skin, and the sky above us.',
+        checkpoint:'I can pivot without panic or over-explaining.'
+      },
+      {
+        title:'The warm hand-off',
+        learn:[
+          'A warm hand-off is a human act of making sure someone is connected to support equipped to help them.',
+          'Prepare at least one crisis line, one counselling or community service, and one mentor or supervisor contact before every session.',
+          'Use warm, specific, practical language and ask permission before sharing details.'
+        ],
+        practice:'Complete the Toolkit contact fields before marking this module done.',
+        checkpoint:'I have local support details ready before facilitating.'
+      }
+    ]
+  },
+  {
+    title:'Universal opening script',
+    tag:'Phase 4',
+    time:'15 min',
+    text:'Learn the shortest reliable structure: arrive in the body, open cosmic perspective, invite one clean reflection.',
+    outcome:'By the end, you should be able to guide a five-minute sky check-in without slides, a telescope, or a perfect dark site.',
+    lessons:[
+      {
+        title:'Step one: arrive',
+        learn:[
+          'Before you say anything about the sky, help people land in their bodies and in the present moment.',
+          'Notice breath, air on skin, ground under feet, and sounds nearby and far away.',
+          'This transition makes everything that follows more accessible.'
+        ],
+        practice:'Guide a two-minute arrival sequence from memory.',
+        checkpoint:'I can begin with sensory grounding before reflection.'
+      },
+      {
+        title:'Step two: the cosmic hook',
+        learn:[
+          'Offer one true image, fact, or story that shifts perspective.',
+          'The hook might be old starlight, the Moon, a local sky narrative, or the Pale Blue Dot.',
+          'Perspective comes before personal reflection.'
+        ],
+        practice:'Draft one sentence that starts with: This light...',
+        checkpoint:'I can offer a cosmic hook that is true, brief, and spacious.'
+      },
+      {
+        title:'Step three: reflection',
+        learn:[
+          'Offer one clean question, not a list.',
+          'Allow silence. The silence is not empty. It is where the work happens.',
+          'The structure is a home base when weather, conversation, or group energy changes.'
+        ],
+        practice:'Use the prompt: You are the sky that is holding this moment. What does that feel like?',
+        checkpoint:'I can invite reflection and then stop talking.'
+      }
+    ]
+  },
+  {
+    title:'Activity facilitation',
+    tag:'Phase 5',
+    time:'35 min',
+    text:'Turn the framework into practice using five activity cards that can stand alone or build toward values-guided action.',
+    outcome:'By the end, you should know which activity serves which moment, and how to simplify rather than over-facilitate.',
+    lessons:[
+      {
+        title:'Sequence the activities',
+        learn:[
+          'Five-Sense Landing creates arrival.',
+          'The Sky Within introduces observing awareness.',
+          'Placing Thoughts in the Sky creates distance from sticky thoughts.',
+          'Pale Blue Dot and Guiding Stars move toward awe, values, and action.'
+        ],
+        practice:'Open each Practice card and scan its purpose, setup, steps, prompt, and what to watch for.',
+        checkpoint:'I know which activity serves which moment in a session.'
+      },
+      {
+        title:'Facilitate with less language',
+        learn:[
+          'The activities work best when the facilitator says less than they are tempted to say.',
+          'Silence, pacing, and the actual sky carry much of the learning.',
+          'Avoid turning the activity into a lecture about psychology or astronomy.'
+        ],
+        practice:'Choose one activity and reduce your spoken instructions to the fewest words that still feel safe.',
+        checkpoint:'I can trust the activity without over-facilitating it.'
+      },
+      {
+        title:'Storytelling as bridge',
+        learn:[
+          'Stakeholder feedback is clear: stories are often the primary vehicle through which astronomy becomes meaningful.',
+          'Local star lore, ancestral sky knowledge, and community stories are not decoration. They make the work belong.',
+          'Stories need time. Over-structured sessions can squeeze out the space where meaning forms.'
+        ],
+        practice:'Identify one sky story from your context or one narrative from the booklet that you could hold slowly.',
+        checkpoint:'I can invite story without extracting culture or rushing the room.'
+      }
+    ]
+  },
+  {
+    title:'Local adaptation',
+    tag:'Phase 6',
+    time:'20 min',
+    text:'Make the work local: adapt for setting, audience, culture, language, light pollution, and community knowledge.',
+    outcome:'By the end, you should be able to preserve the core purpose while changing the form for real-world conditions.',
+    lessons:[
+      {
+        title:'Work with the sky you have',
+        learn:[
+          'A perfect dark sky is not required. What matters is the quality of looking up together.',
+          'Urban settings can use visible Moon, planets, rooftops, courtyards, planetariums, blackout rooms, or projected sky images.',
+          'Telescopes can enrich a session, but they are never required and can sometimes shift attention away from reflection.'
+        ],
+        practice:'Name three possible session locations in your community, including one indoor fallback.',
+        checkpoint:'I can adapt without apologising for imperfect sky conditions.'
+      },
+      {
+        title:'Adapt for participants',
+        learn:[
+          'Young people may benefit from more movement, conversation, and concrete identity questions.',
+          'Older adults may connect deeply with memory, continuity, and the long view of a lifetime.',
+          'Conflict, displacement, and acute stress contexts require extra care around scope and non-verbal grounding.'
+        ],
+        practice:'Choose one likely audience and write one adaptation you would make for them.',
+        checkpoint:'I can adjust the form while preserving the purpose.'
+      },
+      {
+        title:'Contribute back to the programme',
+        learn:[
+          'This work lives between facilitator, community, and sky.',
+          'Your local observations are part of how the programme learns and improves.',
+          'Keep simple records of what participants and host organisations notice after sessions.'
+        ],
+        practice:'After your Tonight Mission, record what worked, what felt difficult, and what you would adjust.',
+        checkpoint:'I can treat facilitation as ongoing practice, not a one-time performance.'
+      }
+    ]
   }
-  s+=`<ellipse cx="370" cy="55" rx="52" ry="20" stroke="rgba(196,162,84,0.11)" stroke-width="1" fill="none" transform="rotate(-15 370 55)"/>`;
-  s+=`<circle cx="370" cy="55" r="3" fill="rgba(196,162,84,0.26)"/>`;
-  s+=`</svg>`;
-  h.insertAdjacentHTML('afterbegin',s);
+];
+
+const lessonDetails={
+  'What you are offering':{
+    moves:['Open by naming the scope clearly: this is a reflective wellbeing space, not therapy or counselling.','Use concrete language: slow down, look up, notice, reflect.','Let participants know sharing is always optional and private reflection is valid.'],
+    watch:['Do not promise transformation, healing, or treatment outcomes.','Avoid over-selling astronomy as a cure. The sky creates conditions for reflection; it does not replace support.'],
+    adapt:'For institutions, describe the work as education and wellbeing promotion. For community groups, describe it as a guided sky reflection.',
+    script:'Tonight we are using the sky as a place to slow down and notice. I am here to guide the structure, not to ask anyone to disclose anything personal or to provide counselling.'
+  },
+  'The sky and the observer':{
+    moves:['Start with actual looking before explanation.','Use the sky as a direct image of a containing space.','Offer the question and then leave enough silence for it to land.'],
+    watch:['Some participants will find the idea abstract. That is fine. Do not force insight.','Avoid turning self-as-context into a lecture. The experience is stronger than the definition.'],
+    adapt:'If sky visibility is poor, work with clouds, daylight, a window, or a remembered sky. The key image is space holding changing contents.',
+    script:'Notice the sky as the space that holds everything passing through it. Is there anything in you that can notice your inner weather without being the weather?'
+  },
+  'The view from a distance':{
+    moves:['Keep the recurring thought private unless the participant chooses otherwise.','Invite distance, edges, movement, and scale rather than analysis.','Return to the image of a thought passing through a larger sky.'],
+    watch:['Distance is not dismissal. A thought can be important and still be observed.','Do not interpret the meaning of anyone&apos;s thought.'],
+    adapt:'For younger groups, use a cloud, kite, satellite, or small object moving across the sky.',
+    script:'You do not need to argue with the thought or make it disappear. Just place it where you can see it, with space around it.'
+  },
+  'Acceptance and Commitment work':{
+    moves:['Hold ACT as your internal map: present moment, observing self, defusion, values, and committed action.','Translate psychological terms into lived sky experiences.','Use the framework to make good facilitation choices, not to impress participants.'],
+    watch:['Jargon can create distance. Participants do not need to know the model to benefit from it.','Do not present yourself as a clinician unless you are trained and acting in that role.'],
+    adapt:'For facilitators without psychology backgrounds, focus on the practical sequence: arrive, notice, make space, choose direction.',
+    script:'The theory helps us understand why this works. In the session itself, we keep the language simple enough for the sky to do the teaching.'
+  },
+  'Attention restoration':{
+    moves:['Build in arrival time before reflection.','Use silence as an active ingredient, not a gap to fill.','Invite attention to temperature, sound, ground, light, and spaciousness.'],
+    watch:['Restless groups often need more sensory grounding, not more explanation.','Rushed sessions can skip the very condition that makes reflection possible.'],
+    adapt:'In noisy or urban contexts, ask participants to notice layers of sound rather than seeking perfect quiet.',
+    script:'Before we think about anything, we are going to let attention rest on what is already here.'
+  },
+  'Awe and the small self':{
+    moves:['Offer one accurate image of vastness, then pause.','Use awe to widen perspective before inviting values reflection.','Keep facts simple and emotionally spacious.'],
+    watch:['Too many astronomy facts can become cognitive load. One vivid truth is enough.','Awe should open the room, not overwhelm the group.'],
+    adapt:'If stars are not visible, use the Moon, planets, old starlight, Earth-from-space imagery, or local sky stories.',
+    script:'The point is not that we are insignificant. The point is that we belong to something larger than the pressure of this one moment.'
+  },
+  'The boundary that keeps the work safe':{
+    moves:['State the scope before the session begins.','Receive disclosures with care, then return to the facilitation frame.','Know what support exists before you need it.'],
+    watch:['Do not ask probing follow-up questions about trauma, diagnosis, risk, or personal history.','Do not let the group become a substitute therapy circle.'],
+    adapt:'For high-stress settings, brief the host organisation beforehand and agree on emergency procedures.',
+    script:'I am really glad you named that. I want to make sure you are not left alone with it, and I also want to connect you with support that is equipped for this.'
+  },
+  'When weather turns heavy':{
+    moves:['Return attention to the body and environment.','Keep your voice slow, concrete, and non-dramatic.','Follow up privately after the group activity where possible.'],
+    watch:['Do not make the distressed person perform their distress for the group.','If immediate safety is a concern, pause the session and follow local emergency procedure.'],
+    adapt:'For groups affected by conflict or acute stress, use more non-verbal grounding and fewer reflective questions.',
+    script:'Let us come back to what is here: the ground under our feet, the air on our skin, the sounds around us, and the sky above us.'
+  },
+  'The warm hand-off':{
+    moves:['Ask permission before sharing contacts.','Make the hand-off practical: name, number, website, opening hours, next step.','Frame support-seeking as strength and values-led action.'],
+    watch:['Do not diagnose, advise, assess, or promise confidentiality beyond your role.','Do not rely on searching for resources in the moment.'],
+    adapt:'Prepare country-specific and community-specific contacts before each session.',
+    script:'What you&apos;ve shared matters, and I want to make sure you have proper support for it. Would it be okay if I shared some contact details before you leave tonight?'
+  },
+  'Step one: arrive':{
+    moves:['Use the Five-Sense Landing as your default opening.','Allow ten to fifteen seconds of silence before speaking.','Move from body sensation to sound to looking up.'],
+    watch:['If participants joke or fidget, acknowledge lightly and continue.','If participants are silent, do not force sharing. Silence can mean the room is working.'],
+    adapt:'For younger participants, shorten silent periods and add a concrete focus such as finding the brightest object.',
+    script:'Let the day fall back a little. Notice the ground, the air, the sounds nearby, and then the sky.'
+  },
+  'Step two: the cosmic hook':{
+    moves:['Choose one hook that fits the actual setting.','Make it true, short, and easy to imagine.','Let the hook land before asking anything personal.'],
+    watch:['Avoid fact-stacking. The goal is perspective, not astronomy instruction.','Do not use fear-based cosmic scale. Keep it spacious and humane.'],
+    adapt:'In cultural contexts with strong sky stories, use a narrative rather than a scientific fact when appropriate.',
+    script:'This light may have been travelling for hundreds of years to arrive in your eyes in this exact moment.'
+  },
+  'Step three: reflection':{
+    moves:['Ask one clean question.','Let silence do the work.','Invite optional sharing focused on noticing, not confession.'],
+    watch:['A list of questions can scatter attention. Choose one and hold it well.','Do not rescue the group from silence too quickly.'],
+    adapt:'For groups uncomfortable with direct self-reflection, invite drawing, journaling, or private naming instead.',
+    script:'From this wider view, what feels worth moving toward? You do not need to answer aloud.'
+  },
+  'Sequence the activities':{
+    moves:['Use Five-Sense Landing before deeper reflection.','Use Sky Within before difficult-thought work when possible.','Move from awareness to perspective to values and action.'],
+    watch:['Do not rush into values work before the group has arrived.','Do not treat the cards as a rigid script when the group needs a simpler path.'],
+    adapt:'In shorter sessions, use Arrive, Cosmic Hook, Reflection as the compressed version.',
+    script:'We begin by arriving, then widen perspective, then ask what matters from that wider place.'
+  },
+  'Facilitate with less language':{
+    moves:['Give enough instruction for safety, then stop.','Use pauses deliberately.','Let participants have their own experience without narrating it for them.'],
+    watch:['Over-explaining often comes from facilitator anxiety. Slow down and return to the structure.','Avoid reassuring every silence. Some silence is productive.'],
+    adapt:'For groups new to reflection, use slightly more structure but keep the words simple.',
+    script:'I will offer a few prompts, and there will be some quiet. Nothing has gone wrong when it gets quiet.'
+  },
+  'Storytelling as bridge':{
+    moves:['Choose stories respectfully and know where they come from.','Invite participants to bring their own sky knowledge when appropriate.','Give stories enough time to breathe.'],
+    watch:['Do not treat indigenous or local knowledge as decorative content.','Do not rush from story into interpretation.'],
+    adapt:'Where local elders, educators, or cultural knowledge holders are involved, invite their guidance before using community stories.',
+    script:'The sky has never belonged to one story only. If there are stories about this sky that live in this community, there is room for them here.'
+  },
+  'Work with the sky you have':{
+    moves:['Design around available sky, light, safety, access, and transport.','Use Moon, planets, clouds, rooftops, courtyards, windows, or projected imagery when needed.','Keep the core: looking, spaciousness, reflection.'],
+    watch:['Do not apologise for imperfect conditions. Adapt with confidence.','Do not let equipment turn the session into conventional outreach.'],
+    adapt:'For urban sites, plan a moon/planet session, a rooftop session, or an indoor projected sky session.',
+    script:'We do not need a perfect sky tonight. We need enough sky to look up together.'
+  },
+  'Adapt for participants':{
+    moves:['Match pacing, language, movement, and sharing format to the group.','Use more concrete prompts with young people and more memory/continuity prompts with older adults.','Use non-verbal and sensory routes where stress or trauma may limit verbal reflection.'],
+    watch:['Do not assume one audience is the natural audience. This work travels, but it must be locally held.','Avoid pressuring vulnerable groups into disclosure.'],
+    adapt:'Offer private reflection, drawing, or pair discussion as alternatives to whole-group sharing.',
+    script:'You can keep this reflection private, write it down, draw it, or simply hold it quietly.'
+  },
+  'Contribute back to the programme':{
+    moves:['Keep a simple facilitator log after each session.','Record context, adaptations, participant responses, and what you would change.','Share observations with the wider facilitator network where appropriate.'],
+    watch:['Do not collect sensitive personal stories without consent.','Keep notes focused on facilitation learning, not participant diagnosis or disclosure.'],
+    adapt:'Use a lightweight after-action review: what worked, what was difficult, what changes next time.',
+    script:'Your local practice is part of how this programme learns. Notice carefully, protect privacy, and share what can help others facilitate well.'
+  }
+};
+
+const activities=[
+  {
+    title:'The Five-Sense Landing',
+    meta:'10 to 15 min',
+    tag:'Present moment awareness',
+    text:'Start here. Help the group arrive in the body and present environment before asking anything reflective.',
+    purpose:'Most people arrive carrying the residue of their day. This activity creates a deliberate transition into contact with the present moment.',
+    setup:'Outdoors preferred. Indoors can work near a window or with a projected sky image. No specialist equipment required.',
+    steps:[
+      'Invite the group to stand or sit comfortably. Let eyes close or soften if that feels safe.',
+      'Hold ten to fifteen seconds of silence before speaking.',
+      'Guide attention to the ground, air temperature, body weight, and breath.',
+      'Guide attention to nearby sounds, far sounds, and the edge of hearing.',
+      'Invite participants to open their eyes and look up at what is actually there.',
+      'Allow two to three minutes of quiet looking.',
+      'Invite one simple noticing from anyone who wants to share.'
+    ],
+    prompt:'We are going to begin by simply arriving. There is nowhere to be right now except here. Let the day fall back a little. What is the temperature of the air on your skin? What can you hear? When you are ready, look up and let your eyes rest on what is actually there.',
+    watch:'Silence may feel uncomfortable at first. Hold it gently. If emotion surfaces, acknowledge it quietly and keep the space steady.'
+  },
+  {
+    title:'The Sky Within',
+    meta:'12 to 18 min',
+    tag:'Self as context',
+    text:'Use the sky as a direct image for the observing self: the space that can hold changing inner weather.',
+    purpose:'The sky offers a lived analogue for the observing self: a wide space in which thoughts, emotions, sensations, and memories occur.',
+    setup:'A real sky is ideal, but a window, courtyard, or calm projected sky can work.',
+    steps:[
+      'Invite participants to look at the sky as a containing space rather than scenery.',
+      'Name that weather, light, darkness, and movement all occur within it.',
+      'Ask what remains constant while those contents change.',
+      'Invite participants to notice whether anything in them feels like that space.',
+      'Let the question sit without requiring an answer.',
+      'Offer optional reflection on what it is like to be the one noticing.'
+    ],
+    prompt:'What do you notice about the space that is holding everything you can see? Is there anything in you that feels like that, something that has been present across your life, watching without being overwhelmed?',
+    watch:'Do not explain this into being. The aim is an opening, not a correct answer.'
+  },
+  {
+    title:'Placing Thoughts in the Sky',
+    meta:'12 to 18 min',
+    tag:'Cognitive defusion',
+    text:'Create distance from sticky thoughts without debating, dismissing, or solving them.',
+    purpose:'Defusion creates separation between a person and the content of their thinking, without asking them to argue with the thought.',
+    setup:'Optional paper cards help participants give a thought a physical form. Sharing the thought is not required.',
+    steps:[
+      'Invite participants to bring to mind a recurring thought that carries some weight.',
+      'Reassure them they do not need to say it aloud.',
+      'Ask them to imagine placing that thought in the sky at a distance.',
+      'Invite them to notice its edges, movement, size, and the space around it.',
+      'Bring attention to astronomical scale and the age of starlight.',
+      'Invite them to watch the thought move through and pass.',
+      'Ask what changed about their relationship to the thought.'
+    ],
+    prompt:'Bring to mind a thought that comes back often. Look up and imagine placing it somewhere in the sky. Give it space. Notice what it is like to look at this thought from out here, rather than from inside it.',
+    watch:'Distance is not dismissal. If participants worry the thought matters, affirm that it can matter and still be seen from another position.'
+  },
+  {
+    title:'The Pale Blue Dot Reflection',
+    meta:'10 to 15 min',
+    tag:'Awe and perspective',
+    text:'Use cosmic scale to widen perspective before asking what feels genuinely important.',
+    purpose:'Awe can reduce preoccupied self-reference and increase openness, patience, and meaning.',
+    setup:'Use the visible sky, an image of Earth from space, or a short astronomy story.',
+    steps:[
+      'Invite quiet looking or present a simple Earth-from-space image.',
+      'Name the scale gently, without overloading facts.',
+      'Ask what feels smaller from this vantage point.',
+      'Ask what feels more precious from this vantage point.',
+      'Allow private reflection before any sharing.',
+      'Close by returning attention to the group and the ground beneath them.'
+    ],
+    prompt:'From this wider view, what becomes smaller? And what becomes more precious? Let the answers arrive quietly. You do not need to solve anything tonight.',
+    watch:'Awe should widen the room, not overwhelm it. Keep language simple and paced.'
+  },
+  {
+    title:'Finding Your Guiding Stars',
+    meta:'18 to 25 min',
+    tag:'Values and action',
+    text:'Close the sequence by turning reflection into one small, values-guided step.',
+    purpose:'Participants identify values that can act like fixed points of reference in a changing life.',
+    setup:'Use the Narratives Reference Booklet where possible. Local sky stories are especially valuable when held respectfully.',
+    steps:[
+      'Frame stars as orientation points, not instructions.',
+      'Share a selected sky narrative slowly, with silence after.',
+      'Ask what in the story feels true to life.',
+      'Invite participants to name two or three values they want life to be about.',
+      'Ask where those values are pointing them now.',
+      'Invite one small concrete step for the coming week.',
+      'Close by looking up and acknowledging the long human history of navigating by stars.'
+    ],
+    prompt:'If those values were stars you could navigate by, where would they be pointing you right now? What is one small step you could take this week in that direction?',
+    watch:'Values work can reveal a gap between current life and desired direction. Treat that gap as honest information, not failure.'
+  }
+];
+
+const boundaries=[
+  ['Facilitation, not therapy','You create a safe reflective space. You do not assess, diagnose, counsel, or process trauma.'],
+  ['The sky does the teaching','Use silence, looking, and simple prompts. Avoid filling the session with explanation.'],
+  ['Support before surprise','Know local crisis, counselling, and mentor contacts before you facilitate.'],
+  ['Culture is not decoration','Invite local star stories and community knowledge where appropriate. Listen more than you perform expertise.'],
+  ['Adapt the setting','A perfect dark sky is not required. Moon, clouds, windows, rooftops, courtyards, and projected skies can all serve the work.']
+];
+
+const resources=[
+  {
+    kind:'Guidelines',
+    title:'Astronomy for Mental Health Guidelines',
+    text:'OAD open-access guidance for planning, adapting, and reviewing astronomy-based mental health and wellbeing activities.',
+    url:'https://zenodo.org/records/15878612'
+  },
+  {
+    kind:'Programme',
+    title:'Astronomy for Mental Health project page',
+    text:'Background, aims, pilot contexts, and OAD project framing for the astronomy for mental health flagship.',
+    url:'https://astro4dev.org/astronomy-for-mental-health-guidelines/'
+  },
+  {
+    kind:'Booklet',
+    title:'Narratives Reference Booklet',
+    text:'Sky narratives resource referenced in the facilitator training for values, storytelling, and local adaptation work.',
+    url:'https://doi.org/10.5281/zenodo.16420872'
+  },
+  {
+    kind:'Website',
+    title:'IAU Office of Astronomy for Development',
+    text:'The official OAD website for programmes, reports, opportunities, and wider astronomy-for-development resources.',
+    url:'https://astro4dev.org/'
+  }
+];
+
+const storeKey='amfh-training-v1';
+const saved=JSON.parse(localStorage.getItem(storeKey)||'{}');
+
+function save(key,value){
+  saved[key]=value;
+  localStorage.setItem(storeKey,JSON.stringify(saved));
+  const toast=document.getElementById('toast');
+  toast.classList.add('show');
+  clearTimeout(save._timer);
+  save._timer=setTimeout(()=>toast.classList.remove('show'),1200);
 }
 
-/* ── Scroll reveal ──────────────────────────────────────── */
-function initReveal(){
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
-  },{threshold:0.1,rootMargin:'0px 0px -16px 0px'});
-  document.querySelectorAll('.slabel,.tool-card,.checklist,.sstep,.tc,.rem,.rcard,.scopebox,.pbox').forEach((el,i)=>{
-    el.classList.add('reveal');
-    el.style.transitionDelay=(i%6)*55+'ms';
-    obs.observe(el);
+function progressState(){
+  const totalLessons=modules.reduce((sum,m)=>sum+m.lessons.length,0);
+  const doneLessons=modules.reduce((sum,m,mi)=>sum+m.lessons.filter((_,li)=>saved[`module-${mi}-lesson-${li}`]).length,0);
+  const nextIndex=modules.findIndex((m,mi)=>!m.lessons.every((_,li)=>saved[`module-${mi}-lesson-${li}`]));
+  const safeNext=nextIndex===-1?modules.length-1:nextIndex;
+  const percent=totalLessons?Math.round((doneLessons/totalLessons)*100):0;
+  return {totalLessons,doneLessons,nextIndex:safeNext,complete:nextIndex===-1,percent};
+}
+
+function renderHeroDashboard(){
+  const state=progressState();
+  const next=modules[state.nextIndex];
+  const nextLessonIndex=next.lessons.findIndex((_,li)=>!saved[`module-${state.nextIndex}-lesson-${li}`]);
+  const lesson=next.lessons[nextLessonIndex===-1?0:nextLessonIndex];
+  document.getElementById('heroDashboard').innerHTML=
+    `<div class="stat-card">
+      <p class="stat-label">Training progress</p>
+      <p class="stat-value">${state.percent}<small>% complete</small></p>
+      <div class="progress-rail"><div class="progress-fill" style="width:${state.percent}%"></div></div>
+    </div>
+    <div class="next-card">
+      <p class="next-label">${state.complete?'All modules complete':'Recommended next step'}</p>
+      <h2>${state.complete?'Return to Practice':next.title+': '+lesson.title}</h2>
+      <p>${state.complete?'Use the activity guides, session mode, and reflection tools during real facilitation.':lesson.practice}</p>
+      <button data-resume-module="${state.nextIndex}" data-resume-lesson="${nextLessonIndex===-1?0:nextLessonIndex}">${state.complete?'Open practice guides':'Resume lesson'}</button>
+    </div>`;
+}
+
+function renderJourneyStrip(){
+  const state=progressState();
+  document.getElementById('journeyStrip').innerHTML=modules.map((m,i)=>{
+    const done=m.lessons.every((_,li)=>saved[`module-${i}-lesson-${li}`]);
+    const active=!state.complete && i===state.nextIndex;
+    return `<button class="journey-step ${done?'done':''} ${active?'active':''}" data-open-module="${i}">
+      <span>${done?'Complete':active?'Next':'Module '+(i+1)}</span>
+      <strong>${m.title}</strong>
+    </button>`;
+  }).join('');
+}
+
+function renderNav(){
+  document.getElementById('nav').innerHTML=navItems.map(([id,label,icon],i)=>
+    `<button class="${i===0?'active':''}" data-tab="${id}" aria-controls="${id}">${icon}<span>${label}</span></button>`
+  ).join('');
+}
+
+function moduleCard(m,i){
+  const done=saved['module-'+i];
+  const lessonCount=m.lessons?m.lessons.length:0;
+  const lessonDone=m.lessons?m.lessons.filter((_,li)=>saved[`module-${i}-lesson-${li}`]).length:0;
+  const state=progressState();
+  const isNext=!state.complete && i===state.nextIndex;
+  return `<article class="module ${done?'done':''} ${isNext?'next':''}">
+    <button class="check" aria-label="Toggle ${m.title}" data-module="${i}">${done?'✓':'○'}</button>
+    <span class="module-status">${done?'Complete':isNext?'Recommended next':'Guided module'}</span>
+    <span class="module-num">${i+1}</span>
+    <h3>${m.title}</h3>
+    <p>${m.text}</p>
+    <div class="module-meta"><span class="chip">${m.tag}</span><span class="chip">${m.time}</span><span class="chip">${lessonDone}/${lessonCount} lessons</span></div>
+    <div class="module-preview">
+      ${m.lessons.slice(0,3).map(lesson=>`<span>${lesson.title}</span>`).join('')}
+    </div>
+    <div class="module-actions">
+      <button class="module-open" data-open-module="${i}">Start guided module</button>
+      <button class="module-mark" data-module="${i}">${done?'Mark incomplete':'Mark complete'}</button>
+    </div>
+  </article>`;
+}
+
+function renderModules(){
+  document.getElementById('homeModules').innerHTML=modules.slice(0,3).map(moduleCard).join('');
+  document.getElementById('learnModules').innerHTML=modules.map(moduleCard).join('');
+  renderHeroDashboard();
+  renderJourneyStrip();
+}
+
+function renderActivities(){
+  const activityIcons=[icons.landing,icons.sky,icons.thought,icons.pale,icons.stars];
+  document.getElementById('activityList').innerHTML=activities.map((a,i)=>
+    `<article class="activity">
+      <div class="activity-icon" aria-hidden="true">${activityIcons[i]||icons.practice}</div>
+      <div><span class="chip">${a.tag}</span><h3>${a.title}</h3><p>${a.text}</p></div>
+      <button class="open-activity" data-activity="${i}">Open guide</button>
+    </article>`
+  ).join('');
+}
+
+let activeModule=0;
+let activeLesson=0;
+
+function openModule(index,lessonIndex=0){
+  activeModule=index;
+  activeLesson=lessonIndex;
+  const m=modules[index];
+  const l=m.lessons[lessonIndex];
+  const detail=lessonDetails[l.title]||{};
+  const completedInModule=m.lessons.filter((_,li)=>saved[`module-${index}-lesson-${li}`]).length;
+  const modulePercent=Math.round((completedInModule/m.lessons.length)*100);
+  const drawer=document.getElementById('drawer');
+  document.getElementById('drawerMeta').textContent=`${m.tag} · ${m.time}`;
+  document.getElementById('drawerTitle').textContent=m.title;
+  document.getElementById('drawerBody').innerHTML=
+    `<div class="drawer-summary">
+       <p>${m.outcome}</p>
+       <div class="drawer-progress">
+         <div class="progress-rail"><div class="progress-fill" style="width:${modulePercent}%"></div></div>
+         <span>${completedInModule}/${m.lessons.length} lessons complete</span>
+       </div>
+     </div>
+     <div class="lesson-progress">
+       ${m.lessons.map((lesson,i)=>`<button class="${i===lessonIndex?'active':''}" data-lesson="${i}">${saved[`module-${index}-lesson-${i}`]?'✓ ':''}${i+1}. ${lesson.title}</button>`).join('')}
+     </div>
+     <article class="lesson-block">
+       <span class="chip">Guided lesson ${lessonIndex+1} of ${m.lessons.length}</span>
+       <h3>${l.title}</h3>
+       <div class="lesson-section">
+         <p class="lesson-section-title">Core ideas</p>
+         <ul class="lesson-checklist">${l.learn.map(item=>`<li>${item}</li>`).join('')}</ul>
+       </div>
+       ${detail.moves?`<div class="lesson-section">
+         <p class="lesson-section-title">Facilitator moves</p>
+         <ul class="lesson-checklist">${detail.moves.map(item=>`<li>${item}</li>`).join('')}</ul>
+       </div>`:''}
+       <div class="lesson-two-col">
+         ${detail.watch?`<div class="mini-panel"><b>What to watch for</b><p>${detail.watch.join(' ')}</p></div>`:''}
+         ${detail.adapt?`<div class="mini-panel"><b>Adaptation note</b><p>${detail.adapt}</p></div>`:''}
+       </div>
+       ${detail.script?`<div class="quote"><b>Language you can use:</b><br>${detail.script}</div>`:''}
+       <div class="lesson-prompt"><b>Practice:</b> ${l.practice}</div>
+       <label class="checkpoint">
+         <input type="checkbox" data-complete-lesson="${lessonIndex}" ${saved[`module-${index}-lesson-${lessonIndex}`]?'checked':''}>
+         <span>${l.checkpoint}</span>
+       </label>
+       <label class="field">
+         <span>Reflection note</span>
+         <textarea class="reflection-area" data-reflection="${index}-${lessonIndex}" placeholder="Capture one sentence you want to remember from this lesson.">${saved[`reflection-${index}-${lessonIndex}`]||''}</textarea>
+       </label>
+     </article>
+     <div class="drawer-actions">
+       <button class="btn btn-secondary" data-prev-lesson ${lessonIndex===0?'disabled':''}>Previous lesson</button>
+       <button class="btn btn-primary" data-next-lesson>${lessonIndex===m.lessons.length-1?'Finish module':'Next lesson'}</button>
+       <button class="btn btn-secondary" data-complete-module="${index}">Mark whole module complete</button>
+     </div>`;
+  drawer.classList.add('open');
+  drawer.setAttribute('aria-hidden','false');
+  document.getElementById('closeDrawer').focus();
+}
+
+function renderBoundaries(){
+  document.getElementById('boundaries').innerHTML=boundaries.map((b,i)=>
+    `<div class="boundary"><span class="module-num">${i+1}</span><span><b>${b[0]}</b>${b[1]}</span></div>`
+  ).join('');
+}
+
+function renderResources(){
+  document.getElementById('resourceList').innerHTML=resources.map(resource=>
+    `<a class="resource-card" href="${resource.url}" target="_blank" rel="noopener noreferrer">
+      <span class="resource-kind">${resource.kind}</span>
+      <b>${resource.title}</b>
+      <span>${resource.text}</span>
+      <small>Open resource</small>
+    </a>`
+  ).join('');
+}
+
+function openActivity(index){
+  const a=activities[index];
+  const drawer=document.getElementById('drawer');
+  document.getElementById('drawerMeta').textContent=a.meta+' · '+a.tag;
+  document.getElementById('drawerTitle').textContent=a.title;
+  document.getElementById('drawerBody').innerHTML=
+    `<p>${a.purpose}</p>
+     <div class="quote"><b>Setup:</b> ${a.setup}</div>
+     <div class="steps">${a.steps.map(s=>`<div class="step">${s}</div>`).join('')}</div>
+     <div class="quote"><b>Suggested language:</b><br>${a.prompt}</div>
+     <p><b>What to watch for:</b> ${a.watch}</p>`;
+  drawer.classList.add('open');
+  drawer.setAttribute('aria-hidden','false');
+  document.getElementById('closeDrawer').focus();
+}
+
+function closeActivity(){
+  const drawer=document.getElementById('drawer');
+  drawer.classList.remove('open');
+  drawer.setAttribute('aria-hidden','true');
+}
+
+function switchTab(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
+  setHeroCollapsed(id!=='home');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function setHeroCollapsed(collapsed){
+  const hero=document.querySelector('.hero');
+  const btn=document.getElementById('heroToggle');
+  hero.classList.toggle('collapsed',collapsed);
+  btn.setAttribute('aria-expanded',String(!collapsed));
+  btn.textContent=collapsed?'Expand intro':'Collapse intro';
+}
+
+function hydrateFields(){
+  document.querySelectorAll('input,textarea').forEach(el=>{
+    if(saved[el.id]) el.value=saved[el.id];
+    el.addEventListener('input',()=>save(el.id,el.value));
   });
 }
 
-document.addEventListener('DOMContentLoaded',()=>{renderAll();loadData();obShow();renderStars();setTimeout(initReveal,60);});
+document.addEventListener('click',event=>{
+  const tab=event.target.closest('[data-tab]');
+  if(tab) switchTab(tab.dataset.tab);
+  const jump=event.target.closest('[data-jump]');
+  if(jump) switchTab(jump.dataset.jump);
+  const resume=event.target.closest('[data-resume-module]');
+  if(resume){
+    const state=progressState();
+    if(state.complete){
+      switchTab('practice');
+    }else{
+      openModule(Number(resume.dataset.resumeModule),Number(resume.dataset.resumeLesson));
+    }
+  }
+  const openMod=event.target.closest('[data-open-module]');
+  if(openMod) openModule(Number(openMod.dataset.openModule));
+  const lesson=event.target.closest('[data-lesson]');
+  if(lesson) openModule(activeModule,Number(lesson.dataset.lesson));
+  const prev=event.target.closest('[data-prev-lesson]');
+  if(prev && activeLesson>0) openModule(activeModule,activeLesson-1);
+  const next=event.target.closest('[data-next-lesson]');
+  if(next){
+    saved[`module-${activeModule}-lesson-${activeLesson}`]=true;
+    localStorage.setItem(storeKey,JSON.stringify(saved));
+    if(activeLesson<modules[activeModule].lessons.length-1){
+      openModule(activeModule,activeLesson+1);
+    }else{
+      modules[activeModule].lessons.forEach((_,li)=>saved[`module-${activeModule}-lesson-${li}`]=true);
+      saved[`module-${activeModule}`]=true;
+      localStorage.setItem(storeKey,JSON.stringify(saved));
+      renderModules();
+      closeActivity();
+      save('lastCompletedModule',modules[activeModule].title);
+    }
+  }
+  const completeWhole=event.target.closest('[data-complete-module]');
+  if(completeWhole){
+    const idx=Number(completeWhole.dataset.completeModule);
+    modules[idx].lessons.forEach((_,li)=>saved[`module-${idx}-lesson-${li}`]=true);
+    saved[`module-${idx}`]=true;
+    localStorage.setItem(storeKey,JSON.stringify(saved));
+    renderModules();
+    openModule(idx,activeLesson);
+  }
+  const mod=event.target.closest('[data-module]');
+  if(mod){
+    const key='module-'+mod.dataset.module;
+    saved[key]=!saved[key];
+    if(saved[key] && modules[mod.dataset.module]){
+      modules[mod.dataset.module].lessons.forEach((_,li)=>saved[`module-${mod.dataset.module}-lesson-${li}`]=true);
+    }
+    localStorage.setItem(storeKey,JSON.stringify(saved));
+    renderModules();
+  }
+  const act=event.target.closest('[data-activity]');
+  if(act) openActivity(Number(act.dataset.activity));
+});
+
+document.addEventListener('change',event=>{
+  const lessonCheck=event.target.closest('[data-complete-lesson]');
+  if(lessonCheck){
+    saved[`module-${activeModule}-lesson-${lessonCheck.dataset.completeLesson}`]=lessonCheck.checked;
+    const allDone=modules[activeModule].lessons.every((_,li)=>saved[`module-${activeModule}-lesson-${li}`]);
+    saved[`module-${activeModule}`]=allDone;
+    localStorage.setItem(storeKey,JSON.stringify(saved));
+    renderModules();
+    openModule(activeModule,activeLesson);
+  }
+});
+
+document.addEventListener('input',event=>{
+  const reflection=event.target.closest('[data-reflection]');
+  if(reflection){
+    saved[`reflection-${reflection.dataset.reflection}`]=reflection.value;
+    localStorage.setItem(storeKey,JSON.stringify(saved));
+  }
+});
+
+document.getElementById('closeDrawer').addEventListener('click',closeActivity);
+document.addEventListener('keydown',event=>{if(event.key==='Escape') closeActivity();});
+document.getElementById('heroToggle').addEventListener('click',()=>{
+  const hero=document.querySelector('.hero');
+  setHeroCollapsed(!hero.classList.contains('collapsed'));
+});
+function toggleMode(){
+  document.body.classList.toggle('session-mode');
+  const on=document.body.classList.contains('session-mode');
+  document.getElementById('modeToggle').textContent=on?'Daylight mode':'Session mode';
+  document.getElementById('modeToggleLarge').textContent=on?'Use daylight training mode':'Use session-ready mode';
+}
+document.getElementById('modeToggle').addEventListener('click',toggleMode);
+document.getElementById('modeToggleLarge').addEventListener('click',toggleMode);
+
+renderNav();
+renderModules();
+renderActivities();
+renderBoundaries();
+renderResources();
+hydrateFields();
 </script>
 </body>
 </html>

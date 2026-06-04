@@ -1241,6 +1241,146 @@ body.session-mode{
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+.welcome{
+  margin:0 0 16px;
+  padding:22px;
+  border:1px solid oklch(90% .03 224);
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 92% 8%,oklch(89% .1 86 / .35),transparent 9rem),
+    oklch(99% .009 95 / .9);
+  box-shadow:0 14px 36px oklch(43% .08 232 / .08);
+}
+.welcome h3{margin:0 0 10px;font-size:22px;letter-spacing:-.03em}
+.welcome p{margin:0 0 14px;color:var(--ink-soft);line-height:1.62}
+.welcome-steps{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin:0 0 14px;
+}
+.welcome-steps div{
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:oklch(98% .01 96);
+}
+.welcome-steps span{
+  display:block;
+  margin-bottom:6px;
+  color:var(--sky-700);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.welcome-steps strong{
+  display:block;
+  color:var(--ink-soft);
+  font-size:13px;
+  font-weight:400;
+  line-height:1.5;
+}
+.welcome-note{font-size:14px}
+.module-intro{margin:0 0 10px;color:var(--ink);line-height:1.62}
+.module-outcome{margin:0 0 10px;color:var(--ink-soft);line-height:1.55}
+.module-foryou{
+  margin:0;
+  padding:11px 13px;
+  border-radius:14px;
+  color:oklch(38% .07 75);
+  background:var(--sun-soft);
+  font-size:14px;
+  line-height:1.55;
+}
+.lesson-lede{
+  margin:0 0 4px;
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.62;
+}
+.lesson-read{
+  display:grid;
+  gap:11px;
+}
+.lesson-read p{
+  margin:0;
+  color:var(--ink-soft);
+  line-height:1.72;
+}
+.self-study{
+  padding:14px;
+  border:1px solid oklch(80% .07 162 / .55);
+  border-radius:16px;
+  background:oklch(96% .04 162 / .55);
+}
+.self-study b{display:block;margin-bottom:5px;color:oklch(34% .08 162)}
+.self-study p{margin:0;color:var(--ink-soft);line-height:1.6}
+.panel-lede{margin:-6px 0 14px;color:var(--ink-soft);line-height:1.55}
+.glossary-list{display:grid;gap:11px}
+.glossary-item{
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:oklch(98% .01 96);
+}
+.glossary-item b{display:block;margin-bottom:5px;color:var(--ink);font-size:16px}
+.glossary-item p{margin:0;color:var(--ink-soft);line-height:1.6}
+.glossary-insession{margin-top:8px!important;font-size:13px}
+.glossary-insession span{
+  color:var(--sky-700);
+  font-weight:700;
+}
+.session-mode .welcome,
+.session-mode .welcome-steps div,
+.session-mode .self-study,
+.session-mode .glossary-item{
+  color:oklch(82% .03 235);
+  background:oklch(96% .015 95 / .08);
+  border-color:var(--night-line);
+}
+.session-mode .welcome h3,
+.session-mode .glossary-item b,
+.session-mode .self-study b{color:oklch(96% .018 90)}
+.session-mode .welcome p,
+.session-mode .welcome-steps strong,
+.session-mode .glossary-item p,
+.session-mode .self-study p,
+.session-mode .module-intro,
+.session-mode .module-outcome,
+.session-mode .lesson-lede,
+.session-mode .lesson-read p,
+.session-mode .panel-lede{color:oklch(80% .035 238)}
+.session-mode .welcome-steps span,
+.session-mode .glossary-insession span{color:oklch(84% .09 86)}
+.session-mode .boundary b,
+.session-mode .flow-note b,
+.session-mode .welcome-note b,
+.session-mode .welcome p b,
+.session-mode .mini-panel b{color:oklch(96% .018 90)}
+.session-mode .boundary{border-color:var(--night-line)}
+.session-mode .flow-note::before{background:linear-gradient(135deg,oklch(72% .12 232),oklch(82% .12 86))}
+.session-mode .lesson-section-title,
+.session-mode .field span{color:oklch(78% .035 86)}
+.session-mode .resource-card small{color:oklch(82% .09 232)}
+.session-mode .module-num{
+  color:oklch(90% .05 232);
+  background:oklch(96% .015 95 / .12);
+}
+.session-mode .chip{
+  color:oklch(88% .03 235);
+  background:oklch(96% .015 95 / .1);
+}
+.session-mode .update-pill{
+  color:oklch(90% .09 86);
+  background:oklch(96% .015 95 / .12);
+}
+@media (max-width:940px){
+  .welcome-steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .welcome-steps{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -1302,6 +1442,17 @@ body.session-mode{
           </div>
           <span class="update-pill">Content updated from training v1</span>
         </div>
+        <div class="welcome">
+          <h3>How to use this guide</h3>
+          <p>This is a complete facilitator training that works two ways. If you are <b>attending a live training</b>, follow along with your facilitator and use the modules to revisit anything you want to go deeper on. If you are <b>learning on your own</b>, the modules are written to guide you through each idea at your own pace &mdash; read the &ldquo;Going deeper&rdquo; sections, try the self-study notes, and complete each checkpoint before moving on.</p>
+          <div class="welcome-steps">
+            <div><span>1 &middot; Learn</span><strong>Work through the six modules in order. Each builds the mindset, evidence, and safety you need.</strong></div>
+            <div><span>2 &middot; Practice</span><strong>Open the five activity guides. Use them after the modules or during a real session.</strong></div>
+            <div><span>3 &middot; Prepare</span><strong>Set up your Toolkit: care boundaries, local support contacts, and the glossary.</strong></div>
+            <div><span>4 &middot; Reflect</span><strong>Commit to one small first session, then record what worked and what you would adjust.</strong></div>
+          </div>
+          <p class="welcome-note">Your progress, notes, and contacts are saved automatically on this device. Switch on <b>Session mode</b> (left) for a low-light surface when facilitating under the sky.</p>
+        </div>
         <div class="flow-note"><span><b>Recommended route:</b> complete the first three modules before opening the activity guides. They establish the boundary, evidence, and safety frame that make the practices work well.</span></div>
         <div class="journey-strip" id="journeyStrip"></div>
         <div class="module-grid" id="homeModules"></div>
@@ -1342,6 +1493,11 @@ body.session-mode{
         <div class="flow-note"><span><b>Before any session:</b> complete the support contacts, review the care boundaries, and open the relevant programme resources if you need to brief a host organisation.</span></div>
         <div class="toolkit">
           <div class="panel">
+            <h3>Pre-session checklist</h3>
+            <p style="color:var(--ink-soft);margin:0 0 16px;line-height:1.55">Run through this before every session. All seven should be ready before you begin.</p>
+            <div id="preSessionChecklist"></div>
+          </div>
+          <div class="panel">
             <h3>Care boundaries</h3>
             <div id="boundaries"></div>
           </div>
@@ -1356,6 +1512,16 @@ body.session-mode{
           <div class="panel resources-panel">
             <h3>Resource library</h3>
             <div class="resource-list" id="resourceList"></div>
+          </div>
+          <div class="panel">
+            <h3>Training data</h3>
+            <p style="color:var(--ink-soft);margin:0 0 16px;line-height:1.55">Your progress, notes, reflections, and contacts are saved on this device only. Use the button below to clear all saved data — useful when starting a new cohort or passing the app to another facilitator.</p>
+            <button class="btn btn-secondary" id="resetBtn" style="color:var(--coral)">Reset all progress and notes</button>
+          </div>
+          <div class="panel resources-panel">
+            <h3>Plain-language glossary</h3>
+            <p class="panel-lede">The terms behind the practice, in everyday words. You never need to teach these to participants &mdash; they are here so the ideas make sense to you.</p>
+            <div class="glossary-list" id="glossaryList"></div>
           </div>
         </div>
       </section>
@@ -1663,108 +1829,162 @@ const modules=[
 
 const lessonDetails={
   'What you are offering':{
+    intro:`Before you can guide anyone else, you need a clear, settled answer to a simple question: what is this, actually? Getting this right is the single most protective thing you can do, for participants and for yourself.`,
+    read:[`The work you are training for has a deceptively gentle description: you help people slow down, look up, and reflect. Underneath that simplicity is a deliberate act of design. You are creating a container, a bounded space in which attention can soften and something quieter than daily problem-solving can surface. Astronomy provides the setting and the spaciousness. Your facilitation provides the structure and the safety. The participant keeps full ownership of their own inner experience and decides what, if anything, to share.`,`It is just as important to be clear about what this is not. This is not counselling, assessment, diagnosis, treatment, or crisis intervention, and it is not a replacement for any of those. Holding that line is not coldness; it is the thing that makes the warmth trustworthy. When you are certain of the edges of your role, you can be fully present inside them without drifting into territory you are not trained for. Participants can feel that steadiness, and it gives them permission to relax.`],
+    selfStudy:`Reading this alone? Picture a specific room or group you might one day gather, and say your one-sentence description out loud to that imagined room. Notice whether it promises an outcome (a warning sign) or simply offers an experience (the goal).`,
     moves:['Open by naming the scope clearly: this is a reflective wellbeing space, not therapy or counselling.','Use concrete language: slow down, look up, notice, reflect.','Let participants know sharing is always optional and private reflection is valid.'],
     watch:['Do not promise transformation, healing, or treatment outcomes.','Avoid over-selling astronomy as a cure. The sky creates conditions for reflection; it does not replace support.'],
     adapt:'For institutions, describe the work as education and wellbeing promotion. For community groups, describe it as a guided sky reflection.',
     script:'Tonight we are using the sky as a place to slow down and notice. I am here to guide the structure, not to ask anyone to disclose anything personal or to provide counselling.'
   },
   'The sky and the observer':{
+    intro:`This lesson introduces the quiet idea at the heart of the whole programme: that there is a part of you that watches your experience without being swept away by it. The sky is the most natural teacher of this idea we have.`,
+    read:[`Look at the sky for long enough and a distinction appears on its own. Clouds move, light changes, birds and planes and weather pass through, and yet the sky itself remains: the open space within which all of that happens. In Acceptance and Commitment Therapy this is called self-as-context, the witnessing awareness that notices thoughts, feelings, and sensations without being identical to any of them. People rarely need the term. They need the felt sense, and the sky offers it directly.`,`Your task is not to explain this concept into existence. Explanation tends to turn a living experience into an abstract one. Instead you create the conditions: real looking, a spacious question, and enough silence for the idea to be noticed rather than understood. Some participants will feel it immediately; others will simply enjoy the quiet. Both are fine. You are planting an experience, not testing comprehension.`],
+    selfStudy:`On your own, try this as the participant: spend two minutes watching a real or remembered sky, then ask yourself the script question below. The point is to feel the difference between your inner weather and the awareness noticing it, not to arrive at a tidy answer.`,
     moves:['Start with actual looking before explanation.','Use the sky as a direct image of a containing space.','Offer the question and then leave enough silence for it to land.'],
     watch:['Some participants will find the idea abstract. That is fine. Do not force insight.','Avoid turning self-as-context into a lecture. The experience is stronger than the definition.'],
     adapt:'If sky visibility is poor, work with clouds, daylight, a window, or a remembered sky. The key image is space holding changing contents.',
     script:'Notice the sky as the space that holds everything passing through it. Is there anything in you that can notice your inner weather without being the weather?'
   },
   'The view from a distance':{
+    intro:`Here you learn to help people change their relationship to a difficult thought without arguing with it, fixing it, or pretending it is not there. The skill is called defusion, and the sky gives it room to happen.`,
+    read:[`Most of us live inside our thoughts the way we live inside weather, soaked in it, unable to see its edges. Cognitive defusion is the gentle move from looking from a thought to looking at it. The thought does not have to be challenged, corrected, or made to disappear. It simply needs a little space around it so it can be seen as a thought rather than experienced as the whole truth of the moment.`,`Cosmic scale is a remarkably effective backdrop for this. When a recurring worry is imagined out against the depth of the night sky, it tends to reveal its proportions, not because it stops mattering, but because the person can finally see it has a shape, an edge, and a distance. This is why distance must never be sold as dismissal. A thought can be deeply important and still be observed from a step back. Your language should protect that nuance every time.`],
+    selfStudy:`Try it yourself first: bring a recurring thought to mind, imagine placing it out in the sky, and notice its size, edges, and movement. Do this before facilitating it for others so you can speak from experience rather than theory.`,
     moves:['Keep the recurring thought private unless the participant chooses otherwise.','Invite distance, edges, movement, and scale rather than analysis.','Return to the image of a thought passing through a larger sky.'],
     watch:['Distance is not dismissal. A thought can be important and still be observed.','Do not interpret the meaning of anyone&apos;s thought.'],
     adapt:'For younger groups, use a cloud, kite, satellite, or small object moving across the sky.',
     script:'You do not need to argue with the thought or make it disappear. Just place it where you can see it, with space around it.'
   },
   'Acceptance and Commitment work':{
+    intro:`This lesson gives you the internal map that everything else hangs from. You do not teach this map to participants; you carry it so your choices in the moment are guided rather than improvised.`,
+    read:[`Acceptance and Commitment Therapy is built around psychological flexibility: the capacity to stay in contact with the present moment, to make room for difficult inner experience rather than fighting it, and to keep moving toward what matters. Its core skills, contacting the present, the observing self, defusion, acceptance, values, and committed action, map almost uncannily onto an evening spent looking up at the sky with intention.`,`The reason you hold this framework internally rather than presenting it is simple: the moment a reflective space starts to sound clinical, people brace. Jargon creates distance and can quietly imply that something is wrong with the participant. The model is for you, the facilitator. It helps you notice when a group needs grounding versus perspective, when to invite values and when to simply allow silence. Let the sky do the teaching while the framework does the steering.`],
+    selfStudy:`As a solo learner, treat the six ACT processes as a self-check: after a reflective evening, ask which ones you actually touched. You will start to feel the sequence, arrive, notice, make space, choose direction, as a rhythm rather than a list.`,
     moves:['Hold ACT as your internal map: present moment, observing self, defusion, values, and committed action.','Translate psychological terms into lived sky experiences.','Use the framework to make good facilitation choices, not to impress participants.'],
     watch:['Jargon can create distance. Participants do not need to know the model to benefit from it.','Do not present yourself as a clinician unless you are trained and acting in that role.'],
     adapt:'For facilitators without psychology backgrounds, focus on the practical sequence: arrive, notice, make space, choose direction.',
     script:'The theory helps us understand why this works. In the session itself, we keep the language simple enough for the sky to do the teaching.'
   },
   'Attention restoration':{
+    intro:`This lesson explains why the quiet looking is not a warm-up to the real activity, it is the real activity. Understanding the mechanism will stop you rushing the most valuable minutes of any session.`,
+    read:[`Attention Restoration Theory distinguishes between directed attention, the effortful focus we use to push through tasks and screen out distractions, and a softer mode the theory calls fascination. Directed attention fatigues with use; by the end of a demanding day it is depleted, leaving people irritable, scattered, and reactive. What restores it is not more effort but a different kind of attending: gentle, effortless interest in something that holds the mind without gripping it.`,`The night sky is close to a perfect restorative environment. It offers being away from ordinary demands, a sense of extent or spaciousness, soft fascination that invites rather than commands attention, and compatibility with a reflective state of mind. This is why building in genuine arrival time, two or three unhurried minutes of simply looking, is not indulgent. It is the intervention. When you treat quiet looking as part of the work rather than a preamble, the reflection that follows lands on rested rather than exhausted attention.`],
+    selfStudy:`Test it on yourself before you trust it with a group: spend three deliberate, phone-free minutes looking at the sky and notice the shift in your own state. Experiencing the restoration firsthand makes it far easier to protect those minutes for others.`,
     moves:['Build in arrival time before reflection.','Use silence as an active ingredient, not a gap to fill.','Invite attention to temperature, sound, ground, light, and spaciousness.'],
     watch:['Restless groups often need more sensory grounding, not more explanation.','Rushed sessions can skip the very condition that makes reflection possible.'],
     adapt:'In noisy or urban contexts, ask participants to notice layers of sound rather than seeking perfect quiet.',
     script:'Before we think about anything, we are going to let attention rest on what is already here.'
   },
   'Awe and the small self':{
+    intro:`Awe is the most studied emotional ingredient in this work, and the easiest to overdo. This lesson helps you use it as a doorway into perspective rather than a firework display of facts.`,
+    read:[`Awe arises when we encounter something so vast that the mind has to stretch its usual frame to take it in. Researchers describe two features: perceived vastness and a need for accommodation, the mental adjustment required to fit the experience. The night sky delivers both effortlessly. A single true statement, that the light reaching your eye left its star before you were born, can open a sense of scale that no slideshow could.`,`What makes awe useful here is its documented effect on the self. Studies associate awe with a quieting of self-preoccupation, sometimes called the small self, alongside increases in openness, patience, generosity, and a felt sense of meaning and connection. Notice the direction of that shift: away from anxious rumination and toward a wider, more values-friendly vantage point. That is precisely the ground from which honest reflection becomes possible. The facilitation risk is overload, stacking fact upon fact until the group is impressed but not moved. One vivid, accurate image, followed by silence, does more than ten.`],
+    selfStudy:`On your own, collect two or three cosmic hooks that genuinely move you, old starlight, the scale of the Moon&apos;s distance, the Pale Blue Dot, and resist adding more. The constraint is the lesson: you are practising restraint, not encyclopaedic recall.`,
     moves:['Offer one accurate image of vastness, then pause.','Use awe to widen perspective before inviting values reflection.','Keep facts simple and emotionally spacious.'],
     watch:['Too many astronomy facts can become cognitive load. One vivid truth is enough.','Awe should open the room, not overwhelm the group.'],
     adapt:'If stars are not visible, use the Moon, planets, old starlight, Earth-from-space imagery, or local sky stories.',
     script:'The point is not that we are insignificant. The point is that we belong to something larger than the pressure of this one moment.'
   },
   'The boundary that keeps the work safe':{
+    intro:`Safety in this work begins with a boundary you can name without flinching. This lesson helps you hold it as an act of care rather than a refusal.`,
+    read:[`Your role has a firm outer edge: you are not diagnosing, advising, interpreting disclosures, or assessing risk. Those are clinical acts that require training, supervision, and a different kind of consent than a reflective sky session can offer. Inside that edge, however, there is a great deal you can do. You can receive someone with genuine warmth, ensure they do not feel alone with what they are carrying, and connect them to support that is properly equipped to help.`,`People sometimes worry that clear boundaries make a space feel colder. In practice the opposite is true. Vagueness about your role is what creates risk, for the participant, who may disclose more than the setting can safely hold, and for you, who may be pulled into responding beyond your competence. A boundary stated plainly and kindly at the start tells everyone what kind of room this is. That clarity is what lets you stay soft, present, and unhurried when something tender surfaces.`],
+    selfStudy:`Learning solo, rehearse the script below until it sounds like you and not like a disclaimer. The aim is to be able to say it warmly and without apology, because hesitation is what participants read as discomfort.`,
     moves:['State the scope before the session begins.','Receive disclosures with care, then return to the facilitation frame.','Know what support exists before you need it.'],
     watch:['Do not ask probing follow-up questions about trauma, diagnosis, risk, or personal history.','Do not let the group become a substitute therapy circle.'],
     adapt:'For high-stress settings, brief the host organisation beforehand and agree on emergency procedures.',
     script:'I am really glad you named that. I want to make sure you are not left alone with it, and I also want to connect you with support that is equipped for this.'
   },
   'When weather turns heavy':{
+    intro:`Sometimes a session stirs more than expected. This lesson gives you a calm, rehearsed response so that a moment of distress becomes a moment of safety rather than alarm.`,
+    read:[`When strong emotion surfaces in a group, your first instinct should not be to explore it but to steady the room. The most reliable tool is the one you already teach: a return to the present through the senses. Bringing the whole group gently back to the ground underfoot, the air on the skin, the sounds nearby and the sky above re-establishes safety for everyone, including the person who is struggling, without singling them out or asking them to perform their distress.`,`Pace and tone matter more than words here. A slow, concrete, undramatic voice communicates that nothing has gone wrong and that you are not frightened. Avoid making the distressed person the centre of the group&apos;s attention unless their immediate safety requires it. After the activity, check in with them privately, offer the support contacts you prepared in advance, and follow any emergency procedure agreed with your host if safety is genuinely at risk. The goal is not to fix the feeling but to ensure the person is held and connected.`],
+    selfStudy:`Practise the grounding pivot aloud until it is automatic. When you can deliver it slowly and steadily without thinking, you will have it available in the one moment you most need it.`,
     moves:['Return attention to the body and environment.','Keep your voice slow, concrete, and non-dramatic.','Follow up privately after the group activity where possible.'],
     watch:['Do not make the distressed person perform their distress for the group.','If immediate safety is a concern, pause the session and follow local emergency procedure.'],
     adapt:'For groups affected by conflict or acute stress, use more non-verbal grounding and fewer reflective questions.',
     script:'Let us come back to what is here: the ground under our feet, the air on our skin, the sounds around us, and the sky above us.'
   },
   'The warm hand-off':{
+    intro:`A warm hand-off is how care continues after your role ends. This lesson turns "you should get support" into a concrete, respectful bridge to it.`,
+    read:[`A hand-off is warm when it is human, specific, and prepared. The difference between mumbling that someone should talk to a professional and actually connecting them to named support is enormous. The warm version sounds like a person who cares and has done their homework: here is who to contact, here is the number, here are the hours, here is what tends to happen when you call. That practicality is itself reassuring; it makes the next step feel possible rather than abstract.`,`Two principles keep a hand-off safe. First, ask permission before sharing contacts or details, support offered respectfully is far more likely to be accepted than support imposed. Second, never improvise resources in the moment. Have at least one crisis or emergency line, one counselling or community service, and one mentor or supervisor contact ready before every session. Framing the act of reaching out as a strength, a values-led choice rather than a sign of failure, helps people walk through the door you are opening.`],
+    selfStudy:`If you are preparing on your own, complete the Toolkit contact fields now for your actual location. This lesson is not truly learned until those three contacts exist; the knowledge is in the readiness, not the concept.`,
     moves:['Ask permission before sharing contacts.','Make the hand-off practical: name, number, website, opening hours, next step.','Frame support-seeking as strength and values-led action.'],
     watch:['Do not diagnose, advise, assess, or promise confidentiality beyond your role.','Do not rely on searching for resources in the moment.'],
     adapt:'Prepare country-specific and community-specific contacts before each session.',
     script:'What you&apos;ve shared matters, and I want to make sure you have proper support for it. Would it be okay if I shared some contact details before you leave tonight?'
   },
   'Step one: arrive':{
+    intro:`Every session begins the same way, by helping people land before anything is asked of them. This lesson covers the arrival that makes everything afterwards possible.`,
+    read:[`People rarely arrive present. They come carrying the residue of the journey, the day, the argument, the to-do list. If you ask a reflective question into that state, it scatters. Arrival is the deliberate transition from doing to being here, and it is worth more time than facilitators usually give it. The Five-Sense Landing is your default: a slow movement of attention through breath, the air on the skin, the weight of the body, the ground, and then sound, before the eyes finally lift to the sky.`,`The most common mistake is talking too soon and too much. Allow ten to fifteen seconds of genuine silence before you speak, and let your instructions be sparse. You are not narrating an experience for the group; you are clearing space for them to have their own. Move unhurriedly from the body, to sound, to looking up. By the time attention reaches the sky, the group is already in a different state than the one they walked in with, and that state is the foundation the rest of the session is built on.`],
+    selfStudy:`Guide a two-minute arrival sequence for yourself from memory, in real time, with the actual pauses. Solo practice of the silences is what builds the confidence to hold them in front of others.`,
     moves:['Use the Five-Sense Landing as your default opening.','Allow ten to fifteen seconds of silence before speaking.','Move from body sensation to sound to looking up.'],
     watch:['If participants joke or fidget, acknowledge lightly and continue.','If participants are silent, do not force sharing. Silence can mean the room is working.'],
     adapt:'For younger participants, shorten silent periods and add a concrete focus such as finding the brightest object.',
     script:'Let the day fall back a little. Notice the ground, the air, the sounds nearby, and then the sky.'
   },
   'Step two: the cosmic hook':{
+    intro:`Between arriving and reflecting comes a single moment of perspective. This lesson is about offering one true image that widens the frame before anything personal is asked.`,
+    read:[`The cosmic hook is one accurate, vivid image, fact, or story that shifts the vantage point. It might be the age of the starlight now entering the eye, the quiet presence of the Moon, a planet visible low on the horizon, a local narrative about that patch of sky, or the humbling idea of the Pale Blue Dot. Its job is not to inform but to open: to create just enough awe that personal reflection happens from a wider place than the narrow now.`,`Two cautions keep the hook effective. First, resist fact-stacking. The temptation to add a second and third fact almost always shrinks the effect of the first; perspective comes from depth of attention, not breadth of information. Second, keep the scale spacious and humane rather than frightening. Cosmic vastness can be used to make people feel small and meaningless, but that is the opposite of the aim. You are pointing at belonging to something larger, not at insignificance. Offer the hook, then let it land in silence before moving toward reflection.`],
+    selfStudy:`Draft one sentence that begins with "This light..." and say it slowly to yourself outdoors. Notice whether it makes the sky feel bigger and friendlier or just delivers a fact, and refine until it does the former.`,
     moves:['Choose one hook that fits the actual setting.','Make it true, short, and easy to imagine.','Let the hook land before asking anything personal.'],
     watch:['Avoid fact-stacking. The goal is perspective, not astronomy instruction.','Do not use fear-based cosmic scale. Keep it spacious and humane.'],
     adapt:'In cultural contexts with strong sky stories, use a narrative rather than a scientific fact when appropriate.',
     script:'This light may have been travelling for hundreds of years to arrive in your eyes in this exact moment.'
   },
   'Step three: reflection':{
+    intro:`The session closes with reflection, and the hardest skill here is doing less. This lesson is about asking one clean question and then trusting the silence.`,
+    read:[`After arrival and perspective, you offer reflection, and the whole art is restraint. One clean question, not a list, holds attention; a string of questions scatters it and signals your own anxiety about the quiet. Choose a single prompt that arises naturally from the perspective you have just opened, ask it simply, and then stop. The silence that follows is not empty time to be rescued. It is where the work actually happens.`,`Frame any sharing as optional and oriented toward noticing rather than confession. People do not need to disclose to benefit; a reflection held privately can be just as real as one spoken aloud. Resist the urge to fill pauses, to comment on what people say, or to tidy the experience into a neat conclusion. Your steadiness in the silence teaches the group that reflection is safe here. The structure, arrive, widen, reflect, also becomes your home base: if a session wanders or energy shifts, you can always return to it.`],
+    selfStudy:`Practise asking one question and then physically closing your mouth and counting ten slow seconds. Solo, this feels awkward; that discomfort is exactly the reflex you are training out of yourself before you face a group.`,
     moves:['Ask one clean question.','Let silence do the work.','Invite optional sharing focused on noticing, not confession.'],
     watch:['A list of questions can scatter attention. Choose one and hold it well.','Do not rescue the group from silence too quickly.'],
     adapt:'For groups uncomfortable with direct self-reflection, invite drawing, journaling, or private naming instead.',
     script:'From this wider view, what feels worth moving toward? You do not need to answer aloud.'
   },
   'Sequence the activities':{
+    intro:`The five activity cards are not a random menu, they form an arc. This lesson helps you read which activity a moment calls for and how they build on one another.`,
+    read:[`The activities are designed to move a group through a natural progression: from arrival, to observing awareness, to distance from difficult thoughts, to awe and perspective, and finally toward values and action. The Five-Sense Landing creates arrival. The Sky Within introduces the observing self. Placing Thoughts in the Sky creates room around sticky thoughts. The Pale Blue Dot Reflection opens awe, and Finding Your Guiding Stars turns reflection into a small, values-led step. Each rests on the state the previous one created.`,`Reading the arc lets you facilitate responsively rather than mechanically. A group that has not yet arrived is not ready for values work; pushing ahead produces polite compliance, not genuine reflection. Equally, the cards are not a rigid script. When time is short, the compressed sequence of arrive, cosmic hook, reflection carries the essence. When a group is unsettled, returning to the Five-Sense Landing re-establishes safety. Knowing the order frees you to depart from it wisely.`],
+    selfStudy:`Open all five Practice cards in turn and scan each one&apos;s purpose, setup, steps, prompt, and watch-fors. Seeing them side by side is what makes the arc visible; in isolation each just looks like a standalone exercise.`,
     moves:['Use Five-Sense Landing before deeper reflection.','Use Sky Within before difficult-thought work when possible.','Move from awareness to perspective to values and action.'],
     watch:['Do not rush into values work before the group has arrived.','Do not treat the cards as a rigid script when the group needs a simpler path.'],
     adapt:'In shorter sessions, use Arrive, Cosmic Hook, Reflection as the compressed version.',
     script:'We begin by arriving, then widen perspective, then ask what matters from that wider place.'
   },
   'Facilitate with less language':{
+    intro:`The most common failure mode in this work is talking too much. This lesson is about the discipline of saying less so the sky and the silence can do their part.`,
+    read:[`The activities work best when the facilitator says noticeably less than they feel tempted to. Most over-talking comes from anxiety: a pause opens, it feels uncomfortable, and we rush to fill it with reassurance, explanation, or another instruction. But the silence, the pacing, and the actual sky are carrying much of the learning. Every extra sentence you add is a sentence that competes with the participant&apos;s own experience.`,`The practical discipline is to give exactly enough instruction for safety and clarity, and then stop. Trust the structure you have built. Let participants have their own experience without narrating it back to them or interpreting what they should be feeling. Not every silence needs reassurance; much of it is productive. When you notice the urge to fill space, treat it as information about your own nervousness rather than a signal that the group needs more from you. Slowing down and returning to the simple structure is almost always the better move.`],
+    selfStudy:`Take one activity and rewrite its instructions down to the fewest words that still feel safe. Doing this on paper, alone, reveals how much of your usual script is padding rather than guidance.`,
     moves:['Give enough instruction for safety, then stop.','Use pauses deliberately.','Let participants have their own experience without narrating it for them.'],
     watch:['Over-explaining often comes from facilitator anxiety. Slow down and return to the structure.','Avoid reassuring every silence. Some silence is productive.'],
     adapt:'For groups new to reflection, use slightly more structure but keep the words simple.',
     script:'I will offer a few prompts, and there will be some quiet. Nothing has gone wrong when it gets quiet.'
   },
   'Storytelling as bridge':{
+    intro:`Stakeholder feedback is consistent: stories are often how astronomy becomes meaningful. This lesson is about using them as a bridge while respecting where they come from.`,
+    read:[`For many communities, the sky has always been a place of stories, of ancestors, navigation, seasons, and belonging long before it was a place of data. Stakeholder feedback in this programme is clear that narrative is frequently the primary vehicle through which astronomy becomes personally and culturally meaningful. Local star lore, ancestral sky knowledge, and community stories are not decoration to brighten a session; they are what makes the work belong somewhere rather than arriving as an import.`,`This carries a responsibility. Stories must be chosen with care and with honest knowledge of where they come from. Indigenous and local knowledge should never be treated as free, ornamental content; where elders, educators, or cultural knowledge holders are present, their guidance comes first, and participants should be invited to bring their own sky knowledge rather than only receiving yours. Stories also need time to breathe. An over-structured, tightly timed session squeezes out exactly the unhurried space in which meaning forms, so resist rushing from a story straight into interpretation.`],
+    selfStudy:`Identify one sky story from your own context, or one narrative from the Narratives Reference Booklet, and sit with it slowly. Learning to hold a story without immediately analysing it is the skill; practise that patience on yourself first.`,
     moves:['Choose stories respectfully and know where they come from.','Invite participants to bring their own sky knowledge when appropriate.','Give stories enough time to breathe.'],
     watch:['Do not treat indigenous or local knowledge as decorative content.','Do not rush from story into interpretation.'],
     adapt:'Where local elders, educators, or cultural knowledge holders are involved, invite their guidance before using community stories.',
     script:'The sky has never belonged to one story only. If there are stories about this sky that live in this community, there is room for them here.'
   },
   'Work with the sky you have':{
+    intro:`A perfect dark sky is rarely available, and it is not required. This lesson is about adapting the setting with confidence instead of apology.`,
+    read:[`It is easy to believe this work needs a pristine dark site, a telescope, and clear weather. It does not. What it needs is the quality of looking up together, the shared act of lifting attention from the immediate to the spacious. That can happen with a bright Moon over a city, a single visible planet, drifting clouds, a rooftop or courtyard, a window, a planetarium, a blackout room, or a projected image of the sky. Design around the sky, light, safety, access, and transport you actually have.`,`Equipment deserves a particular caution. A telescope can enrich a session, but it is never required, and it can quietly shift the centre of gravity away from reflection and toward conventional outreach, queuing for a view, naming objects, answering technical questions. Keep the core intact: looking, spaciousness, reflection. Most importantly, adapt without apologising. A facilitator who treats imperfect conditions as a problem teaches the group to feel cheated; a facilitator who works the available sky with quiet confidence teaches that the sky we have tonight is enough.`],
+    selfStudy:`Name three possible session locations in your own community, including at least one indoor fallback for bad weather. Doing this in advance turns "what if the sky is cloudy" from a worry into a plan.`,
     moves:['Design around available sky, light, safety, access, and transport.','Use Moon, planets, clouds, rooftops, courtyards, windows, or projected imagery when needed.','Keep the core: looking, spaciousness, reflection.'],
     watch:['Do not apologise for imperfect conditions. Adapt with confidence.','Do not let equipment turn the session into conventional outreach.'],
     adapt:'For urban sites, plan a moon/planet session, a rooftop session, or an indoor projected sky session.',
     script:'We do not need a perfect sky tonight. We need enough sky to look up together.'
   },
   'Adapt for participants':{
+    intro:`The same structure serves very different people in very different ways. This lesson is about changing the form to fit the group while protecting the purpose underneath.`,
+    read:[`Who is in front of you should shape how you facilitate. Young people often engage more readily with movement, conversation, and concrete, identity-oriented questions than with long silences. Older adults may connect deeply with memory, continuity, and the long view of a lifetime under the same stars. People living with conflict, displacement, or acute stress need extra care around scope, with more non-verbal grounding and fewer direct reflective questions that might reach into raw territory. Match pacing, language, movement, and sharing format to the actual group.`,`Two cautions keep adaptation ethical. First, do not assume there is one natural audience for this work; it travels widely, but each setting must be locally held rather than treated as a standard delivery. Second, never pressure vulnerable groups into disclosure. Offering private reflection, drawing, journaling, or quiet pair discussion as alternatives to whole-group sharing protects people who are not ready to speak, and often deepens the experience for everyone. The form bends; the purpose, spacious attention and gentle perspective, stays the same.`],
+    selfStudy:`Choose one audience you are most likely to work with and write one concrete adaptation you would make for them. Specificity is the point, "be sensitive" is not an adaptation; "offer drawing instead of sharing" is.`,
     moves:['Match pacing, language, movement, and sharing format to the group.','Use more concrete prompts with young people and more memory/continuity prompts with older adults.','Use non-verbal and sensory routes where stress or trauma may limit verbal reflection.'],
     watch:['Do not assume one audience is the natural audience. This work travels, but it must be locally held.','Avoid pressuring vulnerable groups into disclosure.'],
     adapt:'Offer private reflection, drawing, or pair discussion as alternatives to whole-group sharing.',
     script:'You can keep this reflection private, write it down, draw it, or simply hold it quietly.'
   },
   'Contribute back to the programme':{
+    intro:`Facilitation is a practice, not a performance, and the programme grows from what facilitators notice. This final lesson is about closing the loop responsibly.`,
+    read:[`This work lives in the relationship between facilitator, community, and sky, and it improves through the accumulated observations of people doing it in real conditions. A simple facilitator log kept after each session, context, adaptations you made, how participants responded, and what you would change, turns a single evening into transferable learning. A lightweight after-action review of what worked, what was difficult, and what you would adjust is enough; this does not need to be elaborate to be valuable.`,`Two boundaries protect this practice. Keep your notes focused on facilitation learning rather than participant diagnosis or disclosure, and never collect sensitive personal stories without clear consent. Privacy is part of the safety you offer, and it does not end when the session does. Within those limits, sharing your observations with the wider facilitator network is how the programme as a whole gets better, and how the next facilitator in a setting like yours starts from a stronger place than you did. Treat each session as ongoing practice, never a finished performance.`],
+    selfStudy:`After your first real session, or even your Tonight Mission, write the three-line review: what worked, what was difficult, what you would adjust. Building this habit early is what turns isolated attempts into genuine skill over time.`,
     moves:['Keep a simple facilitator log after each session.','Record context, adaptations, participant responses, and what you would change.','Share observations with the wider facilitator network where appropriate.'],
     watch:['Do not collect sensitive personal stories without consent.','Keep notes focused on facilitation learning, not participant diagnosis or disclosure.'],
     adapt:'Use a lightweight after-action review: what worked, what was difficult, what changes next time.',
@@ -1772,14 +1992,94 @@ const lessonDetails={
   }
 };
 
+const moduleGuides=[
+  {
+    intro:`This first module is about your own orientation rather than any technique. Before you can hold a space for others, you need a clear, calm sense of what this work is, what it is not, and why the sky is such a natural partner for reflection. Everything that follows rests on the mindset you settle here.`,
+    forYou:`Using this on your own: read it as a reader, not a trainee. You are deciding whether this way of working makes sense to you and learning to describe it in your own words.`
+  },
+  {
+    intro:`This module gives you the evidence base, the why beneath the practice. You will meet three ideas that quietly power every activity: Acceptance and Commitment work, attention restoration, and awe. You hold this knowledge internally so that the session itself can stay simple and unclinical.`,
+    forYou:`Using this on your own: you do not need a psychology background. Read for the underlying logic, then notice these mechanisms at work the next time you spend a quiet few minutes under the sky.`
+  },
+  {
+    intro:`This module is the safety layer, and it is non-negotiable. You will define the boundary of your role, rehearse a calm response when a session stirs strong emotion, and prepare the warm hand-off that connects someone to real support. Confidence here is what lets you stay warm under pressure.`,
+    forYou:`Using this on your own: do the practical preparation for real. Fill in the Toolkit contacts for your actual location, because this module is only truly complete when that readiness exists.`
+  },
+  {
+    intro:`This module gives you the shortest reliable structure that works anywhere: arrive in the body, open one moment of cosmic perspective, invite one clean reflection. Master this and you can guide a five-minute sky check-in with no slides, no telescope, and no perfect dark site.`,
+    forYou:`Using this on your own: practise each step out loud, in real time, with the actual pauses. The silences are part of the skill and can only be learned by doing them.`
+  },
+  {
+    intro:`This module turns the framework into living practice through five activity cards. You will learn the arc they form, the discipline of facilitating with less language, and the role of story as a bridge into meaning. The aim is to know which activity serves which moment, and to simplify rather than over-facilitate.`,
+    forYou:`Using this on your own: open the Practice cards alongside these lessons. Reading the lessons and the cards together is what makes the sequence click into place.`
+  },
+  {
+    intro:`This final module makes the work local and sustainable. You will learn to adapt for the sky you actually have, for the people in front of you, and to feed your observations back so the wider programme keeps learning. The core purpose stays fixed while the form flexes to fit reality.`,
+    forYou:`Using this on your own: treat your first attempts as practice, not performance. The reflection tools in the Reflect section are designed to help you learn from each session you run.`
+  }
+];
+
+const glossary=[
+  {
+    term:'Self-as-context',
+    plain:'The part of you that notices your thoughts and feelings without being swept away by them, often felt as a stable, watching awareness. The sky holding its weather is the image we use for it.',
+    inSession:`You evoke it through experience, not explanation: real looking plus a spacious question plus silence.`
+  },
+  {
+    term:'Cognitive defusion',
+    plain:'Stepping back to look at a thought rather than from inside it, so it can be seen as a thought rather than experienced as the whole truth. It creates distance without arguing or dismissing.',
+    inSession:`Invite people to place a thought out in the sky and notice its edges, size, and distance.`
+  },
+  {
+    term:'Psychological flexibility',
+    plain:'The overall aim of ACT: staying in contact with the present, making room for difficult inner experience, and continuing to move toward what matters to you.',
+    inSession:`Your internal compass for whether a group needs grounding, perspective, or a step toward values.`
+  },
+  {
+    term:'Attention restoration',
+    plain:'The recovery of tired, effortful attention through gentle, effortless interest in something like the sky. It is why quiet looking restores rather than drains us.',
+    inSession:`Protect two to three unhurried minutes of looking before any reflective question.`
+  },
+  {
+    term:'Soft fascination',
+    plain:'A relaxed kind of attention that holds the mind without gripping it, the opposite of forced concentration. The night sky produces it naturally.',
+    inSession:`Trust that simply looking up is doing real work; you do not need to fill the quiet.`
+  },
+  {
+    term:'Awe and the small self',
+    plain:'Awe is the response to something vast that stretches the mind&apos;s usual frame. It tends to quiet self-preoccupation (the small self) and open patience, generosity, and meaning.',
+    inSession:`One vivid, true cosmic image followed by silence, never a stack of facts.`
+  },
+  {
+    term:'Cosmic hook',
+    plain:'One true, vivid image, fact, or story that shifts perspective at the start of reflection, such as the age of starlight or the Pale Blue Dot.',
+    inSession:`Offer one only, keep it humane rather than frightening, and let it land before asking anything personal.`
+  },
+  {
+    term:'Warm hand-off',
+    plain:'A human, specific, prepared connection of someone to appropriate support, the opposite of a vague suggestion to seek help.',
+    inSession:`Ask permission, then give a name, number, hours, and next step from contacts you prepared in advance.`
+  },
+  {
+    term:'Scope boundary',
+    plain:'The firm edge of the facilitator role: receiving people with care and connecting them to support, but not diagnosing, advising, assessing risk, or providing therapy.',
+    inSession:`State it plainly and kindly at the start; clarity is what keeps the space safe and warm.`
+  }
+];
+
 const activities=[
   {
     title:'The Five-Sense Landing',
     meta:'10 to 15 min',
     tag:'Present moment awareness',
     text:'Start here. Help the group arrive in the body and present environment before asking anything reflective.',
+    intro:`This is the doorway activity, the one almost every session should open with. It does one job well: it moves people out of the busyness they arrived in and into contact with the present moment, so that everything you offer afterwards lands on settled rather than scattered attention.`,
+    when:'Use it first, before any reflection, awe, or values work. Return to it at any point if the group becomes restless or unsettled, it is your reliable home base.',
     purpose:'Most people arrive carrying the residue of their day. This activity creates a deliberate transition into contact with the present moment.',
+    prep:'Almost none. Choose a spot where people can stand or sit comfortably and see some sky. Decide your route through the senses in advance, and plan for roughly two to three minutes of genuine quiet looking so you are not tempted to rush it.',
     setup:'Outdoors preferred. Indoors can work near a window or with a projected sky image. No specialist equipment required.',
+    solo:`Practising alone: run the full sequence on yourself in real time, with the actual silences. The hardest part is holding ten to fifteen seconds of quiet before you speak; rehearse that pause until it feels natural rather than awkward, because your steadiness is what gives a group permission to settle.`,
+    after:'Close gently. Acknowledge anyone who shared with a simple thank-you, no commentary or analysis, and let the group know the quiet was the point. From here you can move into a deeper activity, or simply end if arrival was all you intended.',
     steps:[
       'Invite the group to stand or sit comfortably. Let eyes close or soften if that feels safe.',
       'Hold ten to fifteen seconds of silence before speaking.',
@@ -1797,8 +2097,13 @@ const activities=[
     meta:'12 to 18 min',
     tag:'Self as context',
     text:'Use the sky as a direct image for the observing self: the space that can hold changing inner weather.',
+    intro:`This activity introduces the quiet, steadying idea that there is a part of you that notices your experience without being swept away by it. Rather than explaining the idea, you let the sky demonstrate it: weather and light pass through, while the sky itself remains.`,
+    when:'Use it after the group has arrived (ideally following the Five-Sense Landing) and before any work with difficult thoughts. It builds the observing stance that makes defusion possible.',
     purpose:'The sky offers a lived analogue for the observing self: a wide space in which thoughts, emotions, sensations, and memories occur.',
+    prep:'No materials needed. Make sure the group has already settled. Prepare yourself to ask one spacious question and then stay quiet, this activity fails when the facilitator explains too much.',
     setup:'A real sky is ideal, but a window, courtyard, or calm projected sky can work.',
+    solo:`Practising alone: be the participant first. Spend two minutes watching a real or remembered sky, then ask yourself the question below and notice the felt difference between your inner weather and the awareness watching it. Speaking from that experience is far more convincing than speaking from theory.`,
+    after:'Let the question linger rather than resolving it; there is no correct answer to collect. If anyone shares, receive it without interpreting. Transition by noting that this watching awareness is something they can return to any time they feel caught in a moment.',
     steps:[
       'Invite participants to look at the sky as a containing space rather than scenery.',
       'Name that weather, light, darkness, and movement all occur within it.',
@@ -1815,8 +2120,13 @@ const activities=[
     meta:'12 to 18 min',
     tag:'Cognitive defusion',
     text:'Create distance from sticky thoughts without debating, dismissing, or solving them.',
+    intro:`This activity helps people step back from a recurring, weighty thought and look at it rather than from inside it. Cosmic scale does the gentle work of giving the thought room, so it can be seen as a thought without being argued with or pushed away.`,
+    when:'Use it once the group has arrived and ideally after The Sky Within, when an observing stance is already available. It is more demanding than the earlier activities, so do not open with it.',
     purpose:'Defusion creates separation between a person and the content of their thinking, without asking them to argue with the thought.',
+    prep:'Optional: bring small paper cards and pens for anyone who wants to give a thought a physical form. Be ready to reassure the group, more than once, that they never have to say their thought aloud.',
     setup:'Optional paper cards help participants give a thought a physical form. Sharing the thought is not required.',
+    solo:`Practising alone: bring a genuinely sticky thought of your own to the sky and move through the steps. Notice how giving it edges, distance, and movement changes your relationship to it without changing its content. This firsthand experience is what lets you protect the crucial nuance that distance is not dismissal.`,
+    after:'Close by affirming that a thought can still matter and be seen from a distance. Do not probe or interpret anything shared. Bring attention back to the ground and the group, this activity can stir feeling, so end on something settling rather than open-ended.',
     steps:[
       'Invite participants to bring to mind a recurring thought that carries some weight.',
       'Reassure them they do not need to say it aloud.',
@@ -1834,8 +2144,13 @@ const activities=[
     meta:'10 to 15 min',
     tag:'Awe and perspective',
     text:'Use cosmic scale to widen perspective before asking what feels genuinely important.',
+    intro:`This activity uses a single moment of cosmic perspective to soften self-preoccupation and open a wider, more generous vantage point, the ground from which honest reflection on what matters becomes possible. The discipline here is restraint: one vivid image, not a stack of facts.`,
+    when:'Use it after arrival and ideally after some observing or defusion work, as a bridge toward values. It pairs naturally as the lead-in to Finding Your Guiding Stars.',
     purpose:'Awe can reduce preoccupied self-reference and increase openness, patience, and meaning.',
+    prep:'Choose one cosmic hook in advance, the age of starlight, the Moon, a visible planet, or an Earth-from-space image, and decide exactly how you will say it in one or two sentences. Have the image ready if you are using one. Resist preparing a second and third fact.',
     setup:'Use the visible sky, an image of Earth from space, or a short astronomy story.',
+    solo:`Practising alone: rehearse delivering your one hook slowly, then sitting in silence. Notice the pull to add more, that urge is exactly what you are training yourself to resist. Check that your framing points toward belonging to something larger, not toward feeling small and meaningless.`,
+    after:'Allow private reflection before any sharing, and keep sharing optional. Close by returning attention to the group and the ground beneath them, so people come back from the wide view feeling held rather than adrift.',
     steps:[
       'Invite quiet looking or present a simple Earth-from-space image.',
       'Name the scale gently, without overloading facts.',
@@ -1852,8 +2167,18 @@ const activities=[
     meta:'18 to 25 min',
     tag:'Values and action',
     text:'Close the sequence by turning reflection into one small, values-guided step.',
+    intro:`This is the closing activity of the arc, where widened perspective becomes a small, concrete, values-led step. Stars serve as an image for values: fixed points you can navigate by even when life is in motion. Story is often the bridge that makes this land.`,
+    when:'Use it last, after arrival, perspective, and ideally awe. It needs a group that has genuinely settled; values work attempted before people have arrived tends to produce polite compliance rather than real reflection.',
     purpose:'Participants identify values that can act like fixed points of reference in a changing life.',
-    setup:'Use the Narratives Reference Booklet where possible. Local sky stories are especially valuable when held respectfully.',
+    prep:'It is the longest activity, so allow eighteen to twenty-five minutes. Select a sky story in advance, from the Narratives Reference Booklet (see Resource library) or, held respectfully, from local knowledge. Where cultural knowledge holders are present, seek their guidance first. Have paper available if people want to write their step down.',
+    setup:'Use the Narratives Reference Booklet where possible. Local sky stories are especially valuable when held respectfully. Three portable narratives are included below if you are facilitating without internet access.',
+    narratives:[
+      {title:'Old starlight',body:'The light reaching your eye from a distant star may have been travelling for hundreds or thousands of years. The star that made it may no longer exist. You are seeing a message sent long before you were born, arriving at the exact moment you chose to look up.'},
+      {title:'The Pale Blue Dot',body:'In 1990, the Voyager 1 spacecraft turned its camera back toward Earth from beyond the solar system. In the image, our planet appears as a tiny point of light, less than a pixel wide, suspended in a vast dark sky. Carl Sagan described it as a mote of dust suspended in a sunbeam — home to everyone who has ever lived, every joy and suffering, carried on that small blue dot.'},
+      {title:'Navigating by stars',body:'For thousands of years, across oceans and deserts and open plains, people found their way home by looking up. The stars did not tell them where to go — they told them where they were. Knowing your position is the first step to choosing your direction.'}
+    ],
+    solo:`Practising alone: choose your story and practise telling it slowly, with a real pause afterwards, rather than rushing into questions. Then run the values reflection on yourself and name one small step of your own. Feeling the gap between current life and chosen direction firsthand helps you hold it as honest information, not failure, for others.`,
+    after:'Close by looking up together and acknowledging the long human history of navigating by stars. Keep any step small and genuinely doable. If the activity surfaced a gap between someone&apos;s life and their values, normalise that gently rather than trying to resolve it in the moment.',
     steps:[
       'Frame stars as orientation points, not instructions.',
       'Share a selected sky narrative slowly, with silence after.',
@@ -2011,6 +2336,7 @@ function openModule(index,lessonIndex=0){
   const m=modules[index];
   const l=m.lessons[lessonIndex];
   const detail=lessonDetails[l.title]||{};
+  const guide=moduleGuides[index]||{};
   const completedInModule=m.lessons.filter((_,li)=>saved[`module-${index}-lesson-${li}`]).length;
   const modulePercent=Math.round((completedInModule/m.lessons.length)*100);
   const drawer=document.getElementById('drawer');
@@ -2018,7 +2344,9 @@ function openModule(index,lessonIndex=0){
   document.getElementById('drawerTitle').textContent=m.title;
   document.getElementById('drawerBody').innerHTML=
     `<div class="drawer-summary">
-       <p>${m.outcome}</p>
+       ${guide.intro?`<p class="module-intro">${guide.intro}</p>`:''}
+       <p class="module-outcome"><b>What you will be able to do:</b> ${m.outcome}</p>
+       ${guide.forYou?`<p class="module-foryou">${guide.forYou}</p>`:''}
        <div class="drawer-progress">
          <div class="progress-rail"><div class="progress-fill" style="width:${modulePercent}%"></div></div>
          <span>${completedInModule}/${m.lessons.length} lessons complete</span>
@@ -2030,10 +2358,15 @@ function openModule(index,lessonIndex=0){
      <article class="lesson-block">
        <span class="chip">Guided lesson ${lessonIndex+1} of ${m.lessons.length}</span>
        <h3>${l.title}</h3>
+       ${detail.intro?`<p class="lesson-lede">${detail.intro}</p>`:''}
        <div class="lesson-section">
          <p class="lesson-section-title">Core ideas</p>
          <ul class="lesson-checklist">${l.learn.map(item=>`<li>${item}</li>`).join('')}</ul>
        </div>
+       ${detail.read?`<div class="lesson-section">
+         <p class="lesson-section-title">Going deeper</p>
+         <div class="lesson-read">${detail.read.map(p=>`<p>${p}</p>`).join('')}</div>
+       </div>`:''}
        ${detail.moves?`<div class="lesson-section">
          <p class="lesson-section-title">Facilitator moves</p>
          <ul class="lesson-checklist">${detail.moves.map(item=>`<li>${item}</li>`).join('')}</ul>
@@ -2043,6 +2376,7 @@ function openModule(index,lessonIndex=0){
          ${detail.adapt?`<div class="mini-panel"><b>Adaptation note</b><p>${detail.adapt}</p></div>`:''}
        </div>
        ${detail.script?`<div class="quote"><b>Language you can use:</b><br>${detail.script}</div>`:''}
+       ${detail.selfStudy?`<div class="self-study"><b>Learning on your own</b><p>${detail.selfStudy}</p></div>`:''}
        <div class="lesson-prompt"><b>Practice:</b> ${l.practice}</div>
        <label class="checkpoint">
          <input type="checkbox" data-complete-lesson="${lessonIndex}" ${saved[`module-${index}-lesson-${lessonIndex}`]?'checked':''}>
@@ -2080,27 +2414,56 @@ function renderResources(){
   ).join('');
 }
 
+function renderGlossary(){
+  document.getElementById('glossaryList').innerHTML=glossary.map(g=>
+    `<div class="glossary-item">
+      <b>${g.term}</b>
+      <p>${g.plain}</p>
+      <p class="glossary-insession"><span>In a session:</span> ${g.inSession}</p>
+    </div>`
+  ).join('');
+}
+
 function openActivity(index){
   const a=activities[index];
   const drawer=document.getElementById('drawer');
   document.getElementById('drawerMeta').textContent=a.meta+' · '+a.tag;
   document.getElementById('drawerTitle').textContent=a.title;
   document.getElementById('drawerBody').innerHTML=
-    `<p>${a.purpose}</p>
+    `${a.intro?`<p class="lesson-lede">${a.intro}</p>`:''}
+     <p>${a.purpose}</p>
+     <div class="lesson-two-col">
+       ${a.when?`<div class="mini-panel"><b>When to use it</b><p>${a.when}</p></div>`:''}
+       ${a.prep?`<div class="mini-panel"><b>Prepare beforehand</b><p>${a.prep}</p></div>`:''}
+     </div>
      <div class="quote"><b>Setup:</b> ${a.setup}</div>
-     <div class="steps">${a.steps.map(s=>`<div class="step">${s}</div>`).join('')}</div>
+     <div class="lesson-section">
+       <p class="lesson-section-title">How to facilitate it</p>
+       <div class="steps">${a.steps.map(s=>`<div class="step">${s}</div>`).join('')}</div>
+     </div>
      <div class="quote"><b>Suggested language:</b><br>${a.prompt}</div>
-     <p><b>What to watch for:</b> ${a.watch}</p>`;
+     ${a.after?`<div class="lesson-section">
+       <p class="lesson-section-title">Closing and transition</p>
+       <p>${a.after}</p>
+     </div>`:''}
+     <p><b>What to watch for:</b> ${a.watch}</p>
+     ${a.narratives?`<div class="lesson-section">
+       <p class="lesson-section-title">Portable narratives (offline fallback)</p>
+       <p style="margin:0 0 12px;color:var(--ink-soft);font-size:15px">Use one of these if you are facilitating without access to the Narratives Reference Booklet. Choose the one that fits your group and setting.</p>
+       ${a.narratives.map(n=>`<div class="mini-panel" style="margin-bottom:10px"><b>${n.title}</b><p>${n.body}</p></div>`).join('')}
+     </div>`:''}
+     ${a.solo?`<div class="self-study"><b>Practising on your own</b><p>${a.solo}</p></div>`:''}`;
   drawer.classList.add('open');
   drawer.setAttribute('aria-hidden','false');
   document.getElementById('closeDrawer').focus();
 }
 
-function closeActivity(){
+function closeDrawer(){
   const drawer=document.getElementById('drawer');
   drawer.classList.remove('open');
   drawer.setAttribute('aria-hidden','true');
 }
+const closeActivity=closeDrawer;
 
 function switchTab(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id));
@@ -2202,27 +2565,82 @@ document.addEventListener('input',event=>{
   }
 });
 
-document.getElementById('closeDrawer').addEventListener('click',closeActivity);
-document.addEventListener('keydown',event=>{if(event.key==='Escape') closeActivity();});
+document.getElementById('closeDrawer').addEventListener('click',closeDrawer);
+document.addEventListener('keydown',event=>{if(event.key==='Escape') closeDrawer();});
 document.getElementById('heroToggle').addEventListener('click',()=>{
   const hero=document.querySelector('.hero');
   setHeroCollapsed(!hero.classList.contains('collapsed'));
 });
-function toggleMode(){
-  document.body.classList.toggle('session-mode');
-  const on=document.body.classList.contains('session-mode');
+function applyMode(on){
+  document.body.classList.toggle('session-mode',on);
   document.getElementById('modeToggle').textContent=on?'Daylight mode':'Session mode';
   document.getElementById('modeToggleLarge').textContent=on?'Use daylight training mode':'Use session-ready mode';
 }
+function toggleMode(){
+  const on=!document.body.classList.contains('session-mode');
+  applyMode(on);
+  save('sessionMode',on);
+}
 document.getElementById('modeToggle').addEventListener('click',toggleMode);
 document.getElementById('modeToggleLarge').addEventListener('click',toggleMode);
+
+const preSessionItems=[
+  'I can describe the session in one sentence that does not promise therapy or healing.',
+  'I have at least one crisis or emergency line contact ready.',
+  'I have at least one counselling or community support contact ready.',
+  'I have a supervisor or mentor contact ready.',
+  'I know which activity I will start with (Five-Sense Landing recommended).',
+  'I have identified a fallback indoor or low-light setting if needed.',
+  'I have reviewed the care boundaries and know my pivot phrase.'
+];
+
+function renderPreSessionChecklist(){
+  const key='presession';
+  const el=document.getElementById('preSessionChecklist');
+  const ticked=JSON.parse(localStorage.getItem(key)||'[]');
+  const done=ticked.filter(Boolean).length;
+  const allDone=done===preSessionItems.length;
+  el.innerHTML=`
+    ${preSessionItems.map((item,i)=>`
+      <label style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;line-height:1.5">
+        <input type="checkbox" data-presession="${i}" ${ticked[i]?'checked':''} style="margin-top:3px;flex-shrink:0;accent-color:var(--sky-500)">
+        <span style="color:${ticked[i]?'var(--muted)':'var(--ink)'};text-decoration:${ticked[i]?'line-through':'none'}">${item}</span>
+      </label>`).join('')}
+    <div style="margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <span style="font-size:14px;color:${allDone?'var(--leaf)':'var(--muted)'}">${allDone?'✓ Ready to facilitate':done+' of '+preSessionItems.length+' complete'}</span>
+      <button class="btn btn-secondary" id="clearChecklist" style="font-size:13px;padding:6px 14px">Clear</button>
+    </div>`;
+  el.querySelectorAll('[data-presession]').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      const state=preSessionItems.map((_,i)=>!!el.querySelector(`[data-presession="${i}"]`)?.checked);
+      localStorage.setItem(key,JSON.stringify(state));
+      renderPreSessionChecklist();
+    });
+  });
+  el.querySelector('#clearChecklist')?.addEventListener('click',()=>{
+    localStorage.removeItem(key);
+    renderPreSessionChecklist();
+  });
+}
 
 renderNav();
 renderModules();
 renderActivities();
 renderBoundaries();
 renderResources();
+renderGlossary();
 hydrateFields();
+renderPreSessionChecklist();
+// Restore session mode from previous visit
+if(saved['sessionMode']) applyMode(true);
+
+// Reset progress
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(confirm('This will permanently clear all progress, notes, reflections, and saved contacts on this device. Are you sure?')){
+    localStorage.removeItem(storeKey);
+    location.reload();
+  }
+});
 </script>
 </body>
 </html>
